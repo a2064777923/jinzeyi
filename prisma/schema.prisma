@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Content pages (D-02, D-04: separate rows per locale)
+model ContentPage {
+  id          String   @id @default(cuid())
+  slug        String
+  locale      String   // "zh-hant" | "zh-hans"
+  title       String
+  content     String   @db.Text
+  seoTitle    String?
+  seoDesc     String?
+  seoKeywords String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([slug, locale])
+  @@index([locale])
+}
+
+// Almanac query metadata (not the data — that's in Redis)
+model AlmanacQuery {
+  id            String   @id @default(cuid())
+  date          DateTime @unique
+  queryCount    Int      @default(0)
+  lastQueriedAt DateTime?
+  createdAt     DateTime @default(now())
+}
+
+// Zodiac profiles for Phase 3 SEO
+model ZodiacProfile {
+  id       String @id @default(cuid())
+  animal   String // "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"
+  locale   String
+  title    String
+  content  String @db.Text
+  seoTitle String?
+  seoDesc  String?
+
+  @@unique([animal, locale])
+  @@index([locale])
+}
+
+// BaZi profiles for Phase 3
+model BaZiProfile {
+  id        String @id @default(cuid())
+  pillarKey String // e.g., "甲子", "乙丑"
+  locale    String
+  title     String
+  content   String @db.Text
+  seoTitle  String?
+  seoDesc   String?
+
+  @@unique([pillarKey, locale])
+  @@index([locale])
+}
+
+// Feng Shui articles for Phase 3
+model FengShuiArticle {
+  id        String   @id @default(cuid())
+  slug      String
+  locale    String
+  title     String
+  content   String   @db.Text
+  category  String   // "家居", "办公室", "商铺"
+  seoTitle  String?
+  seoDesc   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale])
+  @@index([category, locale])
+}
+
+// Naming tool data for Phase 3
+model NamingRecord {
+  id        String   @id @default(cuid())
+  surname   String
+  givenName String
+  locale    String
+  content   String   @db.Text
+  fiveElement Json?  // { wood, fire, earth, metal, water }
+  score     Int?
+  createdAt DateTime @default(now())
+
+  @@unique([surname, givenName, locale])
+}
+
+// AI query logs for Phase 4
+model AiQueryLog {
+  id         String   @id @default(cuid())
+  query      String   @db.Text
+  provider   String   // "deepseek", "qwen", "openai"
+  model      String
+  response   String   @db.Text
+  tokensUsed Int?
+  latencyMs  Int?
+  createdAt  DateTime @default(now())
+
+  @@index([provider, createdAt])
+}

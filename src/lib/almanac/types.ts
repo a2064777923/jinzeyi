@@ -1,0 +1,34 @@
+export interface DailyAlmanac {
+  solar: {
+    year: number;
+    month: number;
+    day: number;
+  };
+  lunar: {
+    year: string;      // e.g., "丙午年"
+    month: string;     // e.g., "四月"
+    day: string;       // e.g., "初一"
+    lunarDate: string; // full lunar date string, e.g., "农历丙午年四月初一"
+  };
+  ganZhi: {
+    year: string;   // e.g., "丙午"
+    month: string;  // e.g., "癸巳"
+    day: string;    // e.g., "辛卯"
+  };
+  zodiac: string;     // e.g., "兔"
+  yi: string[];       // 宜 (recommended activities)
+  ji: string[];       // 忌 (activities to avoid)
+  direction: {
+    chong: string;    // 冲煞方位 (opposite earthly branch)
+    sha: string;      // 煞 (ominous direction)
+    caiShen: string;  // 财神方位 (wealth god direction)
+    xiShen: string;   // 喜神方位 (joy god direction)
+    fuShen: string;   // 福神方位 (mascot god direction)
+  };
+  gods: string[];     // 吉神凶煞
+  duty: string;       // 值神 (duty officer)
+  twentyEightStar: string; // 二十八星宿
+  pengZu: string;     // 彭祖百忌
+  sound: string;      // 纳音
+  fetusDay: string;   // 胎神
+}
