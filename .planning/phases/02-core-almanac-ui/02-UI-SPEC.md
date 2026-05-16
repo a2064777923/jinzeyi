@@ -27,7 +27,7 @@ Inherited from Phase 1. No changes to base configuration.
 | Preset | b2fA (base-nova, neutral, geist font) | `npx shadcn info` |
 | Component library | Radix UI (via shadcn/ui) | Phase 1 |
 | Icon library | Lucide React (bundled with shadcn/ui) | Phase 1 |
-| Font | `Noto Sans SC` (simplified) / `Noto Sans TC` (traditional) via next/font | Phase 1 — weights 400, 500, 600 |
+| Font | `Noto Sans SC` (simplified) / `Noto Sans TC` (traditional) via next/font | Phase 1 — weights 400, 600 |
 
 **shadcn components to install in Phase 2:**
 
@@ -69,18 +69,20 @@ Inherited from Phase 1 with these Phase 2 additions:
 
 ## Typography
 
-Inherited from Phase 1. Phase 2 adds calligraphy display role.
+Inherited from Phase 1. Phase 2 adds calligraphy display role. Constrained to 4 size roles and 2 weight roles.
 
 | Role | Size | Weight | Line Height | Font | Usage |
 |------|------|--------|-------------|------|-------|
 | Body | 16px | 400 | 1.6 | Noto Sans SC/TC | Descriptions, content text |
-| Label | 14px | 500 | 1.4 | Noto Sans SC/TC | Section labels, meta text, calendar weekday headers |
-| Heading | 20px | 600 | 1.3 | Noto Sans SC/TC | Section headings (h2, h3) |
-| Display | 28px | 600 | 1.2 | Noto Sans SC/TC | Page titles (h1) |
-| **Calligraphy** | **36px** | **700** | **1.0** | **Noto Sans SC/TC** (bold, tracked) | **Fortune "吉"/"凶" markers on hourly timeline** |
-| Calendar lunar | 12px | 400 | 1.2 | Noto Sans SC/TC | Lunar date inside calendar cells |
+| Label | 14px | 600 | 1.4 | Noto Sans SC/TC | Section labels, meta text, calendar weekday headers |
+| Heading | 20px | 600 | 1.3 | Noto Sans SC/TC | Section headings (h2, h3), page titles (h1) |
+| **Calligraphy** | **36px** | **600** | **1.0** | **Noto Sans SC/TC** (semibold, tracked) | **Fortune "吉"/"凶" markers on hourly timeline** |
 
-**Calligraphy note:** The "吉"/"凶" fortune markers use bold weight (700) at 36px with tight letter-spacing (-0.05em) to simulate a brush-stroke aesthetic within the constraints of Noto Sans. If a dedicated calligraphy web font is desired later (e.g., ZCOOL KuaiLe, Ma Shan Zheng), it can be added as a secondary font variable. For Phase 2, bold Noto Sans at large size provides sufficient visual weight.
+**One-off utility overrides (not declared type scale roles):**
+- Calendar lunar text: use `text-[12px] font-normal` directly on the cell element (not a registered role)
+- Page title (h1): use `text-2xl` (24px) semibold if the heading role at 20px is insufficient
+
+**Calligraphy note:** The "吉"/"凶" fortune markers use semibold weight (600) at 36px with tight letter-spacing (-0.05em) to simulate a brush-stroke aesthetic within the constraints of Noto Sans. At 36px, semibold provides sufficient visual weight. If a dedicated calligraphy web font is desired later (e.g., ZCOOL KuaiLe, Ma Shan Zheng), it can be added as a secondary font variable.
 
 ---
 
@@ -222,10 +224,13 @@ All copy in both zh-hant and zh-hans via next-intl message files.
 |---------|---------|---------|
 | Calendar loading | 載入月曆中... | 加载月历中... |
 | Calendar error | 無法載入月曆資料 | 无法加载月历数据 |
+| Calendar error body | 請稍後再試，或返回首頁。 | 请稍后重试，或返回首页。 |
 | Detail page 404 | 找不到該日黃曆 | 找不到该日黄历 |
 | Detail page 404 body | 請檢查日期是否正確，或返回月曆瀏覽。 | 请检查日期是否正确，或返回月历浏览。 |
 | Detail page error | 黃曆資料載入失敗 | 黄历数据加载失败 |
+| Detail page error body | 請稍後再試，或返回月曆瀏覽。 | 请稍后重试，或返回月历浏览。 |
 | Solar terms error | 節氣資料載入失敗 | 节气数据加载失败 |
+| Solar terms error body | 請稍後再試，或返回首頁。 | 请稍后重试，或返回首页。 |
 
 ### Destructive Actions
 
@@ -438,8 +443,8 @@ interface HourlyFortune {
 **Mobile layout:** Vertical timeline — each row is a card-like block with left-aligned time + fortune marker, right-aligned details.
 
 **Fortune marker rendering:**
-- 吉: 36px bold red text `#C43B3B` with gold accent `#B8860B`
-- 凶: 36px bold gray text `#6B6B6B`
+- 吉: 36px semibold red text `#C43B3B` with gold accent `#B8860B`
+- 凶: 36px semibold gray text `#6B6B6B`
 - Tight letter-spacing: `tracking-tight`
 
 #### `<MonthlyCalendar>`
@@ -459,7 +464,7 @@ interface CalendarDay {
 
 **Grid:** 7 columns CSS Grid. Header row with weekday labels (日一二三四五六). Each cell contains:
 - Solar day number (large, 16px semibold)
-- Lunar day (small, 12px regular)
+- Lunar day (small, text-[12px] font-normal — one-off utility, not a declared role)
 - Fortune indicator: background color fills the cell
 
 **Color coding:**
@@ -478,10 +483,10 @@ interface CalendarDay {
 
 A standalone component rendering the calligraphy-style fortune character:
 - Size: 36px (hourly table) or 20px (calendar cell)
-- Weight: 700 (bold)
+- Weight: 600 (semibold)
 - Color: `#C43B3B` for 吉, `#6B6B6B` for 凶
 - Letter-spacing: `-0.05em`
-- Font: Noto Sans SC/TC bold (same family, heavier weight)
+- Font: Noto Sans SC/TC semibold (same family)
 
 #### `<NavigationLinks>`
 
@@ -491,7 +496,7 @@ Renders in Header alongside brand and locale toggle:
 - 3 links: 首頁 | 月曆 | 節氣
 - Active link: accent color `#C43B3B` with bottom border
 - Spacing: `gap-6` between links
-- Font: 14px medium weight
+- Font: 14px semibold
 - Mobile: collapses into hamburger menu or horizontal scroll (use ScrollArea if needed)
 
 ---
