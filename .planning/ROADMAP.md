@@ -89,8 +89,8 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Data Layer | 0/3 | Planning complete | - |
-| 2. Core Almanac UI | 0/4 | Planning complete | - |
+| 1. Foundation & Data Layer | 3/3 | Planning complete | 2026-05-17 |
+| 2. Core Almanac UI | 0/4 | Planning complete | 2026-05-17 |
 | 3. SEO Content Matrix | 0/TBD | Not started | - |
 | 4. AI Integration | 0/TBD | Not started | - |
 | 5. Production Deployment | 0/TBD | Not started | - |

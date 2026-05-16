@@ -2,7 +2,7 @@
 phase: 2
 slug: core-almanac-ui
 status: draft
-nyquist_compliant: false
+nyquist_compliant: true
 wave_0_complete: false
 created: 2026-05-17
 ---
@@ -41,12 +41,12 @@ created: 2026-05-17
 | 02-01-01 | 01 | 1 | ALM-03 | unit | `npx vitest run tests/almanac/today-card.test.tsx` | ❌ W0 | ⬜ pending |
 | 02-01-02 | 01 | 1 | ALM-04 | unit | `npx vitest run tests/almanac/hourly.test.ts` | ❌ W0 | ⬜ pending |
 | 02-01-03 | 01 | 1 | ALM-04 | integration | `npx vitest run tests/almanac/hourly-cache.test.ts` | ❌ W0 | ⬜ pending |
-| 02-02-01 | 02 | 1 | ALM-05 | unit | `npx vitest run tests/almanac/monthly.test.ts` | ❌ W0 | ⬜ pending |
-| 02-02-02 | 02 | 1 | ALM-05 | unit | `npx vitest run tests/almanac/calendar-grid.test.tsx` | ❌ W0 | ⬜ pending |
-| 02-03-01 | 03 | 2 | ALM-06 | unit | `npx vitest run tests/almanac/solar-terms.test.ts` | ❌ W0 | ⬜ pending |
-| 02-03-02 | 03 | 2 | ALM-06 | unit | `npx vitest run tests/almanac/solar-terms-page.test.tsx` | ❌ W0 | ⬜ pending |
-| 02-04-01 | 04 | 2 | ALM-07 | integration | `npx vitest run tests/almanac/detail-page.test.tsx` | ❌ W0 | ⬜ pending |
-| 02-04-02 | 04 | 2 | ALM-07 | unit | `npx vitest run tests/almanac/detail-meta.test.ts` | ❌ W0 | ⬜ pending |
+| 02-02-01 | 02 | 2 | ALM-05 | unit | `npx vitest run tests/almanac/monthly.test.ts` | ❌ W0 | ⬜ pending |
+| 02-02-02 | 02 | 2 | ALM-05 | unit | `npx vitest run tests/almanac/calendar-grid.test.tsx` | ❌ W0 | ⬜ pending |
+| 02-03-01 | 03 | 3 | ALM-06 | unit | `npx vitest run tests/almanac/solar-terms.test.ts` | ❌ W0 | ⬜ pending |
+| 02-03-02 | 03 | 3 | ALM-06 | unit | `npx vitest run tests/almanac/solar-terms-page.test.tsx` | ❌ W0 | ⬜ pending |
+| 02-04-01 | 04 | 4 | ALM-07 | integration | `npx vitest run tests/almanac/detail-page.test.tsx` | ❌ W0 | ⬜ pending |
+| 02-04-02 | 04 | 4 | ALM-07 | unit | `npx vitest run tests/almanac/detail-meta.test.ts` | ❌ W0 | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
