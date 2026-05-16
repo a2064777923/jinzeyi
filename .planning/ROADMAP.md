@@ -27,9 +27,9 @@ Five phases building from data foundation to production deployment. Phase 1 esta
   5. Every page displays a "文化研究/民俗文化工具" legal disclaimer in the footer
 **Plans:** 3 plans
 Plans:
-- [ ] 01-01-PLAN.md — Walking Skeleton: scaffold + i18n routing + Tailwind theme + layout shell (Header, Footer, LocaleToggle)
-- [ ] 01-02-PLAN.md — Data Layer: Prisma schema + Redis/Prisma singletons + AlmanacService + homepage integration + schema push
-- [ ] 01-03-PLAN.md — Verification: OpenCC metaphysics dictionary + tyme4ts regression tests + integration verification
+- [x] 01-01-PLAN.md — Walking Skeleton: scaffold + i18n routing + Tailwind theme + layout shell (Header, Footer, LocaleToggle) ✓ 2026-05-17
+- [x] 01-02-PLAN.md — Data Layer: Prisma schema + Redis/Prisma singletons + AlmanacService + homepage integration + schema push ✓ 2026-05-17
+- [x] 01-03-PLAN.md — Verification: OpenCC metaphysics dictionary + tyme4ts regression tests + integration verification ✓ 2026-05-17
 
 ### Phase 2: Core Almanac UI
 **Goal**: Users can browse today's almanac, check hourly fortune, navigate a monthly calendar, and look up solar terms -- the complete daily almanac experience
