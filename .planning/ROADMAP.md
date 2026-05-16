@@ -16,7 +16,7 @@ Five phases building from data foundation to production deployment. Phase 1 esta
 
 ### Phase 1: Foundation & Data Layer
 **Goal**: A working Next.js 16 app with i18n routing, almanac data service, Redis caching, PostgreSQL, responsive layout, and legal disclaimers baked in from day one
-**Mode:** mvp
+**Mode:** mvp (Walking Skeleton)
 **Depends on**: Nothing (first phase)
 **Requirements**: FOUND-01, FOUND-02, FOUND-03, FOUND-04, FOUND-05, FOUND-06, I18N-01, I18N-02, I18N-03, I18N-04, ALM-01, ALM-02, DATA-01, DATA-03
 **Success Criteria** (what must be TRUE):
@@ -25,7 +25,11 @@ Five phases building from data foundation to production deployment. Phase 1 esta
   3. AlmanacService returns accurate daily almanac data (gan-zhi, lunar date, yi-ji, chong-sha) for any date in the 1900-2100 range, verified by regression tests
   4. Redis cache serves daily almanac data with 24h TTL; cache miss triggers computation and populates cache
   5. Every page displays a "文化研究/民俗文化工具" legal disclaimer in the footer
-**Plans**: TBD
+**Plans:** 3 plans
+Plans:
+- [ ] 01-01-PLAN.md — Walking Skeleton: scaffold + i18n routing + Tailwind theme + layout shell (Header, Footer, LocaleToggle)
+- [ ] 01-02-PLAN.md — Data Layer: Prisma schema + Redis/Prisma singletons + AlmanacService + homepage integration + schema push
+- [ ] 01-03-PLAN.md — Verification: OpenCC metaphysics dictionary + tyme4ts regression tests + integration verification
 
 ### Phase 2: Core Almanac UI
 **Goal**: Users can browse today's almanac, check hourly fortune, navigate a monthly calendar, and look up solar terms -- the complete daily almanac experience
@@ -80,7 +84,7 @@ Five phases building from data foundation to production deployment. Phase 1 esta
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Data Layer | 0/TBD | Not started | - |
+| 1. Foundation & Data Layer | 0/3 | Planning complete | - |
 | 2. Core Almanac UI | 0/TBD | Not started | - |
 | 3. SEO Content Matrix | 0/TBD | Not started | - |
 | 4. AI Integration | 0/TBD | Not started | - |
