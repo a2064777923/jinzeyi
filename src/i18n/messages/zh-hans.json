@@ -1,0 +1,29 @@
+{
+  "Layout": {
+    "brand": "今择易",
+    "tagline": "今日择吉，简易明白",
+    "localeToggle": {
+      "zhHant": "繁體",
+      "zhHans": "简体",
+      "ariaLabel": "切换语言"
+    }
+  },
+  "Footer": {
+    "disclaimer": "本网站内容仅供文化研究及民俗参考，不构成任何形式的建议。",
+    "copyright": "{year} 今择易"
+  },
+  "Homepage": {
+    "title": "今日黄历",
+    "cta": "查看今日黄历",
+    "loading": "加载中...",
+    "error": {
+      "heading": "发生错误",
+      "body": "请稍后再试，或联系我们。"
+    }
+  },
+  "NotFound": {
+    "heading": "页面未找到",
+    "body": "您要找的页面不存在。",
+    "cta": "返回首页"
+  }
+}

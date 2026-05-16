@@ -1,0 +1,29 @@
+{
+  "Layout": {
+    "brand": "今擇易",
+    "tagline": "今日擇吉，簡易明白",
+    "localeToggle": {
+      "zhHant": "繁體",
+      "zhHans": "简体",
+      "ariaLabel": "切換語言"
+    }
+  },
+  "Footer": {
+    "disclaimer": "本網站內容僅供文化研究及民俗參考，不構成任何形式的建議。",
+    "copyright": "{year} 今擇易"
+  },
+  "Homepage": {
+    "title": "今日黃曆",
+    "cta": "查看今日黃曆",
+    "loading": "載入中...",
+    "error": {
+      "heading": "發生錯誤",
+      "body": "請稍後再試，或聯繫我們。"
+    }
+  },
+  "NotFound": {
+    "heading": "頁面未找到",
+    "body": "您要找的頁面不存在。",
+    "cta": "返回首頁"
+  }
+}
