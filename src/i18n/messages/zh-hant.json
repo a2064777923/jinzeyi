@@ -21,6 +21,25 @@
       "body": "請稍後再試，或聯繫我們。"
     }
   },
+  "Almanac": {
+    "title": "今日黃曆",
+    "solarDate": "年",
+    "solarDateMonth": "月",
+    "solarDateDay": "日",
+    "lunarDate": "農曆",
+    "ganZhi": "干支",
+    "ganZhiYear": "年",
+    "ganZhiMonth": "月",
+    "ganZhiDay": "日",
+    "zodiac": "生肖",
+    "yi": "宜",
+    "ji": "忌",
+    "direction": {
+      "caiShen": "財神位",
+      "xiShen": "喜神位",
+      "fuShen": "福神位"
+    }
+  },
   "NotFound": {
     "heading": "頁面未找到",
     "body": "您要找的頁面不存在。",
