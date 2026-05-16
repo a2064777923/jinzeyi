@@ -3,6 +3,8 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Noto_Sans_SC, Noto_Sans_TC } from 'next/font/google';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import '@/styles/globals.css';
 
 const notoSansSC = Noto_Sans_SC({
@@ -41,9 +43,11 @@ export default async function LocaleLayout({
     <html lang={locale} className={fontClass.variable}>
       <body className="min-h-screen bg-background text-foreground font-sans antialiased flex flex-col">
         <NextIntlClientProvider messages={messages}>
+          <Header />
           <main className="flex-1 mx-auto max-w-[65ch] w-full px-4 py-8">
             {children}
           </main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
