@@ -42,7 +42,12 @@ Plans:
   3. User navigates a monthly calendar view showing each day's fortune with color-coded indicators (auspicious in red/gold, inauspicious in grey), and can switch between months
   4. User can browse a solar terms page listing all 24 jie-qi with dates, meanings, and traditional customs
   5. User can access a daily almanac detail page at /almanac/YYYY-MM-DD with complete almanac information rendered via SSR/ISR
-**Plans**: TBD
+**Plans:** 4 plans
+Plans:
+- [ ] 02-01-PLAN.md — Homepage upgrade: AlmanacService hourly fortune extension + TodayAlmanacCard + HourlyFortuneTable + Header nav links
+- [ ] 02-02-PLAN.md — Monthly calendar: getMonthlyCalendar service + CalendarDayCell + MonthlyCalendar grid + month navigation
+- [ ] 02-03-PLAN.md — Solar terms: getSolarTerms service + SolarTermsList grouped by season
+- [ ] 02-04-PLAN.md — Detail page: 5-tab AlmanacDetail + SSR page with generateMetadata + URL-based tab state + 404 handling
 
 ### Phase 3: SEO Content Matrix
 **Goal**: Thousands of SEO-optimized pages are pre-rendered and discoverable, covering auspicious day queries, zodiac, BaZi, Feng Shui, naming, and solar terms -- driving organic search traffic
@@ -85,7 +90,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 0/3 | Planning complete | - |
-| 2. Core Almanac UI | 0/TBD | Not started | - |
+| 2. Core Almanac UI | 0/4 | Planning complete | - |
 | 3. SEO Content Matrix | 0/TBD | Not started | - |
 | 4. AI Integration | 0/TBD | Not started | - |
 | 5. Production Deployment | 0/TBD | Not started | - |
