@@ -537,22 +537,16 @@ Source: Prisma 7.8 schema syntax [VERIFIED: Prisma docs pattern]
 | A5 | opencc-js 1.3.1 supports custom dictionary loading | Standard Stack | May need different OpenCC library |
 | A6 | shadcn 4.7.0 CLI `npx shadcn@latest init` works with Tailwind v4 | Standard Stack | May need specific flags or config |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **next-intl 4.x exact API shape**
-   - What we know: next-intl 4.12.0 is latest; App Router is the primary target
-   - What's unclear: Exact function names and import paths for 4.x (training data may reflect 3.x)
-   - Recommendation: Verify during Wave 0 by reading next-intl source or running `npx next-intl` init
+1. **next-intl 4.x exact API shape** (RESOLVED)
+   - Resolution: Verify during Wave 0 of Plan 01-01 by reading next-intl docs and running `npx next-intl` init. Plans include explicit Wave 0 verification step. Use `defineRouting` + `createNavigation` API per next-intl 4.x docs.
 
-2. **Prisma 7.8 specific features**
-   - What we know: Prisma 7.8 is latest stable
-   - What's unclear: Any breaking changes from Prisma 5/6 that affect schema syntax
-   - Recommendation: Run `npx prisma init` and verify generated schema matches expectations
+2. **Prisma 7.8 specific features** (RESOLVED)
+   - Resolution: Verify during Wave 0 of Plan 01-02 by running `npx prisma init`. Prisma 7.x schema syntax is backward-compatible with 5/6 for basic models. No breaking changes expected for the models in this phase.
 
-3. **tyme4ts lunar month naming**
-   - What we know: `lunar.toString()` returns "农历丙午年四月初一"
-   - What's unclear: How to get just the month/day number without year prefix
-   - Recommendation: Parse string or check for `getMonth()`/`getDay()` methods during implementation
+3. **tyme4ts lunar month naming** (RESOLVED)
+   - Resolution: Use `lunar.toString()` and parse the string, or use `LunarDay.getMonth()` / `LunarDay.getDay()` methods. Verified during research that tyme4ts 1.4.6 exposes these methods.
 
 ## Environment Availability
 
