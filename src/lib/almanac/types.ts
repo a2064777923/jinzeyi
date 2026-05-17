@@ -15,7 +15,9 @@ export interface DailyAlmanac {
     month: string;  // e.g., "癸巳"
     day: string;    // e.g., "辛卯"
   };
-  zodiac: string;     // e.g., "兔"
+  zodiac: string;     // Year zodiac, e.g., "马"
+  dayZodiac: string;  // Day-branch zodiac, e.g., "兔"
+  fortune: '吉' | '凶'; // Daily ecliptic fortune, shared with calendar cells
   yi: string[];       // 宜 (recommended activities)
   ji: string[];       // 忌 (activities to avoid)
   direction: {
@@ -46,6 +48,11 @@ export interface CalendarDay {
   solarDay: number;      // 1-31
   lunarDay: string;      // 初一, 十五, ...
   fortune: '吉' | '凶';
+  duty: string;          // 值神/建除十二神
+  twelveStar: string;    // 黄道黑道星神
+  solarTerm: string | null; // 节气 name when the day is a solar term
+  yi: string[];          // Top recommended activities
+  ji: string[];          // Top avoided activities
   isToday: boolean;
   dateStr: string;       // YYYY-MM-DD
   weekday: number;       // 0=Sun, 6=Sat
@@ -56,4 +63,46 @@ export interface SolarTerm {
   date: string;       // YYYY-MM-DD
   isJie: boolean;     // true=节, false=气
   year: number;
+}
+
+export type AuspiciousDayStatus = 'recommended' | 'caution' | 'not-preferred';
+
+export type AuspiciousDayReasonType =
+  | 'yi-match'
+  | 'daily-fortune'
+  | 'zodiac-conflict'
+  | 'scene-caution';
+
+export interface AuspiciousDayReason {
+  type: AuspiciousDayReasonType;
+  label: string;
+  detail: string;
+  severity: 'positive' | 'caution' | 'negative';
+}
+
+export interface JieriSceneRule {
+  slug: string;
+  name: string;
+  icon: string;
+  yiTerms: string[];
+  cautionTerms: string[];
+  summary: string;
+}
+
+export interface AuspiciousDayResult {
+  date: string;
+  year: number;
+  month: number;
+  day: number;
+  lunarDay: string;
+  lunarDate: string;
+  fortune: '吉' | '凶';
+  dayZodiac: string;
+  chong: string;
+  sha: string;
+  yiMatches: string[];
+  status: AuspiciousDayStatus;
+  reasons: AuspiciousDayReason[];
+  cautionReasons: AuspiciousDayReason[];
+  almanac: DailyAlmanac;
 }

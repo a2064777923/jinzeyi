@@ -12,7 +12,7 @@ vi.mock('@/lib/redis', () => ({
   },
 }));
 
-import { getDailyAlmanac } from '@/lib/almanac/service';
+import { getDailyAlmanac, getMonthlyCalendar, getSolarTerms } from '@/lib/almanac/service';
 import { redis } from '@/lib/redis';
 
 const ZODIAC_ANIMALS = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'];
@@ -44,6 +44,10 @@ describe('AlmanacService integration', () => {
 
     // Zodiac
     expect(ZODIAC_ANIMALS).toContain(data.zodiac);
+    expect(data.zodiac).toBe('马');
+    expect(ZODIAC_ANIMALS).toContain(data.dayZodiac);
+    expect(data.dayZodiac).toBe('兔');
+    expect(data.fortune).toBe('凶');
 
     // Yi/Ji
     expect(Array.isArray(data.yi)).toBe(true);
@@ -90,10 +94,52 @@ describe('AlmanacService integration', () => {
     expect(redis.setex).toHaveBeenCalledTimes(1);
   });
 
+  it('ignores stale daily cache where zodiac was day zodiac', async () => {
+    store.set(
+      'almanac:2026-05-17',
+      JSON.stringify({
+        solar: { year: 2026, month: 5, day: 17 },
+        lunar: { year: '丙午年', month: '四月', day: '初一', lunarDate: '农历丙午年四月初一' },
+        ganZhi: { year: '丙午', month: '癸巳', day: '辛卯' },
+        zodiac: '兔',
+        yi: ['祭祀'],
+        ji: ['嫁娶'],
+        direction: { chong: '鸡', sha: '西', caiShen: '东', xiShen: '西南', fuShen: '西北' },
+        gods: ['天德'],
+        duty: '开',
+        twentyEightStar: '昴',
+        pengZu: '辛不合酱',
+        sound: '松柏木',
+        fetusDay: '厨灶门外正北',
+      })
+    );
+
+    const data = await getDailyAlmanac('2026-05-17');
+
+    expect(data.zodiac).toBe('马');
+    expect(data.dayZodiac).toBe('兔');
+    expect(redis.setex).toHaveBeenCalledWith(
+      'almanac:2026-05-17',
+      86400,
+      expect.stringContaining('"dayZodiac":"兔"')
+    );
+  });
+
   it('returns consistent data across multiple calls for same date', async () => {
     const data1 = await getDailyAlmanac('2026-06-01');
     const data2 = await getDailyAlmanac('2026-06-01');
     expect(data1).toEqual(data2);
+  });
+
+  it('uses the same daily fortune for detail and monthly calendar', async () => {
+    const [daily, days] = await Promise.all([
+      getDailyAlmanac('2026-05-17'),
+      getMonthlyCalendar(2026, 5),
+    ]);
+    const calendarDay = days.find((day) => day.dateStr === '2026-05-17');
+
+    expect(calendarDay?.fortune).toBe('凶');
+    expect(daily.fortune).toBe(calendarDay?.fortune);
   });
 
   it('handles different dates independently', async () => {
@@ -101,5 +147,56 @@ describe('AlmanacService integration', () => {
     const data2 = await getDailyAlmanac('2026-12-31');
     // Different dates should have different lunar dates
     expect(data1.lunar.lunarDate).not.toBe(data2.lunar.lunarDate);
+  });
+
+  it('getSolarTerms returns all 24 terms for a year', async () => {
+    const terms = await getSolarTerms(2026);
+
+    expect(terms).toHaveLength(24);
+    expect(terms[0].name).toBe('小寒');
+    expect(terms.at(-1)?.name).toBe('冬至');
+    expect(terms.every((term) => term.date.startsWith('2026-'))).toBe(true);
+  });
+
+  it('getMonthlyCalendar includes educational day metadata', async () => {
+    const days = await getMonthlyCalendar(2026, 5);
+    const liXia = days.find((day) => day.solarTerm === '立夏');
+    const firstDay = days[0];
+
+    expect(days).toHaveLength(31);
+    expect(firstDay.duty).toBeTruthy();
+    expect(firstDay.twelveStar).toBeTruthy();
+    expect(Array.isArray(firstDay.yi)).toBe(true);
+    expect(Array.isArray(firstDay.ji)).toBe(true);
+    expect(liXia?.solarDay).toBe(5);
+  });
+
+  it('getMonthlyCalendar ignores stale cached data without educational metadata', async () => {
+    store.set(
+      'almanac:monthly:2026-05:v2',
+      JSON.stringify([
+        {
+          solarDay: 1,
+          lunarDay: '十五',
+          fortune: '吉',
+          isToday: false,
+          dateStr: '2026-05-01',
+          weekday: 5,
+        },
+      ])
+    );
+
+    const days = await getMonthlyCalendar(2026, 5);
+
+    expect(days).toHaveLength(31);
+    expect(days[0].duty).toBeTruthy();
+    expect(days[0].twelveStar).toBeTruthy();
+    expect(Array.isArray(days[0].yi)).toBe(true);
+    expect(Array.isArray(days[0].ji)).toBe(true);
+    expect(redis.setex).toHaveBeenCalledWith(
+      'almanac:monthly:2026-05:v2',
+      604800,
+      expect.any(String)
+    );
   });
 });
