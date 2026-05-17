@@ -64,7 +64,7 @@ src/components/feng-shui/
 | Page Family | Route Pattern | Rendering Notes |
 |-------------|---------------|-----------------|
 | Auspicious day index | `/[locale]/jieri` | Server-rendered scene directory with tool entrances. |
-| Auspicious day year | `/[locale]/jieri/[scene]/[year]` | SSG for 2006-2046 via `generateStaticParams`; dynamic route validates legal 0-5000. |
+| Auspicious day year | `/[locale]/jieri/[scene]/[year]` | SSG for 2006-2046 via `generateStaticParams`; dynamic route validates legal 2-5000. |
 | Zodiac index | `/[locale]/zodiac` | 12-animal directory and internal links. |
 | Zodiac hub | `/[locale]/zodiac/[animal]` | SSG for both locales; hub content plus related article links. |
 | Zodiac article | `/[locale]/zodiac/[animal]/[slug]` | Static article pages with FAQ and breadcrumbs. |
@@ -76,7 +76,7 @@ src/components/feng-shui/
 
 ## Risk Notes For Planning
 
-- Year legality and computation support must be separated. Route validation targets year `0-5000`, but tyme4ts has already failed smoke tests for year `0` and `1`; execution must close this before expanding route generation.
+- Year legality and computation support must be separated. Route validation targets year `2-5000`; tyme4ts failed smoke tests for year `0` and `1`, so execution must keep those years rejected while retaining probes as regression evidence.
 - The indexed sitemap year window is current year ±20. With current date `2026-05-17`, the concrete SSG/sitemap range is `2006-2046`.
 - Content must not be embedded as large route-file strings. Use typed static registries that can later seed Prisma models.
 - Articles must be source-synthesized, natural Chinese editorial copy with visible FAQs and internal links. Avoid raw copied source text and generic AI filler.

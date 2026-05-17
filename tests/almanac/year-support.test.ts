@@ -11,12 +11,14 @@ import {
 } from '@/lib/almanac/year-support';
 
 describe('Phase 3 year support guardrails', () => {
-  it('defines the legal dynamic route range as 0-5000', () => {
-    expect(LEGAL_YEAR_MIN).toBe(0);
+  it('defines the legal dynamic route range as 2-5000', () => {
+    expect(LEGAL_YEAR_MIN).toBe(2);
     expect(LEGAL_YEAR_MAX).toBe(5000);
-    expect(isLegalRouteYear(0)).toBe(true);
+    expect(isLegalRouteYear(2)).toBe(true);
     expect(isLegalRouteYear(5000)).toBe(true);
     expect(isLegalRouteYear(-1)).toBe(false);
+    expect(isLegalRouteYear(0)).toBe(false);
+    expect(isLegalRouteYear(1)).toBe(false);
     expect(isLegalRouteYear(5001)).toBe(false);
     expect(isLegalRouteYear(2026.5)).toBe(false);
   });

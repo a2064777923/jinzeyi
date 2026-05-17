@@ -16,8 +16,8 @@
 | `/jieri/{scene}/{year}` 的 MVP 頁面應該做到哪一層？ | 年度列表 + 場景說明; 純年度吉日列表; 年度列表 + 篩選/排序/推薦理由 | User chose 1 and 3. Use scene explanation, annual/monthly lists, lightweight filtering, and recommendation reasons. |
 | 每個場景的吉日判定要多精細？ | 宜忌命中為主; 宜忌 + 凶日排除; 宜忌 + 凶日 + 生肖避沖 | User chose 1 and 3. Base match uses scene-specific yi items, with zodiac conflict as an advanced condition. |
 | 凶日怎麼處理？ | 保留但降級標示; 預設排除凶日; 分區顯示 | User chose 1. Keep matched ominous days but downgrade and explain. |
-| `/jieri/{scene}/{year}` 要預渲染多少年份？ | 1900-2100 全量預渲染; 今年起 5 年; 近年 SSG + 歷史年份按需生成 | User chose 3, with current year plus/minus 20 years for SSG/sitemap and dynamic legal years 0-5000. |
-| 超出 1900-2100 驗證範圍的年份，要如何對使用者呈現？ | 允許查詢但顯示準確性提示; 先限制 1900-2100; 0-5000 全部等同正式支持 | User chose 3. Present year 0-5000 as formal support; researcher/planner must verify algorithm support. |
+| `/jieri/{scene}/{year}` 要預渲染多少年份？ | 1900-2100 全量預渲染; 今年起 5 年; 近年 SSG + 歷史年份按需生成 | User chose 3, with current year plus/minus 20 years for SSG/sitemap and dynamic legal years initially discussed as 0-5000, later corrected to 2-5000 after support probing. |
+| 超出 1900-2100 驗證範圍的年份，要如何對使用者呈現？ | 允許查詢但顯示準確性提示; 先限制 1900-2100; 0-5000 全部等同正式支持 | User chose formal support. After the Wave 1 probe showed year 0/1 incomplete support, user revised the formal legal range to 2-5000 on 2026-05-17. |
 
 ---
 
@@ -61,7 +61,7 @@
 | sitemap 要怎麼實作？ | Next route 手寫 sitemap; 引入 next-sitemap; 先只做核心 sitemap | User chose 1. Use Next route/API generation from typed content and route config. |
 | hreflang/canonical 的規則要多嚴格？ | 所有可索引頁必須完整; 只在主要頁完整; 先靠 Next metadata defaults | User chose 1. All indexable pages need canonical, zh-Hans/zh-Hant hreflang, x-default, Content-Language, and sitemap alternates. |
 | JSON-LD 要覆蓋哪些類型？ | 頁型對應 schema; 全部用 WebPage; 只做 FAQPage + WebSite | User chose 1. Use schema per page type and reusable helpers. |
-| 哪些頁面應該進 sitemap？ | 只收 SSG 和核心可索引頁; 所有合法動態頁都收錄; 先只收工具入口，不收文章/年份矩陣 | User chose 1. Include SSG/core pages; dynamic year 0-5000 pages remain accessible but are not all listed. |
+| 哪些頁面應該進 sitemap？ | 只收 SSG 和核心可索引頁; 所有合法動態頁都收錄; 先只收工具入口，不收文章/年份矩陣 | User chose 1. Include SSG/core pages; dynamic year 2-5000 pages remain accessible but are not all listed. |
 
 ---
 

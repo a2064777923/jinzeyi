@@ -1,6 +1,6 @@
 import { SolarDay, SolarTerm, SolarTime } from 'tyme4ts';
 
-export const LEGAL_YEAR_MIN = 0;
+export const LEGAL_YEAR_MIN = 2;
 export const LEGAL_YEAR_MAX = 5000;
 export const INDEXED_YEAR_START = 2006;
 export const INDEXED_YEAR_END = 2046;

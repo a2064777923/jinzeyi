@@ -12,7 +12,7 @@
 - Scene matching uses relevant `yi` items as the base rule. Zodiac conflict avoidance is an advanced condition.
 - Ominous matched days remain visible but are downgraded with explanation.
 - SSG/sitemap include current year plus/minus 20 years. On 2026-05-17 this means 2006-2046.
-- Dynamic route target is year 0-5000, presented as formal support.
+- Dynamic route target is year 2-5000, presented as formal support. Years 0 and 1 were excluded by explicit scope correction after probing.
 - Content source is typed static content with seed-friendly shape, not live Prisma reads for MVP.
 - SEO title/description/keywords/H1 may be maintained per locale; longer body copy uses Simplified canonical text plus OpenCC conversion.
 - Every indexable page needs unique main copy, FAQ, and internal links.
@@ -51,7 +51,7 @@
 
 Phase 3 should be planned as a vertical SEO matrix built around a typed route/content registry. The same registry should drive `generateStaticParams`, page metadata, JSON-LD, breadcrumbs, internal links, and sitemap entries. This prevents divergence between what is rendered, what is linked, and what search engines see.
 
-The largest technical risk is the year 0-5000 decision. A local probe against installed `tyme4ts` showed `SolarDay.fromYmd(5000, 1, 1)` and `SolarTime.fromYmdHms(5000, 12, 31, 23, 59, 0)` work, but year 0 and year 1 fail with `illegal solar year: 0`; year 2 and later work in the smoke test. The planner must include a blocking research/guardrail task before implementing formal 0-5000 support.
+The largest technical risk was the original year 0-5000 decision. A local probe against installed `tyme4ts` showed `SolarDay.fromYmd(5000, 1, 1)` and `SolarTime.fromYmdHms(5000, 12, 31, 23, 59, 0)` work, but year 0 and year 1 fail with `illegal solar year: 0`; year 2 and later work in the smoke test. Product scope was corrected on 2026-05-17 to formal 2-5000 support, with years 0 and 1 excluded.
 
 The standard Next.js approach is to use Metadata API functions and metadata route files instead of introducing `next-sitemap`. Existing `src/lib/seo.ts` already centralizes localized metadata and JSON-LD, so Phase 3 should extend that helper layer rather than duplicating metadata per page.
 
@@ -82,7 +82,7 @@ The standard Next.js approach is to use Metadata API functions and metadata rout
 |------------|-----------|----------|
 | Hand-written `sitemap.ts` | `next-sitemap` | `next-sitemap` is useful for simpler route sets, but this phase needs a typed content registry, custom year windows, locales, and alternates. |
 | Typed TS content | MDX | MDX is nicer for editorial writing but adds a content pipeline and weakens seed-friendly structured data for tools. |
-| tyme4ts only for 0-5000 | Alternative ephemeris/almanac library | Use only if 0/1 AD and true calendar support cannot be solved with tyme4ts. |
+| tyme4ts only for 2-5000 | Alternative ephemeris/almanac library | Current scope excludes 0/1 AD because `tyme4ts` cannot provide complete service-style daily fields for them. |
 </standard_stack>
 
 <architecture_patterns>
@@ -140,8 +140,8 @@ src/
 ### Anti-Patterns to Avoid
 - **Separate hardcoded page/sitemap lists:** Leads to broken sitemap coverage and missing hreflang.
 - **Embedding long content in route files:** Makes future Prisma seeding difficult and bloats pages.
-- **Claiming 0-5000 support without tests:** Local probe already shows year 0/1 are not straightforward.
-- **Generating all dynamic 0-5000 URLs in sitemap:** Too many low-value URLs; violates the chosen sitemap strategy.
+- **Claiming 0/1 support:** Local probe already shows year 0/1 are not supported for complete almanac semantics, so route validation must reject them.
+- **Generating all dynamic 2-5000 URLs in sitemap:** Too many low-value URLs; violates the chosen sitemap strategy.
 </architecture_patterns>
 
 <dont_hand_roll>
@@ -159,9 +159,9 @@ src/
 ## Common Pitfalls
 
 ### Pitfall 1: Year 0/1 Support Assumed
-**What goes wrong:** Routes accept 0-5000 but almanac/BaZi utilities throw at runtime for some years.
+**What goes wrong:** Routes accept years 0 or 1 but almanac/BaZi utilities throw at runtime for some fields.
 **Why it happens:** `tyme4ts` normalizes or validates early years in ways that reject year 0/1.
-**How to avoid:** Add a Wave 1 probe and tests for 0, 1, 2, 1900, 2100, 5000 before broad route implementation.
+**How to avoid:** Keep year 0 and year 1 as regression probes that must remain outside legal route validation; verify supported boundary years 2, 1900, 2100, and 5000 before broad route implementation.
 **Warning signs:** `illegal solar year: 0`, `RangeError`, failed static param generation, or ISR runtime errors.
 
 ### Pitfall 2: Thin Content From Matrix Expansion
@@ -222,7 +222,7 @@ Local probe output for 2026-05-17 11:30 was year `丙午`, month `癸巳`, day `
 <open_questions>
 ## Open Questions
 
-- Can product accept year 2-5000 formal support if year 0/1 remain unsupported by `tyme4ts`, or must an alternate date model be introduced for year 0/1?
+- Resolved 2026-05-17: product accepts year 2-5000 formal support; year 0/1 remain excluded unless a later alternate date model is introduced.
 - Which Chinese city dataset will be used for true solar time: small static list, province capitals, or a larger local JSON table?
 - How much article source collection is expected before implementation versus after route scaffolding?
 </open_questions>
@@ -232,7 +232,7 @@ Local probe output for 2026-05-17 11:30 was year `丙午`, month `癸巳`, day `
 
 ### Automated Tests Needed
 - Unit tests for indexed year window calculation: with current date 2026-05-17, sitemap year range is 2006-2046.
-- Unit tests for route year validation and tyme4ts support probes: 0, 1, 2, 1900, 2100, 5000.
+- Unit tests for route year validation and tyme4ts support probes: 0 and 1 rejected/unsupported; 2, 1900, 2100, and 5000 supported.
 - Unit tests for scene-to-yi matching and downgrade reasons.
 - Unit tests for zodiac conflict detection.
 - Unit tests for BaZi four-pillar extraction and five-element counting.
@@ -254,4 +254,4 @@ Local probe output for 2026-05-17 11:30 was year `丙午`, month `癸巳`, day `
 
 ## Research Complete
 
-Research is complete and sufficient for planning. Planner should treat 0/1 AD calendar support as the highest-risk item and plan it before route expansion.
+Research is complete and sufficient for planning. Planner should keep 0/1 AD calendar support out of Phase 3 route validation and proceed with formal 2-5000 support.

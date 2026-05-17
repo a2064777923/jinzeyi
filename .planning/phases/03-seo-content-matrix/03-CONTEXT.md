@@ -22,8 +22,8 @@ This phase clarifies HOW to build the SEO matrix. It does not add AI personalize
 - **D-02:** Each scene maps to relevant `yi` items as the base match rule. Zodiac conflict avoidance is an advanced condition users can apply to see which matched dates should be avoided or downgraded.
 - **D-03:** Ominous days are not deleted when they match a scene. They remain in the list with downgraded labels such as "not preferred" or "use with caution", with reasons based on daily fortune, chong-sha, or zodiac conflict.
 - **D-04:** SSG and sitemap inclusion prioritize the current year plus/minus 20 years. With the current date of 2026-05-17, the initial indexed year range is 2006-2046.
-- **D-05:** Legal dynamic route target range is year 0-5000. These years should be presented as formally supported, not with a "rough estimate only" UI disclaimer.
-- **D-06:** Research/planning MUST verify whether `tyme4ts`, JavaScript/Next date handling, route params, lunar calendar, gan-zhi, solar terms, and existing service constraints can reliably support year 0-5000. If not, this is a blocking risk requiring an alternative algorithm or an explicit scope correction.
+- **D-05:** Legal dynamic route target range is year 2-5000. These years should be presented as formally supported, not with a "rough estimate only" UI disclaimer.
+- **D-06:** Research/planning MUST verify whether `tyme4ts`, JavaScript/Next date handling, route params, lunar calendar, gan-zhi, solar terms, and existing service constraints can reliably support year 2-5000. Years 0 and 1 are explicitly excluded by the 2026-05-17 scope correction after the Wave 1 probe showed incomplete support.
 
 ### Content Source
 - **D-07:** Phase 3 MVP content uses typed static content with a seed-friendly shape. Use TypeScript data structures first so SSG is stable; do not require live Prisma content reads in this phase.
@@ -50,7 +50,7 @@ This phase clarifies HOW to build the SEO matrix. It does not add AI personalize
 - **D-22:** Every indexable Phase 3 page must have canonical URL, `zh-Hans` and `zh-Hant` hreflang, `x-default`, and Content-Language metadata. Sitemap output must include corresponding alternates.
 - **D-23:** JSON-LD should match page type. Tool pages use `WebApplication`/`SoftwareApplication` or `WebPage`; articles use `Article`; FAQ blocks use `FAQPage`; site-level data uses `WebSite`; breadcrumbs use `BreadcrumbList`.
 - **D-24:** Add reusable structured data helpers in `src/lib/seo.ts` or a nearby SEO helper module rather than duplicating JSON-LD assembly per page.
-- **D-25:** Sitemap includes SSG and core indexable pages: homepage, core almanac pages, calendar/solar terms, `/jieri` scenes for 2006-2046, zodiac hubs, zodiac articles, Feng Shui articles, and tool entrances. Dynamic year 0-5000 pages are accessible but not all listed in sitemap.
+- **D-25:** Sitemap includes SSG and core indexable pages: homepage, core almanac pages, calendar/solar terms, `/jieri` scenes for 2006-2046, zodiac hubs, zodiac articles, Feng Shui articles, and tool entrances. Dynamic year 2-5000 pages are accessible but not all listed in sitemap.
 
 ### The Agent's Discretion
 - Exact route file organization, component split, data module naming, and helper function names are planner/implementer discretion as long as they follow existing Next.js App Router, next-intl, Tailwind, and shadcn patterns.
@@ -121,7 +121,7 @@ This phase clarifies HOW to build the SEO matrix. It does not add AI personalize
 
 - `/jieri/{scene}/{year}` should feel like a practical SEO tool page, not a database dump.
 - The indexed year window is current year plus/minus 20; as of 2026-05-17 that is 2006-2046.
-- Product target wants dynamic year 0-5000 to appear formally supported, so algorithm coverage is a serious research item.
+- Product target wants dynamic year 2-5000 to appear formally supported; years 0 and 1 are out of scope because the installed calendar stack cannot provide complete almanac semantics for them.
 - The "测测" app is a reference for BaZi form completeness and consumer metaphysics UX, not for copying content or adding deep Phase 4-style interpretation.
 - Articles should sound natural and editorial, with a calm "娓娓道来" tone, not AI-generated filler.
 
