@@ -19,14 +19,15 @@ function validateDate(dateStr: string): boolean {
 }
 
 export async function generateMetadata({ params }: Props) {
+  const t = await getTranslations('Detail');
+  const tAlmanac = await getTranslations('Almanac');
   const { date } = await params;
   if (!validateDate(date)) {
-    return { title: '黄历' };
+    return { title: tAlmanac('title') };
   }
 
   try {
     const almanac = await getDailyAlmanac(date);
-    const t = await getTranslations('Detail');
     const yiPreview = almanac.yi.slice(0, 3).join('、');
     const jiPreview = almanac.ji.slice(0, 3).join('、');
     return {
@@ -35,10 +36,10 @@ export async function generateMetadata({ params }: Props) {
         month: almanac.solar.month,
         day: almanac.solar.day,
       }),
-      description: `宜：${yiPreview}。忌：${jiPreview}。`,
+      description: `${tAlmanac('yi')}：${yiPreview}。${tAlmanac('ji')}：${jiPreview}。`,
     };
   } catch {
-    return { title: '黄历' };
+    return { title: tAlmanac('title') };
   }
 }
 

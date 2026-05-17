@@ -68,6 +68,8 @@
   },
   "Calendar": {
     "title": "月历",
+    "yearSuffix": "年",
+    "monthSuffix": "月",
     "weekdays": ["日", "一", "二", "三", "四", "五", "六"],
     "today": "今天",
     "prevMonth": "上个月",
@@ -89,6 +91,7 @@
     "winter": "冬季",
     "jieLabel": "节",
     "qiLabel": "气",
+    "dateYear": "年",
     "dateMonth": "月",
     "dateDay": "日",
     "meaningLabel": "含义",
@@ -149,7 +152,10 @@
       "zodiac": "生肖",
       "chongSha": "冲煞",
       "yi": "宜",
-      "ji": "忌"
+      "ji": "忌",
+      "yearSuffix": "年",
+      "monthSuffix": "月",
+      "daySuffix": "日"
     },
     "directions": {
       "caiShen": "财神位",

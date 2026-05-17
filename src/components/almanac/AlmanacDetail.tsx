@@ -64,7 +64,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
               <div>
                 <p className="text-sm text-muted-foreground">{t('overview.ganZhi')}</p>
                 <p className="text-lg font-medium">
-                  {almanac.ganZhi.year}年 {almanac.ganZhi.month}月 {almanac.ganZhi.day}日
+                  {almanac.ganZhi.year}{t('overview.yearSuffix')} {almanac.ganZhi.month}{t('overview.monthSuffix')} {almanac.ganZhi.day}{t('overview.daySuffix')}
                 </p>
               </div>
               <Separator />
@@ -75,7 +75,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
               <Separator />
               <div>
                 <p className="text-sm text-muted-foreground">{t('overview.chongSha')}</p>
-                <p className="font-medium">沖{almanac.direction.chong} 煞{almanac.direction.sha}</p>
+                <p className="font-medium">{t('directions.chong')}{almanac.direction.chong} {t('directions.sha')}{almanac.direction.sha}</p>
               </div>
               <Separator />
               <div>
@@ -118,7 +118,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
             <CardContent className="pt-6 space-y-3">
               <div>
                 <p className="text-sm text-muted-foreground">{t('overview.chongSha')}</p>
-                <p className="font-medium">沖{almanac.direction.chong} 煞{almanac.direction.sha}</p>
+                <p className="font-medium">{t('directions.chong')}{almanac.direction.chong} {t('directions.sha')}{almanac.direction.sha}</p>
               </div>
               <Separator />
               <div>

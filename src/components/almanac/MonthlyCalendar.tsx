@@ -43,7 +43,7 @@ export async function MonthlyCalendar({ year, month, days }: MonthlyCalendarProp
           </Button>
         </Link>
         <span className="text-lg font-semibold">
-          {year}年{month}月 · {lunarMonth}
+          {year}{t('yearSuffix')}{month}{t('monthSuffix')} · {lunarMonth}
         </span>
         <Link href={nextHref}>
           <Button variant="outline" size="icon" aria-label={t('nextMonth')}>

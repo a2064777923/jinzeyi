@@ -23,8 +23,8 @@ export async function generateMetadata({ searchParams }: Props) {
   const { year, month: monthNum } = parseMonth(month);
   const t = await getTranslations('Calendar');
   return {
-    title: `${t('title')} - ${year}年${monthNum}月`,
-    description: `${year}年${monthNum}月${t('title')}，查看每日吉凶宜忌。`,
+    title: `${t('title')} - ${year}${t('yearSuffix')}${monthNum}${t('monthSuffix')}`,
+    description: `${year}${t('yearSuffix')}${monthNum}${t('monthSuffix')}${t('title')}`,
   };
 }
 
