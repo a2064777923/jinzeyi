@@ -60,7 +60,14 @@ Plans:
   3. User can enter a birth date/time and see a basic BaZi chart with four pillars displayed
   4. User can read Feng Shui knowledge articles and use a basic naming tool showing five-element attributes
   5. XML sitemaps are auto-generated per locale with hreflang annotations; all pages have JSON-LD structured data and optimized meta tags (title, description, keywords, Content-Language)
-**Plans**: TBD
+**Plans**: 6 plans
+Plans:
+- [x] 03-01-PLAN.md — Foundation: typed content registry, year guardrails, SEO helpers, shared SEO components, and Wave 0 tests ✓ 2026-05-17
+- [x] 03-02-PLAN.md — Auspicious day matrix: `/jieri/{scene}/{year}` pages, matching, filters, metadata, and JSON-LD ✓ 2026-05-17
+- [x] 03-03-PLAN.md — Zodiac matrix: hubs, article pages, compatibility/year tables, metadata, and JSON-LD ✓ 2026-05-17
+- [x] 03-04-PLAN.md — Tools: BaZi chart, naming five-element analysis, tool pages, forms, and tests ✓ 2026-05-17
+- [x] 03-05-PLAN.md — Feng Shui content: category landing, practical articles, checklists, metadata, and JSON-LD ✓ 2026-05-17
+- [x] 03-06-PLAN.md — Sitemap and final SEO coverage: hreflang sitemap, metadata/JSON-LD coverage, smoke verification ✓ 2026-05-17
 
 ### Phase 4: AI Integration
 **Goal**: Users can interact with an AI assistant that provides personalized, explained fortune-telling recommendations powered by multi-provider AI with automatic failover
@@ -91,6 +98,6 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 3/3 | Planning complete | 2026-05-17 |
 | 2. Core Almanac UI | 4/4 | Complete | 2026-05-17 |
-| 3. SEO Content Matrix | 0/TBD | Not started | - |
+| 3. SEO Content Matrix | 6/6 | Planning complete | 2026-05-17 |
 | 4. AI Integration | 0/TBD | Not started | - |
 | 5. Production Deployment | 0/TBD | Not started | - |

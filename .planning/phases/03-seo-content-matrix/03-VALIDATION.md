@@ -43,7 +43,7 @@ created: 2026-05-17
 | 03-02-01 | 02 | 2 | SEO-01, SEO-02 | T-03-03 | Route params reject unsafe values | unit/build | `npm test && npm run build` | ❌ W0 | ⬜ pending |
 | 03-03-01 | 03 | 2 | SEO-03 | T-03-04 | Article slugs render static content only | unit/build | `npm test && npm run build` | ❌ W0 | ⬜ pending |
 | 03-04-01 | 04 | 2 | SEO-04, SEO-06 | T-03-05 | Form input validated by zod before calculation | unit/build | `npm test && npm run build` | ❌ W0 | ⬜ pending |
-| 03-05-01 | 05 | 3 | SEO-05, SEO-08 | T-03-06 | Article data sanitized as typed static content | unit/build | `npm test && npm run build` | ❌ W0 | ⬜ pending |
+| 03-05-01 | 05 | 2 | SEO-05, SEO-08 | T-03-06 | Article data sanitized as typed static content | unit/build | `npm test && npm run build` | ❌ W0 | ⬜ pending |
 | 03-06-01 | 06 | 3 | SEO-07, SEO-08, SEO-09 | T-03-07 | Sitemap includes only approved indexable URLs | unit/build | `npm test && npm run build` | ❌ W0 | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠ flaky*
