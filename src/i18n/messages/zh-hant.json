@@ -124,6 +124,47 @@
       "大寒": { "meaning": "一年中最冷時期", "customs": "尾牙祭、除舊迎新" }
     }
   },
+  "Detail": {
+    "titleFormat": "{year}年{month}月{day}日 黃曆",
+    "tab": {
+      "overview": "概覽",
+      "yiJi": "宜忌",
+      "hours": "時辰",
+      "directions": "方位",
+      "deities": "神煞"
+    },
+    "backToCalendar": "返回月曆",
+    "backToToday": "回到今天",
+    "notFound": {
+      "heading": "找不到該日黃曆",
+      "body": "請檢查日期是否正確，或返回月曆瀏覽。"
+    },
+    "error": {
+      "heading": "黃曆資料載入失敗",
+      "body": "請稍後再試，或返回月曆瀏覽。"
+    },
+    "overview": {
+      "lunarDate": "農曆",
+      "ganZhi": "干支",
+      "zodiac": "生肖",
+      "chongSha": "沖煞"
+    },
+    "directions": {
+      "caiShen": "財神位",
+      "xiShen": "喜神位",
+      "fuShen": "福神位",
+      "chong": "沖",
+      "sha": "煞"
+    },
+    "deities": {
+      "gods": "吉神凶煞",
+      "duty": "值神",
+      "twentyEightStar": "二十八星宿",
+      "pengZu": "彭祖百忌",
+      "sound": "納音",
+      "fetusDay": "胎神"
+    }
+  },
   "NotFound": {
     "heading": "頁面未找到",
     "body": "您要找的頁面不存在。",
