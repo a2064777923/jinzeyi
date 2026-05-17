@@ -1,6 +1,6 @@
-import { SolarDay } from 'tyme4ts';
-import { getCachedAlmanac, setCachedAlmanac, getCachedHourlyFortune, setCachedHourlyFortune } from './cache';
-import type { DailyAlmanac, HourlyFortune } from './types';
+import { SolarDay, SolarMonth } from 'tyme4ts';
+import { getCachedAlmanac, setCachedAlmanac, getCachedHourlyFortune, setCachedHourlyFortune, getCachedMonthlyCalendar, setCachedMonthlyCalendar } from './cache';
+import type { DailyAlmanac, HourlyFortune, CalendarDay } from './types';
 
 /**
  * Get daily almanac data for a given date.
@@ -85,5 +85,31 @@ export async function getHourlyFortune(dateStr: string): Promise<HourlyFortune[]
   });
 
   await setCachedHourlyFortune(dateStr, result);
+  return result;
+}
+
+export async function getMonthlyCalendar(year: number, month: number): Promise<CalendarDay[]> {
+  const cacheKey = `${year}-${String(month).padStart(2, '0')}`;
+  const cached = await getCachedMonthlyCalendar(cacheKey);
+  if (cached) return cached;
+
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+  const days = SolarMonth.fromYm(year, month).getDays();
+  const result: CalendarDay[] = days.map((d) => {
+    const lunar = d.getLunarDay();
+    const dateStr = `${d.getYear()}-${String(d.getMonth()).padStart(2, '0')}-${String(d.getDay()).padStart(2, '0')}`;
+    return {
+      solarDay: d.getDay(),
+      lunarDay: lunar.getName(),
+      fortune: lunar.getTwelveStar().getEcliptic().getLuck().toString() as '吉' | '凶',
+      isToday: dateStr === todayStr,
+      dateStr,
+      weekday: d.getWeek().getIndex(),
+    };
+  });
+
+  await setCachedMonthlyCalendar(cacheKey, result);
   return result;
 }

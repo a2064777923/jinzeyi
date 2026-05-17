@@ -66,6 +66,21 @@
     "noYi": "—",
     "noJi": "诸事不宜"
   },
+  "Calendar": {
+    "title": "月历",
+    "weekdays": ["日", "一", "二", "三", "四", "五", "六"],
+    "today": "今天",
+    "prevMonth": "上个月",
+    "nextMonth": "下个月",
+    "legend": {
+      "auspicious": "红底 = 吉日",
+      "inauspicious": "灰底 = 凶日"
+    },
+    "error": {
+      "heading": "无法加载月历数据",
+      "body": "请稍后重试，或返回首页。"
+    }
+  },
   "NotFound": {
     "heading": "页面未找到",
     "body": "您找的页面不存在。",

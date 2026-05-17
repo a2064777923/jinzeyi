@@ -41,3 +41,12 @@ export interface HourlyFortune {
   yi: string[];       // 宜
   ji: string[];       // 忌
 }
+
+export interface CalendarDay {
+  solarDay: number;      // 1-31
+  lunarDay: string;      // 初一, 十五, ...
+  fortune: '吉' | '凶';
+  isToday: boolean;
+  dateStr: string;       // YYYY-MM-DD
+  weekday: number;       // 0=Sun, 6=Sat
+}
