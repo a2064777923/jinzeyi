@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Phase 3 UI-SPEC approved
-last_updated: "2026-05-17T13:10:50.927Z"
-last_activity: 2026-05-17 -- Phase 03 planning complete
+status: blocked
+stopped_at: Phase 3 blocked at 03-01 year support guardrail
+last_updated: "2026-05-17T13:21:46.911Z"
+last_activity: 2026-05-17 -- Phase 03 blocked on year 0/1 support
 progress:
   total_phases: 5
   completed_phases: 2
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-16)
 
 **Core value:** AI 驱动的个性化择吉体验——不只是给日期，更告诉用户"为什么选这天"、"避开了什么"、"还有什么备选"
-**Current focus:** Phase 1 — Foundation & Data Layer
+**Current focus:** Phase 3 — SEO Content Matrix
 
 ## Current Position
 
-Phase: 1 of 5 (Foundation & Data Layer)
-Plan: 0 of TBD in current phase
-Status: Ready to execute
-Last activity: 2026-05-17 -- Phase 03 planning complete
+Phase: 3 of 5 (SEO Content Matrix)
+Plan: 03-01 blocked at Task 1
+Status: Blocked pending product decision
+Last activity: 2026-05-17 -- Phase 03 blocked on year 0/1 support
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] blocked before route expansion
 
 ## Performance Metrics
 
@@ -64,11 +64,13 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-None yet.
+Choose how Phase 3 should handle years 0 and 1 before continuing route expansion.
 
 ### Blockers/Concerns
 
-None yet.
+- Phase 3 year support blocker: installed `tyme4ts` cannot provide complete almanac semantics for years `0` and `1`.
+- Full details: `.planning/phases/03-seo-content-matrix/03-YEAR-SUPPORT-BLOCKER.md`.
+- Execution impact: stop before `03-01` Task 2 and before Plans `03-02` through `03-06`.
 
 ## Deferred Items
 
@@ -78,6 +80,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-17T12:51:13.230Z
-Stopped at: Phase 3 UI-SPEC approved
-Resume file: .planning/phases/03-seo-content-matrix/03-UI-SPEC.md
+Last session: 2026-05-17T13:21:46.892Z
+Stopped at: Phase 3 blocked at 03-01 year support guardrail
+Resume file: .planning/phases/03-seo-content-matrix/03-YEAR-SUPPORT-BLOCKER.md
