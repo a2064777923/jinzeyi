@@ -43,4 +43,11 @@ describe('locale sitemap', () => {
       });
     }
   });
+
+  it('falls back safely when Next invokes metadata sitemap without params', async () => {
+    const entries = await sitemap();
+
+    expect(entries[0].url).toContain('/zh-hant');
+    expect(entries[0].alternates?.languages).toHaveProperty('zh-Hans');
+  });
 });

@@ -4,6 +4,7 @@ import { FormEvent, useId, useState } from 'react';
 import { Calculator, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { calculateBazi, type BaziInput, type BaziResult as BaziResultData, type Gender } from '@/lib/almanac/bazi';
+import type { LocaleCode } from '@/lib/content/types';
 import { CHINA_CITIES } from '@/lib/tools/china-cities';
 import { BaziResult } from './BaziResult';
 
@@ -20,7 +21,35 @@ const GENDER_OPTIONS: Array<{ value: Gender; label: string }> = [
   { value: 'unspecified', label: '不指定' },
 ];
 
-export function BaziForm() {
+const copy = {
+  'zh-hans': {
+    heading: '输入出生资料',
+    deck: '按中国城市经度先做真太阳时校正。',
+    reset: '重置八字表单',
+    birthDate: '出生日期',
+    birthTime: '精确时间',
+    birthPlace: '出生地点',
+    gender: '性别',
+    unspecified: '不指定',
+    error: '请确认日期在 0002-01-01 到 5000-12-31 之间，时间、城市和性别都已正确选择。',
+    submit: '排盘',
+  },
+  'zh-hant': {
+    heading: '輸入出生資料',
+    deck: '按中國城市經度先做真太陽時校正。',
+    reset: '重置八字表單',
+    birthDate: '出生日期',
+    birthTime: '精確時間',
+    birthPlace: '出生地點',
+    gender: '性別',
+    unspecified: '不指定',
+    error: '請確認日期在 0002-01-01 到 5000-12-31 之間，時間、城市和性別都已正確選擇。',
+    submit: '排盤',
+  },
+} satisfies Record<LocaleCode, Record<string, string>>;
+
+export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
+  const t = copy[locale];
   const id = useId();
   const [values, setValues] = useState<BaziInput>(DEFAULT_VALUES);
   const [result, setResult] = useState<BaziResultData | null>(() => calculateBazi(DEFAULT_VALUES));
@@ -37,7 +66,7 @@ export function BaziForm() {
       setResult(calculateBazi(values));
       setError(null);
     } catch {
-      setError('请确认日期在 0002-01-01 到 5000-12-31 之间，时间、城市和性别都已正确选择。');
+      setError(t.error);
     }
   }
 
@@ -52,16 +81,16 @@ export function BaziForm() {
       <form className="rounded-lg border border-border bg-card p-4 shadow-sm" onSubmit={onSubmit} noValidate>
         <div className="mb-4 flex items-center justify-between gap-3">
           <div>
-            <h2 className="text-lg font-semibold">输入出生资料</h2>
-            <p className="mt-1 text-sm leading-6 text-muted-foreground">按中国城市经度先做真太阳时校正。</p>
+            <h2 className="text-lg font-semibold">{t.heading}</h2>
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">{t.deck}</p>
           </div>
-          <Button type="button" variant="outline" size="icon" onClick={reset} aria-label="重置八字表单">
+          <Button type="button" variant="outline" size="icon" onClick={reset} aria-label={t.reset}>
             <RotateCcw />
           </Button>
         </div>
 
         <div className="grid gap-3">
-          <Field label="出生日期" htmlFor={`${id}-date`}>
+          <Field label={t.birthDate} htmlFor={`${id}-date`}>
             <input
               id={`${id}-date`}
               type="date"
@@ -72,7 +101,7 @@ export function BaziForm() {
               className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
             />
           </Field>
-          <Field label="精确时间" htmlFor={`${id}-time`}>
+          <Field label={t.birthTime} htmlFor={`${id}-time`}>
             <input
               id={`${id}-time`}
               type="time"
@@ -81,7 +110,7 @@ export function BaziForm() {
               className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
             />
           </Field>
-          <Field label="出生地点" htmlFor={`${id}-city`}>
+          <Field label={t.birthPlace} htmlFor={`${id}-city`}>
             <select
               id={`${id}-city`}
               value={values.cityId}
@@ -96,7 +125,7 @@ export function BaziForm() {
             </select>
           </Field>
           <fieldset className="rounded-md border border-border bg-background p-3">
-            <legend className="px-1 text-sm font-semibold">性别</legend>
+            <legend className="px-1 text-sm font-semibold">{t.gender}</legend>
             <div className="mt-2 grid grid-cols-3 gap-2">
               {GENDER_OPTIONS.map((option) => (
                 <label key={option.value} className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-border px-2 py-2 text-sm has-[:checked]:border-primary has-[:checked]:bg-primary/10">
@@ -108,7 +137,7 @@ export function BaziForm() {
                     onChange={() => updateValue('gender', option.value)}
                     className="sr-only"
                   />
-                  {option.label}
+                  {option.value === 'unspecified' ? t.unspecified : option.label}
                 </label>
               ))}
             </div>
@@ -119,11 +148,11 @@ export function BaziForm() {
 
         <Button type="submit" className="mt-4 w-full" size="lg">
           <Calculator data-icon="inline-start" />
-          排盘
+          {t.submit}
         </Button>
       </form>
 
-      {result ? <BaziResult result={result} /> : null}
+      {result ? <BaziResult result={result} locale={locale} /> : null}
     </section>
   );
 }

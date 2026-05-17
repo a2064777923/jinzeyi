@@ -65,7 +65,7 @@ export default async function BaziToolPage({ params }: Props) {
         />
       </SeoPageBand>
       <SeoPageBand tone="plain" className="pt-0">
-        <BaziForm />
+        <BaziForm locale={locale} />
       </SeoPageBand>
       <SeoPageBand tone="muted">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">

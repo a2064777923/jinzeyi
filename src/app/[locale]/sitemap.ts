@@ -38,8 +38,8 @@ function sitemapEntry(locale: Locale, path: string, priority = 0.7): MetadataRou
   };
 }
 
-export default async function sitemap({ params }: Props): Promise<MetadataRoute.Sitemap> {
-  const { locale } = await params;
+export default async function sitemap(input?: Props): Promise<MetadataRoute.Sitemap> {
+  const { locale } = input ? await input.params : { locale: 'zh-hant' as const };
   const entries = getSitemapCandidates().map((route) => sitemapEntry(locale, route.path, route.path === '/' ? 1 : 0.7));
   const { start, end } = getIndexedYearRange();
 
