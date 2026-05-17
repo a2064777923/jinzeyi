@@ -50,3 +50,10 @@ export interface CalendarDay {
   dateStr: string;       // YYYY-MM-DD
   weekday: number;       // 0=Sun, 6=Sat
 }
+
+export interface SolarTerm {
+  name: string;       // 节气名 (e.g., "立春")
+  date: string;       // YYYY-MM-DD
+  isJie: boolean;     // true=节, false=气
+  year: number;
+}

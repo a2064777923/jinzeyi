@@ -81,6 +81,49 @@
       "body": "請稍後再試，或返回首頁。"
     }
   },
+  "SolarTerms": {
+    "title": "二十四節氣",
+    "spring": "春季",
+    "summer": "夏季",
+    "autumn": "秋季",
+    "winter": "冬季",
+    "jieLabel": "節",
+    "qiLabel": "氣",
+    "dateMonth": "月",
+    "dateDay": "日",
+    "meaningLabel": "含義",
+    "customsLabel": "傳統習俗",
+    "error": {
+      "heading": "節氣資料載入失敗",
+      "body": "請稍後再試，或返回首頁。"
+    },
+    "terms": {
+      "立春": { "meaning": "春季開始，萬物復蘇", "customs": "咬春、打春牛、貼春聯" },
+      "雨水": { "meaning": "降雨開始，雨量增多", "customs": "回娘屋、拉保保" },
+      "驚蟄": { "meaning": "春雷驚醒冬眠動物", "customs": "打小人、祭白虎" },
+      "春分": { "meaning": "晝夜平分，春季過半", "customs": "豎蛋、吃春菜" },
+      "清明": { "meaning": "天氣清澈明朗", "customs": "掃墓祭祖、踏青、插柳" },
+      "穀雨": { "meaning": "雨生百穀，降雨增多", "customs": "賞牡丹、飲穀雨茶" },
+      "立夏": { "meaning": "夏季開始", "customs": "嘗新、鬥蛋、稱人" },
+      "小滿": { "meaning": "麥類等作物籽粒開始飽滿", "customs": "祭車神、蠶神" },
+      "芒種": { "meaning": "有芒的作物開始成熟", "customs": "送花神、煮梅" },
+      "夏至": { "meaning": "白晝最長，陽氣最盛", "customs": "吃夏至麵、祭地" },
+      "小暑": { "meaning": "天氣開始炎熱", "customs": "曬書畫、吃藕" },
+      "大暑": { "meaning": "一年中最熱時期", "customs": "飲伏茶、曬伏薑" },
+      "立秋": { "meaning": "秋季開始", "customs": "貼秋膘、啃秋瓜" },
+      "處暑": { "meaning": "暑氣結束", "customs": "放河燈、開漁節" },
+      "白露": { "meaning": "天氣轉涼，露水凝結", "customs": "收清露、飲白露茶" },
+      "秋分": { "meaning": "晝夜平分，秋季過半", "customs": "豎蛋、吃秋菜" },
+      "寒露": { "meaning": "露水更涼，將要結霜", "customs": "登高賞菊、飲菊花酒" },
+      "霜降": { "meaning": "天氣漸冷，開始有霜", "customs": "吃柿子、進補" },
+      "立冬": { "meaning": "冬季開始", "customs": "補冬、吃餃子" },
+      "小雪": { "meaning": "開始降雪，雪量不大", "customs": "醃臘肉、吃糍粑" },
+      "大雪": { "meaning": "降雪增多，範圍更廣", "customs": "進補、賞雪" },
+      "冬至": { "meaning": "白晝最短，陽氣始生", "customs": "吃湯圓、吃餃子、祭祖" },
+      "小寒": { "meaning": "天氣寒冷但未到極點", "customs": "吃臘八粥、寫春聯" },
+      "大寒": { "meaning": "一年中最冷時期", "customs": "尾牙祭、除舊迎新" }
+    }
+  },
   "NotFound": {
     "heading": "頁面未找到",
     "body": "您要找的頁面不存在。",

@@ -1,5 +1,5 @@
 import { redis } from '@/lib/redis';
-import type { DailyAlmanac, HourlyFortune, CalendarDay } from './types';
+import type { DailyAlmanac, HourlyFortune, CalendarDay, SolarTerm } from './types';
 
 const CACHE_TTL = 86400; // 24 hours in seconds (DATA-03)
 
@@ -56,5 +56,25 @@ export async function setCachedMonthlyCalendar(cacheKey: string, data: CalendarD
     await redis.setex(`almanac:monthly:${cacheKey}`, MONTHLY_CACHE_TTL, JSON.stringify(data));
   } catch {
     console.error(`[Redis] Failed to cache monthly calendar for ${cacheKey}`);
+  }
+}
+
+const TERMS_CACHE_TTL = 31536000; // 365 days
+
+export async function getCachedSolarTerms(year: number): Promise<SolarTerm[] | null> {
+  try {
+    const cached = await redis.get(`almanac:terms:${year}`);
+    if (!cached) return null;
+    return JSON.parse(cached) as SolarTerm[];
+  } catch {
+    return null;
+  }
+}
+
+export async function setCachedSolarTerms(year: number, data: SolarTerm[]): Promise<void> {
+  try {
+    await redis.setex(`almanac:terms:${year}`, TERMS_CACHE_TTL, JSON.stringify(data));
+  } catch {
+    console.error(`[Redis] Failed to cache solar terms for ${year}`);
   }
 }

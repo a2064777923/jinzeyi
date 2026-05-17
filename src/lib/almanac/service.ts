@@ -1,6 +1,6 @@
-import { SolarDay, SolarMonth } from 'tyme4ts';
-import { getCachedAlmanac, setCachedAlmanac, getCachedHourlyFortune, setCachedHourlyFortune, getCachedMonthlyCalendar, setCachedMonthlyCalendar } from './cache';
-import type { DailyAlmanac, HourlyFortune, CalendarDay } from './types';
+import { SolarDay, SolarMonth, SolarTerm as TymeSolarTerm } from 'tyme4ts';
+import { getCachedAlmanac, setCachedAlmanac, getCachedHourlyFortune, setCachedHourlyFortune, getCachedMonthlyCalendar, setCachedMonthlyCalendar, getCachedSolarTerms, setCachedSolarTerms } from './cache';
+import type { DailyAlmanac, HourlyFortune, CalendarDay, SolarTerm } from './types';
 
 /**
  * Get daily almanac data for a given date.
@@ -112,4 +112,26 @@ export async function getMonthlyCalendar(year: number, month: number): Promise<C
 
   await setCachedMonthlyCalendar(cacheKey, result);
   return result;
+}
+
+export async function getSolarTerms(year: number): Promise<SolarTerm[]> {
+  const cached = await getCachedSolarTerms(year);
+  if (cached) return cached;
+
+  const terms: SolarTerm[] = [];
+  for (let i = 0; i < 24; i++) {
+    const t = TymeSolarTerm.fromIndex(year, i);
+    const solarDay = t.getSolarDay();
+    // Index 0 returns previous year's 冬至 — filter by solar day year
+    if (solarDay.getYear() !== year) continue;
+    terms.push({
+      name: t.toString(),
+      date: `${solarDay.getYear()}-${String(solarDay.getMonth()).padStart(2, '0')}-${String(solarDay.getDay()).padStart(2, '0')}`,
+      isJie: t.isJie(),
+      year: t.getYear(),
+    });
+  }
+
+  await setCachedSolarTerms(year, terms);
+  return terms;
 }
