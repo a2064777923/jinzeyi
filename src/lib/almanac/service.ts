@@ -1,6 +1,6 @@
 import { SolarDay } from 'tyme4ts';
-import { getCachedAlmanac, setCachedAlmanac } from './cache';
-import type { DailyAlmanac } from './types';
+import { getCachedAlmanac, setCachedAlmanac, getCachedHourlyFortune, setCachedHourlyFortune } from './cache';
+import type { DailyAlmanac, HourlyFortune } from './types';
 
 /**
  * Get daily almanac data for a given date.
@@ -58,8 +58,32 @@ export async function getDailyAlmanac(dateStr: string): Promise<DailyAlmanac> {
     fetusDay: lunar.getFetusDay().toString(),
   };
 
-  // Cache the result (non-blocking — errors are caught in setCachedAlmanac)
   await setCachedAlmanac(dateStr, data);
 
   return data;
+}
+
+export async function getHourlyFortune(dateStr: string): Promise<HourlyFortune[]> {
+  const cached = await getCachedHourlyFortune(dateStr);
+  if (cached) return cached;
+
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const solar = SolarDay.fromYmd(year, month, day);
+  const lunar = solar.getLunarDay();
+  const hours = lunar.getHours().slice(0, 12);
+
+  const result: HourlyFortune[] = hours.map((h) => {
+    const star = h.getTwelveStar();
+    return {
+      name: h.getName(),
+      ganZhi: h.getSixtyCycleHour().toString().slice(-3, -1),
+      star: star.toString(),
+      fortune: star.getEcliptic().getLuck().toString() as '吉' | '凶',
+      yi: h.getRecommends().map((r) => r.toString()),
+      ji: h.getAvoids().map((a) => a.toString()),
+    };
+  });
+
+  await setCachedHourlyFortune(dateStr, result);
+  return result;
 }

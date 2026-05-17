@@ -6,6 +6,11 @@
       "zhHant": "繁體",
       "zhHans": "简体",
       "ariaLabel": "切换语言"
+    },
+    "nav": {
+      "home": "首页",
+      "calendar": "月历",
+      "solarTerms": "节气"
     }
   },
   "Footer": {
@@ -37,8 +42,29 @@
     "direction": {
       "caiShen": "财神位",
       "xiShen": "喜神位",
-      "fuShen": "福神位"
-    }
+      "fuShen": "福神位",
+      "chong": "冲",
+      "sha": "煞"
+    },
+    "chongSha": "冲煞",
+    "gods": "吉神凶煞",
+    "duty": "值神",
+    "twentyEightStar": "二十八星宿",
+    "pengZu": "彭祖百忌",
+    "sound": "纳音",
+    "fetusDay": "胎神",
+    "expand": "展开更多 ▼",
+    "collapse": "收起 ▲"
+  },
+  "HourlyFortune": {
+    "title": "时辰吉凶",
+    "hour": "时辰",
+    "fortune": "吉凶",
+    "star": "星神",
+    "yi": "宜",
+    "ji": "忌",
+    "noYi": "—",
+    "noJi": "诸事不宜"
   },
   "NotFound": {
     "heading": "页面未找到",

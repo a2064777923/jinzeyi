@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { LocaleToggle } from './LocaleToggle';
+import { NavigationLinks } from './NavigationLinks';
 
 export async function Header() {
   const t = await getTranslations('Layout');
@@ -13,6 +14,7 @@ export async function Header() {
         >
           {t('brand')}
         </a>
+        <NavigationLinks />
         <LocaleToggle />
       </div>
     </header>

@@ -32,3 +32,12 @@ export interface DailyAlmanac {
   sound: string;      // 纳音
   fetusDay: string;   // 胎神
 }
+
+export interface HourlyFortune {
+  name: string;       // 时辰名 (e.g., "子时")
+  ganZhi: string;     // 干支 (e.g., "戊子")
+  star: string;       // 星神 (e.g., "金匮")
+  fortune: '吉' | '凶';
+  yi: string[];       // 宜
+  ji: string[];       // 忌
+}
