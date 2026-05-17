@@ -9,8 +9,13 @@
     },
     "nav": {
       "home": "首页",
+      "today": "今日黄历",
       "calendar": "月历",
-      "solarTerms": "节气"
+      "solarTerms": "节气",
+      "jieri": "吉日",
+      "zodiac": "生肖",
+      "tools": "工具",
+      "fengShui": "风水"
     }
   },
   "Footer": {
@@ -18,8 +23,21 @@
     "copyright": "{year} 今择易"
   },
   "Homepage": {
-    "title": "今日黄历",
+    "title": "今日黄历｜今择易",
+    "description": "今择易提供今日黄历、农历日期、宜忌事项、吉时凶时、冲煞方位、月历吉日凶日与二十四节气查询，适合快速参考传统择日信息。",
     "cta": "查看今日黄历",
+    "heroKicker": "择日 · 时辰 · 节令",
+    "heroLead": "把今日宜忌、吉时凶时和节气节令放在同一个视图，方便快速判断今天适合做什么。",
+    "summary": "今日概览",
+    "luckyHours": "吉时",
+    "unluckyHours": "凶时",
+    "quickEntry": "快速入口",
+    "todayFocus": "今日重点",
+    "search": {
+      "label": "查找指定日期黄历",
+      "button": "查询",
+      "invalid": "请选择 1900-01-01 至 2100-12-31 之间的有效日期"
+    },
     "loading": "加载中...",
     "error": {
       "heading": "发生错误",
@@ -36,7 +54,8 @@
     "ganZhiYear": "年",
     "ganZhiMonth": "月",
     "ganZhiDay": "日",
-    "zodiac": "生肖",
+    "zodiac": "年生肖",
+    "dayZodiac": "日生肖",
     "yi": "宜",
     "ji": "忌",
     "direction": {
@@ -53,8 +72,9 @@
     "pengZu": "彭祖百忌",
     "sound": "纳音",
     "fetusDay": "胎神",
-    "expand": "展开更多 ▼",
-    "collapse": "收起 ▲"
+    "expand": "展开更多",
+    "expandAriaLabel": "展开更多黄历资料",
+    "collapse": "收起"
   },
   "HourlyFortune": {
     "title": "时辰吉凶",
@@ -74,9 +94,46 @@
     "today": "今天",
     "prevMonth": "上个月",
     "nextMonth": "下个月",
+    "prevMonthAria": "查看 {year} 年 {month} 月月历",
+    "nextMonthAria": "查看 {year} 年 {month} 月月历",
     "legend": {
-      "auspicious": "红底 = 吉日",
-      "inauspicious": "灰底 = 凶日"
+      "auspicious": "红金 = 吉日",
+      "inauspicious": "灰纹 = 凶日",
+      "solarTerm": "金点 = 节气"
+    },
+    "summary": {
+      "description": "这张月历把公历、农历、节气、值神、宜忌和吉凶放在同一屏：红金是吉日，灰纹是凶日，金点是节气。点日期可进入完整黄历。",
+      "luckyDays": "吉日",
+      "ominousDays": "凶日",
+      "solarTerms": "节气",
+      "noSolarTerm": "本月无节气",
+      "recommendedTitle": "本月好入手的吉日",
+      "avoidTitle": "需要谨慎查看的凶日",
+      "noYi": "查看详情",
+      "monthOverview": "月度",
+      "luckyRatio": "本月吉日占比",
+      "bestEntry": "最快入口",
+      "termTitle": "本月节气",
+      "noLucky": "本月暂无吉日数据",
+      "noOminous": "本月暂无凶日数据",
+      "noTermDays": "本月暂无节气",
+      "quickLucky": "吉日速览",
+      "quickOminous": "凶日速览",
+      "quickTerm": "节气速览"
+    },
+    "search": {
+      "label": "跳转到指定日期",
+      "button": "查看",
+      "invalid": "请选择 1900-01-01 至 2100-12-31 之间的有效日期"
+    },
+    "guide": {
+      "title": "怎么读这张月历",
+      "stepFortune": "先看格子右上角的「吉/凶」印记：吉日用红金，凶日用灰纹，避免只靠颜色判断。",
+      "stepSolarTerm": "再看日期下方：遇到节气会优先显示节气名，否则显示农历日；桌面端还会显示值神与星神。",
+      "stepDetail": "最后看宜忌摘要；若要安排具体事项，点进详情页再结合时辰吉凶、冲煞和方位。",
+      "noteTitle": "今日提示",
+      "todayNote": "今天是 {date}，月历判断为「{fortune}」。具体安排仍建议进入详情看宜忌与时辰。",
+      "generalNote": "当前月份不包含今天。可切回本月或直接点日期查看详情。"
     },
     "error": {
       "heading": "无法加载月历数据",
@@ -85,6 +142,11 @@
   },
   "SolarTerms": {
     "title": "二十四节气",
+    "description": "按春、夏、秋、冬整理全年节气，查看日期、节令含义与传统习俗。",
+    "countLabel": "{count} 个节气",
+    "seasonCountLabel": "四季轮转",
+    "jieCountLabel": "节令节点",
+    "qiCountLabel": "中气节点",
     "spring": "春季",
     "summer": "夏季",
     "autumn": "秋季",
@@ -149,7 +211,8 @@
     "overview": {
       "lunarDate": "农历",
       "ganZhi": "干支",
-      "zodiac": "生肖",
+      "zodiac": "年生肖",
+      "dayZodiac": "日生肖",
       "chongSha": "冲煞",
       "yi": "宜",
       "ji": "忌",
@@ -162,7 +225,11 @@
       "xiShen": "喜神位",
       "fuShen": "福神位",
       "chong": "冲",
-      "sha": "煞"
+      "sha": "煞",
+      "north": "北",
+      "east": "东",
+      "south": "南",
+      "west": "西"
     },
     "deities": {
       "gods": "吉神凶煞",
@@ -171,6 +238,13 @@
       "pengZu": "彭祖百忌",
       "sound": "纳音",
       "fetusDay": "胎神"
+    },
+    "visual": {
+      "balance": "吉时占比 {percent}%",
+      "luckyHours": "吉时",
+      "yiTitle": "适合推进",
+      "jiTitle": "需要避开",
+      "directionMap": "方位可视化"
     }
   },
   "NotFound": {
