@@ -1,14 +1,6 @@
 import { createLocalizedSeo } from './localize';
+import type { JieriSceneRule } from '@/lib/almanac/types';
 import type { FaqItem, IndexablePage, InternalLink } from './types';
-
-export interface JieriSceneRule {
-  slug: string;
-  name: string;
-  icon: string;
-  yiTerms: string[];
-  cautionTerms: string[];
-  summary: string;
-}
 
 const sharedJieriLinks: InternalLink[] = [
   { href: '/calendar', label: '月历吉日', description: '按月查看每日吉凶与节气。', family: 'core' },
@@ -131,4 +123,3 @@ export const jieriIndexPage: IndexablePage = {
 export function getJieriScene(slug: string): JieriSceneRule | undefined {
   return jieriScenes.find((scene) => scene.slug === slug);
 }
-
