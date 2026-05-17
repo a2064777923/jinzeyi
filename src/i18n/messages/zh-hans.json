@@ -147,7 +147,9 @@
       "lunarDate": "农历",
       "ganZhi": "干支",
       "zodiac": "生肖",
-      "chongSha": "冲煞"
+      "chongSha": "冲煞",
+      "yi": "宜",
+      "ji": "忌"
     },
     "directions": {
       "caiShen": "财神位",

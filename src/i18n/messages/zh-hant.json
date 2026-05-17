@@ -4,7 +4,7 @@
     "tagline": "今日擇吉，簡易明白",
     "localeToggle": {
       "zhHant": "繁體",
-      "zhHans": "简体",
+      "zhHans": "簡體",
       "ariaLabel": "切換語言"
     },
     "nav": {
@@ -147,7 +147,9 @@
       "lunarDate": "農曆",
       "ganZhi": "干支",
       "zodiac": "生肖",
-      "chongSha": "沖煞"
+      "chongSha": "沖煞",
+      "yi": "宜",
+      "ji": "忌"
     },
     "directions": {
       "caiShen": "財神位",

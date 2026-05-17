@@ -21,7 +21,7 @@ function validateDate(dateStr: string): boolean {
 export async function generateMetadata({ params }: Props) {
   const { date } = await params;
   if (!validateDate(date)) {
-    return { title: '黃曆' };
+    return { title: '黄历' };
   }
 
   try {
@@ -35,10 +35,10 @@ export async function generateMetadata({ params }: Props) {
         month: almanac.solar.month,
         day: almanac.solar.day,
       }),
-      description: `今日宜：${yiPreview}。忌：${jiPreview}。`,
+      description: `宜：${yiPreview}。忌：${jiPreview}。`,
     };
   } catch {
-    return { title: '黃曆' };
+    return { title: '黄历' };
   }
 }
 

@@ -39,7 +39,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
 
       {/* Title */}
       <h1 className="text-2xl font-bold text-primary">
-        {almanac.solar.year}年{almanac.solar.month}月{almanac.solar.day}日 黃曆
+        {t('titleFormat', { year: almanac.solar.year, month: almanac.solar.month, day: almanac.solar.day })}
       </h1>
 
       {/* Tabs */}
@@ -79,11 +79,11 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
               </div>
               <Separator />
               <div>
-                <p className="text-sm font-medium text-gold mb-2">宜</p>
+                <p className="text-sm font-medium text-gold mb-2">{t('overview.yi')}</p>
                 <YiJiBadgeList items={almanac.yi} type="yi" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground mb-2">忌</p>
+                <p className="text-sm font-medium text-muted-foreground mb-2">{t('overview.ji')}</p>
                 <YiJiBadgeList items={almanac.ji} type="ji" />
               </div>
             </CardContent>
@@ -95,12 +95,12 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
           <Card>
             <CardContent className="pt-6 space-y-4">
               <div>
-                <p className="text-sm font-medium text-gold mb-2">宜</p>
+                <p className="text-sm font-medium text-gold mb-2">{t('overview.yi')}</p>
                 <YiJiBadgeList items={almanac.yi} type="yi" />
               </div>
               <Separator />
               <div>
-                <p className="text-sm font-medium text-muted-foreground mb-2">忌</p>
+                <p className="text-sm font-medium text-muted-foreground mb-2">{t('overview.ji')}</p>
                 <YiJiBadgeList items={almanac.ji} type="ji" />
               </div>
             </CardContent>

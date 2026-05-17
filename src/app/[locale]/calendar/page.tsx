@@ -24,7 +24,7 @@ export async function generateMetadata({ searchParams }: Props) {
   const t = await getTranslations('Calendar');
   return {
     title: `${t('title')} - ${year}年${monthNum}月`,
-    description: `${year}年${monthNum}月黄历月历，查看每日吉凶宜忌。`,
+    description: `${year}年${monthNum}月${t('title')}，查看每日吉凶宜忌。`,
   };
 }
 

@@ -8,7 +8,7 @@ export async function generateMetadata() {
   const year = new Date().getFullYear();
   return {
     title: `${t('title')} - ${year}`,
-    description: `${year}年二十四节气日期、含义与传统习俗。`,
+    description: `${year}年${t('title')}，日期、含義與傳統習俗。`,
   };
 }
 
