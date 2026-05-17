@@ -44,8 +44,22 @@ describe('bazi calculation utility', () => {
     expect(result.explanation).toContain('文化参考');
   });
 
+  it('does not remap early common-era years to the 1900s', () => {
+    const result = calculateBazi({
+      birthDate: '0002-01-01',
+      birthTime: '00:30',
+      cityId: 'hangzhou',
+      gender: 'unspecified',
+    });
+
+    expect(result.trueSolarTime.adjusted.startsWith('2-')).toBe(false);
+    expect(result.trueSolarTime.adjusted).toMatch(/^0002-01-01 /);
+  });
+
   it('rejects unsupported city ids and invalid dates', () => {
     expect(() => calculateBazi({ birthDate: '2026-05-17', birthTime: '11:30', cityId: 'unknown', gender: 'unspecified' })).toThrow();
     expect(() => calculateBazi({ birthDate: '2026-02-31', birthTime: '11:30', cityId: 'beijing', gender: 'unspecified' })).toThrow();
+    expect(() => calculateBazi({ birthDate: '0001-01-01', birthTime: '11:30', cityId: 'beijing', gender: 'unspecified' })).toThrow();
+    expect(() => calculateBazi({ birthDate: '5001-01-01', birthTime: '11:30', cityId: 'beijing', gender: 'unspecified' })).toThrow();
   });
 });

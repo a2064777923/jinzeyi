@@ -1,5 +1,6 @@
 import { SolarTime } from 'tyme4ts';
 import { z } from 'zod';
+import { isLegalRouteYear } from '@/lib/almanac/year-support';
 import { getChinaCity, type ChinaCity } from '@/lib/tools/china-cities';
 
 export type Gender = 'male' | 'female' | 'unspecified';
@@ -89,7 +90,8 @@ export function calculateBazi(input: BaziInput): BaziResult {
 
   const { year, month, day, hour, minute } = parseBirthDateTime(parsed.birthDate, parsed.birthTime);
   const offsetMinutes = calculateTrueSolarOffsetMinutes(city.longitude);
-  const adjusted = new Date(Date.UTC(year, month - 1, day, hour, minute + offsetMinutes, 0));
+  const adjusted = createUtcDate(year, month, day, hour, minute, 0);
+  adjusted.setUTCMinutes(adjusted.getUTCMinutes() + offsetMinutes);
   const solarTime = SolarTime.fromYmdHms(
     adjusted.getUTCFullYear(),
     adjusted.getUTCMonth() + 1,
@@ -128,7 +130,11 @@ export function calculateBazi(input: BaziInput): BaziResult {
 function parseBirthDateTime(birthDate: string, birthTime: string) {
   const [year, month, day] = birthDate.split('-').map(Number);
   const [hour, minute] = birthTime.split(':').map(Number);
-  const date = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
+  if (!isLegalRouteYear(year)) {
+    throw new Error('Birth year must be between 2 and 5000');
+  }
+
+  const date = createUtcDate(year, month, day, hour, minute, 0);
 
   if (
     date.getUTCFullYear() !== year ||
@@ -141,6 +147,12 @@ function parseBirthDateTime(birthDate: string, birthTime: string) {
   }
 
   return { year, month, day, hour, minute };
+}
+
+function createUtcDate(year: number, month: number, day: number, hour: number, minute: number, second: number): Date {
+  const date = new Date(Date.UTC(0, month - 1, day, hour, minute, second));
+  date.setUTCFullYear(year);
+  return date;
 }
 
 function createPillar(label: string, value: string): BaziPillar {
@@ -179,7 +191,7 @@ function genderLabel(gender: Gender): string {
 }
 
 function formatAdjustedTime(date: Date): string {
-  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')} ${String(date.getUTCHours()).padStart(2, '0')}:${String(date.getUTCMinutes()).padStart(2, '0')}`;
+  return `${String(date.getUTCFullYear()).padStart(4, '0')}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')} ${String(date.getUTCHours()).padStart(2, '0')}:${String(date.getUTCMinutes()).padStart(2, '0')}`;
 }
 
 function buildSolarTimeDescription(city: ChinaCity, offsetMinutes: number): string {
