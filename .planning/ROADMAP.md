@@ -44,10 +44,10 @@ Plans:
   5. User can access a daily almanac detail page at /almanac/YYYY-MM-DD with complete almanac information rendered via SSR/ISR
 **Plans:** 4 plans
 Plans:
-- [ ] 02-01-PLAN.md — Homepage upgrade: AlmanacService hourly fortune extension + TodayAlmanacCard + HourlyFortuneTable + Header nav links
-- [ ] 02-02-PLAN.md — Monthly calendar: getMonthlyCalendar service + CalendarDayCell + MonthlyCalendar grid + month navigation
-- [ ] 02-03-PLAN.md — Solar terms: getSolarTerms service + SolarTermsList grouped by season
-- [ ] 02-04-PLAN.md — Detail page: 5-tab AlmanacDetail + SSR page with generateMetadata + URL-based tab state + 404 handling
+- [x] 02-01-PLAN.md — Homepage upgrade: AlmanacService hourly fortune extension + TodayAlmanacCard + HourlyFortuneTable + Header nav links ✓ 2026-05-17
+- [x] 02-02-PLAN.md — Monthly calendar: getMonthlyCalendar service + CalendarDayCell + MonthlyCalendar grid + month navigation ✓ 2026-05-17
+- [x] 02-03-PLAN.md — Solar terms: getSolarTerms service + SolarTermsList grouped by season ✓ 2026-05-17
+- [x] 02-04-PLAN.md — Detail page: 5-tab AlmanacDetail + SSR page with generateMetadata + URL-based tab state + 404 handling ✓ 2026-05-17
 
 ### Phase 3: SEO Content Matrix
 **Goal**: Thousands of SEO-optimized pages are pre-rendered and discoverable, covering auspicious day queries, zodiac, BaZi, Feng Shui, naming, and solar terms -- driving organic search traffic
@@ -90,7 +90,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 3/3 | Planning complete | 2026-05-17 |
-| 2. Core Almanac UI | 0/4 | Planning complete | 2026-05-17 |
+| 2. Core Almanac UI | 4/4 | Complete | 2026-05-17 |
 | 3. SEO Content Matrix | 0/TBD | Not started | - |
 | 4. AI Integration | 0/TBD | Not started | - |
 | 5. Production Deployment | 0/TBD | Not started | - |
