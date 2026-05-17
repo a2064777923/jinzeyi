@@ -98,6 +98,6 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 3/3 | Planning complete | 2026-05-17 |
 | 2. Core Almanac UI | 4/4 | Complete | 2026-05-17 |
-| 3. SEO Content Matrix | 0/6 | In Progress | - |
+| 3. SEO Content Matrix | 1/6 | In Progress | - |
 | 4. AI Integration | 0/TBD | Not started | - |
 | 5. Production Deployment | 0/TBD | Not started | - |
