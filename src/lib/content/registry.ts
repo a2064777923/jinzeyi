@@ -2,7 +2,7 @@ import { fengShuiIndexPage } from './feng-shui';
 import { jieriIndexPage } from './jieri-scenes';
 import { toolPages } from './tools';
 import type { IndexablePage } from './types';
-import { zodiacHubPages, zodiacIndexPage } from './zodiac';
+import { zodiacArticles, zodiacHubPages, zodiacIndexPage } from './zodiac';
 
 export const coreIndexablePages: IndexablePage[] = [
   {
@@ -153,6 +153,7 @@ const indexableRoutes: IndexablePage[] = [
   jieriIndexPage,
   zodiacIndexPage,
   ...zodiacHubPages,
+  ...zodiacArticles,
   fengShuiIndexPage,
   ...toolPages,
 ];
@@ -183,5 +184,13 @@ export type {
   LocalizedSeo,
   ToolContent,
 } from './types';
-export { getZodiacAnimal, zodiacAnimals, zodiacHubPages, zodiacIndexPage } from './zodiac';
-
+export {
+  getZodiacAnimal,
+  getZodiacArticle,
+  getZodiacArticlesForAnimal,
+  getZodiacProfile,
+  zodiacAnimals,
+  zodiacArticles,
+  zodiacHubPages,
+  zodiacIndexPage,
+} from './zodiac';
