@@ -1,4 +1,4 @@
-import { fengShuiIndexPage } from './feng-shui';
+import { fengShuiArticles, fengShuiIndexPage } from './feng-shui';
 import { jieriIndexPage } from './jieri-scenes';
 import { toolPages } from './tools';
 import type { IndexablePage } from './types';
@@ -155,6 +155,7 @@ const indexableRoutes: IndexablePage[] = [
   ...zodiacHubPages,
   ...zodiacArticles,
   fengShuiIndexPage,
+  ...fengShuiArticles,
   ...toolPages,
 ];
 
@@ -170,7 +171,14 @@ export function getSitemapCandidates(): IndexablePage[] {
   return indexableRoutes.filter((route) => route.sitemap);
 }
 
-export { fengShuiCategories, fengShuiIndexPage } from './feng-shui';
+export {
+  fengShuiArticles,
+  fengShuiCategories,
+  fengShuiIndexPage,
+  getFengShuiArticle,
+  getFengShuiArticlesByCategory,
+  getFengShuiCategory,
+} from './feng-shui';
 export { getJieriScene, jieriIndexPage, jieriScenes } from './jieri-scenes';
 export { getToolPage, toolPages } from './tools';
 export type {
