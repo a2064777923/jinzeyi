@@ -85,7 +85,7 @@ Plans:
 - [x] 04-01-PLAN.md — Professional BaZi calculation core: day master, ten gods, hidden stems, na-yin, terrain, and element strength
 - [x] 04-02-PLAN.md — Metaphysics knowledge taxonomy: story-rich entries, richer term hints, `/knowledge` pages, registry/sitemap coverage
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 04-03-PLAN.md — BaZi result UI: summary-first professional chart, element strength panel, and knowledge-linked term hints
+- [x] 04-03-PLAN.md — BaZi result UI: summary-first professional chart, element strength panel, and knowledge-linked term hints
 - [ ] 04-04-PLAN.md — Interactive auspicious-date scoring: scene-specific people inputs, ranked results, score breakdown, and jieri page links
 
 Cross-cutting constraints:
@@ -110,5 +110,5 @@ Cross-cutting constraints:
 | 1. Foundation & Data Layer | 3/3 | Planning complete | 2026-05-17 |
 | 2. Core Almanac UI | 4/4 | Complete | 2026-05-17 |
 | 3. SEO Content Matrix | 6/6 | Complete | 2026-05-17 |
-| 4. Metaphysics Depth & Product Experience | 2/4 | In Progress|  |
+| 4. Metaphysics Depth & Product Experience | 3/4 | In Progress|  |
 | 5. Production Deployment | 0/TBD | Not started | - |
