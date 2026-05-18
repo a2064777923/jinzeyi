@@ -89,7 +89,7 @@ export interface ArticleContent extends IndexablePage {
 export interface ToolContent extends IndexablePage {
   family: 'tool';
   pageType: 'WebApplication' | 'WebPage';
-  toolKey: 'tools-index' | 'bazi' | 'naming';
+  toolKey: 'tools-index' | 'bazi' | 'naming' | 'jieri-recommend';
   inputFields: string[];
 }
 

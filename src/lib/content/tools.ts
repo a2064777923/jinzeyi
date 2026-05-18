@@ -145,6 +145,53 @@ export const toolPages: ToolContent[] = [
       localeStrategy: 'localized-seo-canonical-body',
     },
   },
+  {
+    id: 'tool-jieri-recommend',
+    family: 'tool',
+    slug: 'jieri-recommend',
+    path: '/tools/jieri-recommend',
+    pageType: 'WebApplication',
+    toolKey: 'jieri-recommend',
+    inputFields: ['scene', 'people', 'dateRange'],
+    sitemap: true,
+    seo: createLocalizedSeo({
+      title: '推荐日期｜结婚搬家开业个性化择日｜今择易',
+      description: '选择结婚、搬家、开业、签约等场景，输入参与者出生资料和日期范围，查看可解释的推荐日期排序。',
+      h1: '推荐日期',
+      deck: '把场景宜忌、冲煞、八字五行和可用吉时放到同一张分数表里比较。',
+      keywords: ['推荐日期', '个性化择日', '结婚择日', '搬家择日', '开业择日'],
+    }),
+    body: '推荐日期工具用于补足年度吉日列表的个性化部分。用户先选择结婚、搬家、开业、签约等场景，再按场景填写本人、伴侣、屋主、家人或负责人的出生资料，最后输入日期范围。系统会在本地计算每个候选日的黄历基调、事项匹配、生肖冲煞、八字五行和可用吉时，并把每个加分和提醒展开说明。',
+    faq: [
+      {
+        id: 'jieri-recommend-privacy',
+        question: '出生资料会被保存吗？',
+        answer: '不会。当前推荐流程在页面本地计算，不新增账号、数据库记录或 AI API 请求。',
+      },
+      {
+        id: 'jieri-recommend-score',
+        question: '分数代表什么？',
+        answer: '分数用于排序和解释传统参考维度，不代表现实结果。重要事项仍要结合场地、合同、天气、交通和家人时间。',
+      },
+      {
+        id: 'jieri-recommend-range',
+        question: '为什么日期范围最多 90 天？',
+        answer: '范围过长会让结果过多且难以比较。先用 30 到 90 天筛出候选，再逐步调整更清晰。',
+      },
+    ],
+    relatedLinks: [
+      { href: '/jieri', label: '吉日查询', description: '先看年度场景吉日列表。', family: 'jieri' },
+      { href: '/tools/bazi', label: '八字排盘', description: '单独查看四柱、日主和五行强弱。', family: 'tool' },
+      { href: '/knowledge/yi-ji', label: '宜忌解释', description: '理解事项匹配维度。', family: 'knowledge' },
+      { href: '/knowledge/five-elements', label: '五行解释', description: '理解八字五行维度。', family: 'knowledge' },
+    ],
+    seed: {
+      model: 'ContentPage',
+      slug: 'jieri-recommend',
+      category: 'tools',
+      localeStrategy: 'localized-seo-canonical-body',
+    },
+  },
 ];
 
 export function getToolPage(slug: string): ToolContent | undefined {

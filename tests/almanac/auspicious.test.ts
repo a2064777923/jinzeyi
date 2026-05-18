@@ -14,6 +14,10 @@ const sceneRule: JieriSceneRule = {
   yiTerms: ['嫁娶', '纳采'],
   cautionTerms: ['破日'],
   summary: '结婚择日测试规则',
+  personRoles: [
+    { key: 'primary', label: '本人', required: true, description: '测试本人' },
+    { key: 'partner', label: '伴侣', required: true, description: '测试伴侣' },
+  ],
 };
 
 function makeAlmanac(overrides: Partial<DailyAlmanac> = {}): DailyAlmanac {
@@ -100,4 +104,3 @@ describe('auspicious day matching', () => {
     expect(results.some((result) => result.status !== 'recommended')).toBe(true);
   });
 });
-

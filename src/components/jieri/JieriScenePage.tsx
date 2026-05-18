@@ -1,8 +1,10 @@
+import { ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
 import { SeoHero } from '@/components/seo/SeoHero';
 import { SeoPageBand, SeoPageShell } from '@/components/seo/SeoPageShell';
+import { Link } from '@/i18n/navigation';
 import { jieriIndexPage } from '@/lib/content/jieri-scenes';
 import { localizeBodyCopy } from '@/lib/content/localize';
 import type { AuspiciousDayResult, JieriSceneRule } from '@/lib/almanac/types';
@@ -80,6 +82,14 @@ export function JieriScenePage({ locale, year, scene, results, zodiac, faq }: Ji
                 </Badge>
               ))}
             </div>
+
+            <Link
+              href={`/tools/jieri-recommend?scene=${scene.slug}`}
+              className="inline-flex w-fit items-center gap-2 rounded-md border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              {localizeBodyCopy(locale, '输入参与者资料推荐日期')}
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
 
             {months.map((month) => (
               <JieriMonthSection

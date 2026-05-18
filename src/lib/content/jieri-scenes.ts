@@ -2,9 +2,58 @@ import { createLocalizedSeo } from './localize';
 import type { JieriSceneRule } from '@/lib/almanac/types';
 import type { FaqItem, IndexablePage, InternalLink } from './types';
 
+const primaryRole = {
+  key: 'primary',
+  label: '本人',
+  required: false,
+  description: '用于一般场景的主要参与者。',
+} satisfies JieriSceneRule['personRoles'][number];
+
+const marriageRoles: JieriSceneRule['personRoles'] = [
+  {
+    key: 'primary',
+    label: '本人',
+    required: true,
+    description: '婚嫁或合婚场景的第一位当事人。',
+  },
+  {
+    key: 'partner',
+    label: '伴侣',
+    required: true,
+    description: '婚嫁或合婚场景的第二位当事人。',
+  },
+];
+
+const movingRoles: JieriSceneRule['personRoles'] = [
+  {
+    key: 'primary',
+    label: '屋主',
+    required: true,
+    description: '搬家或入宅场景的主要负责人。',
+  },
+  {
+    key: 'household',
+    label: '同住家人',
+    required: false,
+    description: '可选填写一位需要重点避冲的家庭成员。',
+  },
+];
+
+const responsiblePersonRoles: JieriSceneRule['personRoles'] = [
+  {
+    key: 'responsiblePerson',
+    label: '负责人',
+    required: true,
+    description: '开业、签约等事项的负责人或法定代表人。',
+  },
+];
+
+const optionalPrimaryRoles: JieriSceneRule['personRoles'] = [primaryRole];
+
 const sharedJieriLinks: InternalLink[] = [
   { href: '/calendar', label: '月历吉日', description: '按月查看每日吉凶与节气。', family: 'core' },
   { href: '/tools/bazi', label: '八字排盘', description: '结合出生时间理解四柱与五行。', family: 'tool' },
+  { href: '/tools/jieri-recommend', label: '推荐日期', description: '输入参与者资料获取个性化择日排序。', family: 'tool' },
 ];
 
 export const jieriScenes: JieriSceneRule[] = [
@@ -15,6 +64,7 @@ export const jieriScenes: JieriSceneRule[] = [
     yiTerms: ['嫁娶', '纳采', '订盟'],
     cautionTerms: ['破日', '月破', '岁破'],
     summary: '结婚择日先看嫁娶、纳采、订盟等宜项，再结合冲煞与新人生肖避开明显相冲的日子。',
+    personRoles: marriageRoles,
   },
   {
     slug: 'banjia',
@@ -23,6 +73,7 @@ export const jieriScenes: JieriSceneRule[] = [
     yiTerms: ['入宅', '移徙', '安床'],
     cautionTerms: ['月破', '闭日'],
     summary: '搬家择日重在入宅、移徙与安床，适合把吉日、吉时和家人生肖一起看。',
+    personRoles: movingRoles,
   },
   {
     slug: 'kaiye',
@@ -31,6 +82,7 @@ export const jieriScenes: JieriSceneRule[] = [
     yiTerms: ['开市', '交易', '立券'],
     cautionTerms: ['收日', '闭日'],
     summary: '开业择日关注开市、交易、立券等事项，也要避开过重的冲煞和不利财位。',
+    personRoles: responsiblePersonRoles,
   },
   {
     slug: 'zhuangxiu',
@@ -39,6 +91,7 @@ export const jieriScenes: JieriSceneRule[] = [
     yiTerms: ['修造', '动土', '上梁'],
     cautionTerms: ['土府', '土符'],
     summary: '装修动工要看修造、动土、上梁等宜项，并留意土煞、方位与家宅动线。',
+    personRoles: optionalPrimaryRoles,
   },
   {
     slug: 'qianyue',
@@ -47,6 +100,7 @@ export const jieriScenes: JieriSceneRule[] = [
     yiTerms: ['交易', '立券', '纳财'],
     cautionTerms: ['破日', '闭日'],
     summary: '签约择日偏重交易、立券与纳财，适合筛出气势平稳、冲煞较轻的日期。',
+    personRoles: responsiblePersonRoles,
   },
   {
     slug: 'chuxing',
@@ -55,6 +109,7 @@ export const jieriScenes: JieriSceneRule[] = [
     yiTerms: ['出行', '赴任', '会友'],
     cautionTerms: ['四离', '四绝'],
     summary: '出行择日以出行、赴任、会友为主，同时参考当日冲向与路途安排。',
+    personRoles: optionalPrimaryRoles,
   },
   {
     slug: 'anzang',
@@ -63,6 +118,7 @@ export const jieriScenes: JieriSceneRule[] = [
     yiTerms: ['安葬', '破土', '启钻'],
     cautionTerms: ['重丧', '复日'],
     summary: '安葬择日更讲究稳妥，宜项、冲煞、方位和家属生肖都需要谨慎交叉查看。',
+    personRoles: optionalPrimaryRoles,
   },
   {
     slug: 'qiming',
@@ -71,6 +127,7 @@ export const jieriScenes: JieriSceneRule[] = [
     yiTerms: ['求嗣', '祈福', '纳采'],
     cautionTerms: ['月厌', '厌对'],
     summary: '起名相关日子可参考祈福、求嗣等宜项，再结合姓名五行工具做更细的字义与五行分析。',
+    personRoles: optionalPrimaryRoles,
   },
   {
     slug: 'hehun',
@@ -79,6 +136,7 @@ export const jieriScenes: JieriSceneRule[] = [
     yiTerms: ['嫁娶', '纳采', '合帐'],
     cautionTerms: ['孤辰', '寡宿'],
     summary: '合婚择日先看婚嫁相关宜项，再把双方生肖冲合与八字基础信息放在同一视图里判断。',
+    personRoles: marriageRoles,
   },
 ];
 

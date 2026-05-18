@@ -87,6 +87,65 @@ export interface JieriSceneRule {
   yiTerms: string[];
   cautionTerms: string[];
   summary: string;
+  personRoles: AuspiciousPersonRole[];
+}
+
+export type AuspiciousPersonRoleKey = 'primary' | 'partner' | 'household' | 'responsiblePerson';
+
+export interface AuspiciousPersonRole {
+  key: AuspiciousPersonRoleKey;
+  label: string;
+  required: boolean;
+  description: string;
+}
+
+export interface AuspiciousPersonInput {
+  role: AuspiciousPersonRoleKey;
+  birthDate: string;
+  birthTime: string;
+  cityId: string;
+  gender: 'male' | 'female' | 'unspecified';
+  label?: string;
+}
+
+export type AuspiciousScoreDimensionKey = 'almanac' | 'scene' | 'zodiac' | 'bazi' | 'luckyHours';
+export type AuspiciousScoreGrade = 'excellent' | 'good' | 'usable' | 'caution';
+
+export interface AuspiciousScoreDimension {
+  key: AuspiciousScoreDimensionKey;
+  label: string;
+  score: number;
+  maxScore: number;
+  reasons: string[];
+  cautions: string[];
+}
+
+export interface AuspiciousRecommendationInput {
+  scene: string;
+  startDate: string;
+  endDate: string;
+  people: AuspiciousPersonInput[];
+  limit?: number;
+}
+
+export interface AuspiciousDateScoreInput {
+  scene: string | JieriSceneRule;
+  date: string;
+  people: AuspiciousPersonInput[];
+}
+
+export interface AuspiciousRecommendationResult {
+  date: string;
+  score: number;
+  maxScore: number;
+  grade: AuspiciousScoreGrade;
+  scene: JieriSceneRule;
+  almanac: DailyAlmanac;
+  dimensions: Record<AuspiciousScoreDimensionKey, AuspiciousScoreDimension>;
+  reasons: string[];
+  cautions: string[];
+  usableLuckyHours: string[];
+  peopleCount: number;
 }
 
 export interface AuspiciousDayResult {

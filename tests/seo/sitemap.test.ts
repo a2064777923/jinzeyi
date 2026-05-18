@@ -14,6 +14,7 @@ describe('locale sitemap', () => {
     expect(urls).toContain('http://43.139.84.61:3000/zh-hant');
     expect(urls).toContain('http://43.139.84.61:3000/zh-hant/tools/bazi');
     expect(urls).toContain('http://43.139.84.61:3000/zh-hant/tools/naming');
+    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/tools/jieri-recommend');
     expect(urls).toContain('http://43.139.84.61:3000/zh-hant/zodiac/rat');
     expect(urls).toContain('http://43.139.84.61:3000/zh-hant/zodiac/rat/rat-xingge');
     expect(urls).toContain('http://43.139.84.61:3000/zh-hant/feng-shui/home/xuan-guan-ke-ting');
@@ -27,6 +28,7 @@ describe('locale sitemap', () => {
     const urls = entries.map((entry) => entry.url);
 
     expect(urls).toContain('http://43.139.84.61:3000/zh-hans/knowledge/day-master');
+    expect(urls).toContain('http://43.139.84.61:3000/zh-hans/tools/jieri-recommend');
     expect(urls.some((url) => url.includes('/ai'))).toBe(false);
   });
 

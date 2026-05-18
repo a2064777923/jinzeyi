@@ -32,7 +32,7 @@ function formatDate(year: number, month: number, day: number): string {
   return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 }
 
-function buildDailyAlmanac(solar: SolarDay): DailyAlmanac {
+export function buildDailyAlmanac(solar: SolarDay): DailyAlmanac {
   const year = solar.getYear();
   const month = solar.getMonth();
   const day = solar.getDay();
@@ -206,4 +206,3 @@ export async function getAuspiciousDaysForScene({
 
   return results;
 }
-
