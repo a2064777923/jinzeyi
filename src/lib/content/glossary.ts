@@ -13,6 +13,10 @@ export type GlossaryKey =
   | 'luckyHour'
   | 'fiveElements'
   | 'fourPillars'
+  | 'dayMaster'
+  | 'tenGods'
+  | 'hiddenStems'
+  | 'naYin'
   | 'mingCaiWei'
   | 'qiKou';
 
@@ -37,9 +41,13 @@ const metaphysicsGlossaryMap: Partial<Record<GlossaryKey, string>> = {
   luckyHour: 'lucky-hour',
   fiveElements: 'five-elements',
   fourPillars: 'four-pillars',
+  dayMaster: 'day-master',
+  tenGods: 'ten-gods',
+  hiddenStems: 'hidden-stems',
+  naYin: 'na-yin',
 };
 
-const fallbackGlossary: Record<GlossaryKey, Omit<GlossaryEntry, 'key'>> = {
+const fallbackGlossary: Partial<Record<GlossaryKey, Omit<GlossaryEntry, 'key'>>> = {
   ganZhi: {
     term: '干支',
     short: '天干與地支配成六十組，用來記年、月、日、時。',
@@ -147,6 +155,9 @@ export function getGlossaryEntry(key: GlossaryKey, locale: LocaleCode): Glossary
   }
 
   const entry = fallbackGlossary[key];
+  if (!entry) {
+    throw new Error(`Missing glossary entry: ${key}`);
+  }
 
   return {
     key,

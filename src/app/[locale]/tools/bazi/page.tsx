@@ -2,11 +2,13 @@ import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { Calculator } from 'lucide-react';
 import { BaziForm } from '@/components/tools/BaziForm';
+import { GlossaryPanel } from '@/components/knowledge/GlossaryPanel';
 import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
 import { SeoHero } from '@/components/seo/SeoHero';
 import { SeoPageBand, SeoPageShell } from '@/components/seo/SeoPageShell';
 import { getToolPage } from '@/lib/content/tools';
+import { getGlossaryEntries } from '@/lib/content/glossary';
 import { localizeBodyCopy, localizeSeo } from '@/lib/content/localize';
 import { buildPageJsonLd, buildSeoPageMetadata } from '@/lib/seo';
 
@@ -59,13 +61,24 @@ export default async function BaziToolPage({ params }: Props) {
         <SeoHero
           title={seo.h1}
           deck={seo.deck}
-          kicker={localizeBodyCopy(locale, '四柱 · 五行 · 真太阳时')}
+          kicker={localizeBodyCopy(locale, '四柱 · 日主 · 十神 · 藏干')}
           icon={<Calculator className="size-7" aria-hidden="true" />}
-          badges={page.inputFields.map((field) => localizeBodyCopy(locale, field))}
+          badges={[
+            localizeBodyCopy(locale, '真太阳时'),
+            localizeBodyCopy(locale, '纳音'),
+            localizeBodyCopy(locale, '五行强弱'),
+          ]}
         />
       </SeoPageBand>
       <SeoPageBand tone="plain" className="pt-0">
         <BaziForm locale={locale} />
+      </SeoPageBand>
+      <SeoPageBand tone="plain" className="pt-0">
+        <GlossaryPanel
+          title={localizeBodyCopy(locale, '读盘前先看这些词')}
+          intro={localizeBodyCopy(locale, '日主、十神、藏干和纳音是专业盘面的核心标签，工具里会把它们放在对应字段旁边。')}
+          entries={getGlossaryEntries(['dayMaster', 'tenGods', 'hiddenStems', 'naYin', 'fiveElements'], locale)}
+        />
       </SeoPageBand>
       <SeoPageBand tone="muted">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">

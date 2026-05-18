@@ -52,13 +52,13 @@ export const toolPages: ToolContent[] = [
     inputFields: ['birthDate', 'birthTime', 'birthPlace', 'gender'],
     sitemap: true,
     seo: createLocalizedSeo({
-      title: '八字排盘｜四柱五行基础查询｜今择易',
-      description: '输入出生日期、精确时间、出生地和性别，查询基础四柱、天干地支与五行分布。',
+      title: '八字排盘｜日主十神藏干纳音查询｜今择易',
+      description: '输入出生日期、精确时间、出生地和性别，查询四柱、日主、十神、藏干、纳音与五行强弱信号。',
       h1: '八字排盘',
-      deck: '先把出生信息排成四柱和五行分布，用作后续择日、合婚和命理说明的基础资料。',
-      keywords: ['八字排盘', '四柱', '五行', '出生地真太阳时'],
+      deck: '先把出生信息排成四柱，再查看日主、十神、藏干、纳音和五行强弱信号。',
+      keywords: ['八字排盘', '四柱', '日主', '十神', '藏干', '纳音', '五行强弱'],
     }),
-    body: '八字排盘工具的目标是先把基础信息排清楚。用户输入出生日期、精确时间、出生地和性别后，页面会输出年柱、月柱、日柱、时柱，以及五行分布的基础结果。Phase 3 不做十神、格局、喜用神和大运流年等深层判断，而是把四柱数据作为文化参考和后续 AI 解释的可靠输入，避免在没有足够上下文时给出过度结论。',
+    body: '八字排盘工具的目标是先把专业盘面排清楚。用户输入出生日期、精确时间、出生地和性别后，页面会输出年柱、月柱、日柱、时柱，并进一步展示日主、十神、藏干、纳音、十二长生状态和五行强弱信号。本站把这些字段作为传统文化和方法参考，先说明盘面结构与字段来源，再让用户结合现实条件继续理解。',
     faq: [
       {
         id: 'bazi-fields',
@@ -67,12 +67,35 @@ export const toolPages: ToolContent[] = [
       },
       {
         id: 'bazi-depth',
-        question: 'Phase 3 会分析喜用神吗？',
-        answer: '不会。当前只输出四柱、天干地支和五行分布，深层个性化解释留给后续 AI 阶段。',
+        question: '这里会直接判断喜用神吗？',
+        answer: '不会。当前重点是把日主、十神、藏干、纳音和五行强弱信号展示清楚，喜用神等深层判断需要更多方法约束。',
+      },
+      {
+        id: 'bazi-time',
+        question: '不知道准确出生时间怎么办？',
+        answer: '可以先用大致时段做参考，但时辰边界附近误差会影响时柱。重要用途建议尽量核对出生证明、家人记录或医院记录。',
+      },
+      {
+        id: 'bazi-gender',
+        question: '性别会影响当前排盘结果吗？',
+        answer: '当前专业盘面主要来自出生日期、时间和地点。性别字段先保留给后续更完整的传统排盘层使用。',
+      },
+      {
+        id: 'bazi-zodiac',
+        question: '八字和生肖有什么区别？',
+        answer: '生肖只看年支，八字会看年、月、日、时四柱。想理解个人信息时，八字比单看生肖更细，但也更需要准确资料。',
+      },
+      {
+        id: 'bazi-date-use',
+        question: '八字排盘能和择日一起用吗？',
+        answer: '可以。先用排盘整理个人基础信息，再回到吉日和黄历详情页核对日期、冲煞和时辰，避免只看一个维度。',
       },
     ],
     relatedLinks: [
       { href: '/zodiac', label: '生肖查询', description: '先确认生肖与年份边界。', family: 'zodiac' },
+      { href: '/knowledge/day-master', label: '日主解释', description: '理解为什么盘面以日主为参照。', family: 'knowledge' },
+      { href: '/knowledge/ten-gods', label: '十神解释', description: '查看十神如何来自日主关系。', family: 'knowledge' },
+      { href: '/knowledge/five-elements', label: '五行强弱', description: '理解表层计数与藏干加权。', family: 'knowledge' },
       { href: '/jieri/hehun/2026', label: '合婚吉日', description: '查看合婚相关吉日入口。', family: 'jieri' },
     ],
     seed: {

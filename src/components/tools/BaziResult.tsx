@@ -1,6 +1,10 @@
 import { Badge } from '@/components/ui/badge';
 import type { BaziResult as BaziResultData, FiveElement, PillarKey } from '@/lib/almanac/bazi';
+import { localizeBodyCopy } from '@/lib/content/localize';
 import type { LocaleCode } from '@/lib/content/types';
+import { BaziElementStrengthPanel } from './BaziElementStrengthPanel';
+import { BaziProfessionalChart } from './BaziProfessionalChart';
+import { BaziSummary } from './BaziSummary';
 
 const PILLAR_ORDER: PillarKey[] = ['year', 'month', 'day', 'hour'];
 const ELEMENTS: FiveElement[] = ['木', '火', '土', '金', '水'];
@@ -20,6 +24,7 @@ const copy = {
     heavenlyStem: '天干',
     earthlyBranch: '地支',
     belongsTo: '属',
+    note: '说明',
   },
   'zh-hant': {
     title: '排盤結果',
@@ -28,10 +33,30 @@ const copy = {
     heavenlyStem: '天干',
     earthlyBranch: '地支',
     belongsTo: '屬',
+    note: '說明',
   },
 } satisfies Record<LocaleCode, Record<string, string>>;
 
 export function BaziResult({ result, locale = 'zh-hans' }: { result: BaziResultData; locale?: LocaleCode }) {
+  const professional = (result as Partial<BaziResultData>).professional;
+  if (!professional) {
+    return <LegacyBaziResult result={result} locale={locale} />;
+  }
+
+  return (
+    <div className="flex min-w-0 flex-col gap-4">
+      <BaziSummary result={result} locale={locale} />
+      <BaziProfessionalChart result={result} locale={locale} />
+      <BaziElementStrengthPanel result={result} locale={locale} />
+      <p className="rounded-lg border border-border bg-card p-4 text-sm leading-7 text-muted-foreground">
+        <span className="font-semibold text-foreground">{copy[locale].note}：</span>
+        {localizeBodyCopy(locale, result.explanation)}
+      </p>
+    </div>
+  );
+}
+
+function LegacyBaziResult({ result, locale }: { result: BaziResultData; locale: LocaleCode }) {
   const t = copy[locale];
   const max = Math.max(...ELEMENTS.map((element) => result.elements[element]), 1);
 
@@ -41,7 +66,7 @@ export function BaziResult({ result, locale = 'zh-hans' }: { result: BaziResultD
         <div>
           <h2 className="text-lg font-semibold">{t.title}</h2>
           <p className="mt-1 text-sm leading-6 text-muted-foreground">
-            {result.city.name} · {result.genderLabel} · {result.trueSolarTime.adjusted}
+            {localizeBodyCopy(locale, result.city.name)} · {localizeBodyCopy(locale, result.genderLabel)} · {result.trueSolarTime.adjusted}
           </p>
         </div>
         <Badge variant="outline">{result.trueSolarTime.offsetMinutes >= 0 ? '+' : ''}{result.trueSolarTime.offsetMinutes} {t.offsetUnit}</Badge>
@@ -52,7 +77,7 @@ export function BaziResult({ result, locale = 'zh-hans' }: { result: BaziResultD
           const pillar = result.pillars[key];
           return (
             <div key={key} className="min-h-28 rounded-lg border border-border bg-background p-3 text-center">
-              <p className="text-xs font-semibold text-muted-foreground">{pillar.label}</p>
+              <p className="text-xs font-semibold text-muted-foreground">{localizeBodyCopy(locale, pillar.label)}</p>
               <p className="mt-2 font-serif-display text-3xl font-semibold leading-none text-foreground">{pillar.value}</p>
               <p className="mt-3 text-xs leading-5 text-muted-foreground">
                 {t.heavenlyStem}{pillar.heavenlyStem}{t.belongsTo}{pillar.stemElement} · {t.earthlyBranch}{pillar.earthlyBranch}{t.belongsTo}{pillar.branchElement}
@@ -82,7 +107,7 @@ export function BaziResult({ result, locale = 'zh-hans' }: { result: BaziResultD
       </div>
 
       <p className="rounded-lg bg-muted/70 p-3 text-sm leading-7 text-muted-foreground">
-        {result.trueSolarTime.description} {result.explanation}
+        {localizeBodyCopy(locale, result.trueSolarTime.description)} {localizeBodyCopy(locale, result.explanation)}
       </p>
     </div>
   );
