@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 3 complete; ready for Phase 4 planning
-last_updated: "2026-05-17T15:48:00.000Z"
-last_activity: 2026-05-17 -- Phase 03 SEO Content Matrix complete
+stopped_at: Phase 4 planned; ready for execution
+last_updated: "2026-05-18T04:31:09.636Z"
+last_activity: 2026-05-18 -- Phase 04 planning complete
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 13
+  total_plans: 17
   completed_plans: 13
   percent: 60
 ---
@@ -20,17 +20,17 @@ progress:
 
 See: .planning/PROJECT.md (updated 2026-05-16)
 
-**Core value:** AI 驱动的个性化择吉体验——不只是给日期，更告诉用户"为什么选这天"、"避开了什么"、"还有什么备选"
-**Current focus:** Phase 4 — AI Integration
+**Core value:** 逐步走向 AI 驱动的个性化择吉体验；当前 v1 先把确定性的黄历、八字、知识库和解释层做深
+**Current focus:** Phase 4 — Metaphysics Depth & Product Experience
 
 ## Current Position
 
-Phase: 4 of 5 (AI Integration)
-Plan: Phase 4 planning next
-Status: Executing
-Last activity: 2026-05-17 -- Phase 03 SEO Content Matrix complete
+Phase: 4 of 5 (Metaphysics Depth & Product Experience)
+Plan: 4 plans ready
+Status: Ready to execute
+Last activity: 2026-05-18 -- Phase 04 planning complete
 
-Progress: [██████░░░░] 6/6 Phase 3 plans complete
+Progress: [██████░░░░] 13/17 plans complete
 
 ## Performance Metrics
 
@@ -58,13 +58,13 @@ Progress: [██████░░░░] 6/6 Phase 3 plans complete
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- [Roadmap]: 5 phases derived from 28 v1 requirements — Foundation, Almanac UI, SEO Matrix, AI, Deployment
-- [Roadmap]: Phase 3 (SEO) and Phase 4 (AI) both depend on Phase 1 but not on each other; they can parallelize after Phase 2
-- [Roadmap]: Deployment phase depends on both Phase 3 and Phase 4 completing (full URL matrix needed for Nginx config)
+- [Roadmap]: 5 phases now map Phase 4 to Metaphysics Depth & Product Experience before AI provider work
+- [Roadmap]: Phase 4 depends on Phase 2 and Phase 3 because it deepens existing almanac, SEO, BaZi, jieri, and knowledge patterns
+- [Roadmap]: Deployment phase still depends on both Phase 3 and Phase 4 completing
 
 ### Pending Todos
 
-Phase 3 is complete. Next work should start Phase 4 AI Integration planning.
+Phase 4 planning is complete. Next work should execute Phase 4 plans in wave order.
 
 ### Blockers/Concerns
 
@@ -76,10 +76,10 @@ Phase 3 is complete. Next work should start Phase 4 AI Integration planning.
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| *(none)* | | | |
+| AI provider registry / streaming routes / model failover | Deferred to v2 after deterministic metaphysics product foundation | Deferred | Phase 4 planning, 2026-05-18 |
 
 ## Session Continuity
 
-Last session: 2026-05-17T15:48:00.000Z
-Stopped at: Phase 3 complete; ready for Phase 4 planning
-Resume file: .planning/phases/03-seo-content-matrix/03-06-SUMMARY.md
+Last session: 2026-05-18T04:31:09.636Z
+Stopped at: Phase 4 planned; ready for execution
+Resume file: .planning/phases/04-ai-integration/04-01-PLAN.md

@@ -2,14 +2,14 @@
 
 ## Overview
 
-Five phases building from data foundation to production deployment. Phase 1 establishes the infrastructure everything depends on: i18n routing, almanac computation engine, caching, and database. Phase 2 builds the core almanac browsing experience that serves as both the homepage and the component library. Phase 3 expands into the SEO content matrix that drives organic traffic through thousands of pre-rendered pages. Phase 4 layers AI as the competitive differentiator -- personalized, explained fortune-telling powered by multi-provider AI. Phase 5 finalizes production deployment on self-hosted infrastructure.
+Five phases building from data foundation to production deployment. Phase 1 establishes the infrastructure everything depends on: i18n routing, almanac computation engine, caching, and database. Phase 2 builds the core almanac browsing experience that serves as both the homepage and the component library. Phase 3 expands into the SEO content matrix that drives organic traffic through thousands of pre-rendered pages. Phase 4 deepens the deterministic metaphysics product foundation before AI: professional BaZi, interactive personalized auspicious-date scoring, and a broader knowledge/story layer. Phase 5 finalizes production deployment on self-hosted infrastructure.
 
 ## Phases
 
 - [ ] **Phase 1: Foundation & Data Layer** - Project scaffolding, i18n, almanac engine, Redis cache, PostgreSQL, legal disclaimers
 - [ ] **Phase 2: Core Almanac UI** - Today's almanac card, hourly fortune table, monthly calendar, solar terms
 - [x] **Phase 3: SEO Content Matrix** - Auspicious day queries, zodiac, BaZi, Feng Shui, naming tool, sitemap, structured data
-- [ ] **Phase 4: AI Integration** - Vercel AI SDK, multi-provider registry, AI service layer, streaming API routes
+- [ ] **Phase 4: Metaphysics Depth & Product Experience** - Professional BaZi chart, interactive auspicious-date scoring, metaphysics knowledge base, richer term hints
 - [ ] **Phase 5: Production Deployment** - Docker Compose, BaoTa + Nginx, PM2 cluster
 
 ## Phase Details
@@ -69,17 +69,28 @@ Plans:
 - [x] 03-05-PLAN.md — Feng Shui content: category landing, practical articles, checklists, metadata, and JSON-LD ✓ 2026-05-17
 - [x] 03-06-PLAN.md — Sitemap and final SEO coverage: hreflang sitemap, metadata/JSON-LD coverage, smoke verification ✓ 2026-05-17
 
-### Phase 4: AI Integration
-**Goal**: Users can interact with an AI assistant that provides personalized, explained fortune-telling recommendations powered by multi-provider AI with automatic failover
+### Phase 4: Metaphysics Depth & Product Experience
+**Goal**: Users can get deeper, more personal, and more explainable metaphysics experiences without AI: professional BaZi chart data, interactive auspicious-date recommendations, and a story-rich knowledge base that makes terms, stars, five elements, and myths discoverable
 **Mode:** mvp
-**Depends on**: Phase 2
-**Requirements**: AI-01, AI-02, AI-03, AI-04
+**Depends on**: Phase 2, Phase 3
+**Requirements**: META-01, META-02, META-03, META-04
 **Success Criteria** (what must be TRUE):
-  1. AIService abstracts multiple AI providers (DeepSeek, Qwen, OpenAI) behind a unified interface; switching providers requires only changing one environment variable
-  2. AI API routes serve streaming responses; if the primary provider fails, requests automatically fall back to the next configured provider
-  3. System prompts inject computed almanac data as context, so AI explanations reference accurate gan-zhi, yi-ji, and chong-sha values (not hallucinated)
-  4. All AI configuration (provider, API keys) is managed through environment variables without code changes
-**Plans**: TBD
+  1. User enters birth data on `/tools/bazi` and sees a plain-language summary plus a professional chart with four pillars, day master, ten gods, hidden stems, na-yin, and five-element strength signals
+  2. User opens an interactive auspicious-date recommendation flow, chooses a scene, enters scene-specific people, selects a date range, and receives ranked dates with score, dimensional reasons, cautions, and usable lucky hours
+  3. User can browse a metaphysics knowledge base with taxonomy and story-rich entries for BaZi, almanac/date-selection terms, five elements, Zi Wei preparation, twenty-eight mansions, Zhou Tian Xing Dou, and star mythology
+  4. Tool pages use richer term hints/popovers and cultural-reference wording so scores and chart labels remain explainable without deterministic fate claims
+**Plans**: 4 plans
+Plans:
+**Wave 1**
+- [ ] 04-01-PLAN.md — Professional BaZi calculation core: day master, ten gods, hidden stems, na-yin, terrain, and element strength
+- [ ] 04-02-PLAN.md — Metaphysics knowledge taxonomy: story-rich entries, richer term hints, `/knowledge` pages, registry/sitemap coverage
+**Wave 2** *(blocked on Wave 1 completion)*
+- [ ] 04-03-PLAN.md — BaZi result UI: summary-first professional chart, element strength panel, and knowledge-linked term hints
+- [ ] 04-04-PLAN.md — Interactive auspicious-date scoring: scene-specific people inputs, ranked results, score breakdown, and jieri page links
+
+Cross-cutting constraints:
+- AI provider registry, streaming AI routes, and model failover are deferred from Phase 4.
+- Tool and score copy must stay in cultural-reference language and avoid deterministic fate claims.
 
 ### Phase 5: Production Deployment
 **Goal**: The application runs in production on self-hosted infrastructure with proper process management, reverse proxy, SSL, and container orchestration
@@ -99,5 +110,5 @@ Plans:
 | 1. Foundation & Data Layer | 3/3 | Planning complete | 2026-05-17 |
 | 2. Core Almanac UI | 4/4 | Complete | 2026-05-17 |
 | 3. SEO Content Matrix | 6/6 | Complete | 2026-05-17 |
-| 4. AI Integration | 0/TBD | Not started | - |
+| 4. Metaphysics Depth & Product Experience | 0/4 | Planned | - |
 | 5. Production Deployment | 0/TBD | Not started | - |

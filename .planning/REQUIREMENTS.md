@@ -1,7 +1,7 @@
 # Requirements: 今擇易 (JinZeYi)
 
 **Defined:** 2026-05-16
-**Core Value:** AI 驱动的个性化择吉体验——不只是给日期，更告诉用户"为什么选这天"、"避开了什么"、"还有什么备选"。
+**Core Value:** 逐步走向 AI 驱动的个性化择吉体验；当前 v1 先把确定性的黄历、八字、知识库和解释层做深，确保未来 AI 有可靠资料可引用，而不是放大浅层结果。
 
 ## v1 Requirements
 
@@ -43,12 +43,12 @@
 - [ ] **SEO-08**: 结构化数据（JSON-LD）——黄历、文章、工具页面的 Schema.org 标注
 - [ ] **SEO-09**: Meta 标签优化——每个页面独立的 title/description/keywords，Content-Language meta 标签
 
-### AI Layer (AI 抽象层)
+### Metaphysics Product Depth (命理深度与产品体验)
 
-- [ ] **AI-01**: Vercel AI SDK 集成——provider 注册表，支持 DeepSeek/Qwen/OpenAI 切换
-- [ ] **AI-02**: AIService 服务层——统一封装 AI 调用，provider 降级策略
-- [ ] **AI-03**: AI API 路由——Next.js API routes for AI endpoints，支持流式响应
-- [ ] **AI-04**: 环境变量配置——AI_PROVIDER、DEEPSEEK_API_KEY、QWEN_API_KEY、OPENAI_API_KEY
+- [ ] **META-01**: 专业八字排盘升级——四柱、日主、天干地支、十神、藏干、纳音、五行分布/强弱信号，并以白话摘要优先展示
+- [ ] **META-02**: 个性化吉日推荐流程——按场景收集相关人员与日期范围，输出总分/等级、黄历匹配、场景匹配、生肖冲煞、八字五行、可用吉时等维度解释
+- [ ] **META-03**: 命理知识库基础——建立分类、术语、神话故事、实用说明、关联词、工具出现位置、常见误解与来源备注，覆盖八字/择日并预留紫微斗数、二十八星宿、周天星斗
+- [ ] **META-04**: 解释与安全表达——工具页通过 term hint/popover 链接知识库，所有评分与命格说明使用文化研究/民俗参考语气，避免确定性命运、医疗、法律、财务或生命关键建议
 
 ### Data (数据层)
 
@@ -66,6 +66,10 @@
 
 ### AI Features (AI 功能)
 
+- **AI-01**: Vercel AI SDK 集成——provider 注册表，支持 DeepSeek/Qwen/OpenAI 切换（从 v1 Phase 4 推迟）
+- **AI-02**: AIService 服务层——统一封装 AI 调用，provider 降级策略（从 v1 Phase 4 推迟）
+- **AI-03**: AI API 路由——Next.js API routes for AI endpoints，支持流式响应（从 v1 Phase 4 推迟）
+- **AI-04**: 环境变量配置——AI_PROVIDER、DEEPSEEK_API_KEY、QWEN_API_KEY、OPENAI_API_KEY（从 v1 Phase 4 推迟）
 - **AI-V2-01**: AI 择吉问答——自然语言输入，AI 智能解析并推荐日期
 - **AI-V2-02**: AI 结果解释——不只给日期，还给"为什么选这天""避开了什么""备选日期"
 - **AI-V2-03**: 场景化引导——结婚/搬家/开业等场景的引导式择吉流程
@@ -93,7 +97,7 @@
 | 面相/手相 AI 分析 | 不同产品类别，品牌混淆 |
 | 塔罗牌/西方星座 | 品牌定位不符，"今擇易"是中式命理 |
 | 电商/商品推荐 | 监管风险，与核心价值无关 |
-| 紫微斗数/六爻/奇门遁甲 | 小众受众，复杂 UI，v1 不做 |
+| 紫微斗数/六爻/奇门遁甲完整工具 | 小众受众，复杂 UI，v1 不做完整排盘；Phase 4 知识库可预留术语和故事入口 |
 | 移动端 App | 先做好 Web 响应式，App 后续考虑 |
 | 多时区支持 | 目标用户为 UTC+8 中文用户 |
 
@@ -106,15 +110,16 @@
 | ALM-01 ~ ALM-02 | Phase 1 | Pending |
 | ALM-03 ~ ALM-07 | Phase 2 | Pending |
 | SEO-01 ~ SEO-09 | Phase 3 | Pending |
-| AI-01 ~ AI-04 | Phase 4 | Pending |
+| META-01 ~ META-04 | Phase 4 | Pending |
+| AI-01 ~ AI-04 | Deferred / v2 | Deferred |
 | DATA-01 ~ DATA-03 | Phase 1 | Pending |
 | DEPLOY-01 ~ DEPLOY-03 | Phase 5 | Pending |
 
 **Coverage:**
-- v1 requirements: 28 total
-- Mapped to phases: 28
+- v1 requirements: 36 total
+- Mapped to phases: 36
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-05-16*
-*Last updated: 2026-05-16 after initial definition*
+*Last updated: 2026-05-18 after Phase 4 AI deferral and metaphysics-depth scope alignment*
