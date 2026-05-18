@@ -5,7 +5,8 @@ export type ContentFamily =
   | 'jieri'
   | 'zodiac'
   | 'feng-shui'
-  | 'tool';
+  | 'tool'
+  | 'knowledge';
 
 export type PageSchemaType =
   | 'WebSite'
@@ -18,6 +19,7 @@ export type SeedTargetModel =
   | 'ContentPage'
   | 'ZodiacProfile'
   | 'FengShuiArticle'
+  | 'MetaphysicsEntry'
   | 'BaZiProfile'
   | 'NamingRecord';
 
@@ -89,4 +91,31 @@ export interface ToolContent extends IndexablePage {
   pageType: 'WebApplication' | 'WebPage';
   toolKey: 'tools-index' | 'bazi' | 'naming';
   inputFields: string[];
+}
+
+export type MetaphysicsCategory =
+  | 'bazi'
+  | 'almanac'
+  | 'five-elements'
+  | 'stars'
+  | 'zi-wei'
+  | 'cosmology';
+
+export interface MetaphysicsEntry extends IndexablePage {
+  family: 'knowledge';
+  pageType: 'Article';
+  category: MetaphysicsCategory;
+  categoryLabel: string;
+  name: string;
+  short: string;
+  detail: string;
+  practicalUse: string;
+  relatedTerms: string[];
+  toolAppearances: string[];
+  mythologyStory: string;
+  commonMisunderstandings: string[];
+  sourceNotes: string[];
+  chartHint?: string;
+  starPersonalityMetaphor?: string;
+  linkLabel: string;
 }

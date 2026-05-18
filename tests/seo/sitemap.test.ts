@@ -17,6 +17,17 @@ describe('locale sitemap', () => {
     expect(urls).toContain('http://43.139.84.61:3000/zh-hant/zodiac/rat');
     expect(urls).toContain('http://43.139.84.61:3000/zh-hant/zodiac/rat/rat-xingge');
     expect(urls).toContain('http://43.139.84.61:3000/zh-hant/feng-shui/home/xuan-guan-ke-ting');
+    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/knowledge');
+    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/knowledge/zhou-tian-xing-dou');
+    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/knowledge/day-master');
+  });
+
+  it('includes Simplified knowledge URLs from registry candidates', async () => {
+    const entries = await loadSitemap('zh-hans');
+    const urls = entries.map((entry) => entry.url);
+
+    expect(urls).toContain('http://43.139.84.61:3000/zh-hans/knowledge/day-master');
+    expect(urls.some((url) => url.includes('/ai'))).toBe(false);
   });
 
   it('includes indexed jieri years 2006 and 2046 but not full legal year range', async () => {

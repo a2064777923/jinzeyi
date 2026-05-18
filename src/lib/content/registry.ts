@@ -1,5 +1,6 @@
 import { fengShuiArticles, fengShuiIndexPage } from './feng-shui';
 import { jieriIndexPage } from './jieri-scenes';
+import { knowledgeIndexPage, metaphysicsEntries } from './metaphysics';
 import { toolPages } from './tools';
 import type { IndexablePage } from './types';
 import { zodiacArticles, zodiacHubPages, zodiacIndexPage } from './zodiac';
@@ -157,6 +158,8 @@ const indexableRoutes: IndexablePage[] = [
   fengShuiIndexPage,
   ...fengShuiArticles,
   ...toolPages,
+  knowledgeIndexPage,
+  ...metaphysicsEntries,
 ];
 
 export function getIndexableRoutes(): IndexablePage[] {
@@ -180,6 +183,16 @@ export {
   getFengShuiCategory,
 } from './feng-shui';
 export { getJieriScene, jieriIndexPage, jieriScenes } from './jieri-scenes';
+export {
+  getMetaphysicsCategories,
+  getMetaphysicsCategory,
+  getMetaphysicsEntries,
+  getMetaphysicsEntriesByCategory,
+  getMetaphysicsEntry,
+  knowledgeIndexPage,
+  metaphysicsCategories,
+  metaphysicsEntries,
+} from './metaphysics';
 export { getToolPage, toolPages } from './tools';
 export type {
   ArticleContent,
@@ -190,6 +203,8 @@ export type {
   LocaleCode,
   LocaleSeoFields,
   LocalizedSeo,
+  MetaphysicsCategory,
+  MetaphysicsEntry,
   ToolContent,
 } from './types';
 export {
