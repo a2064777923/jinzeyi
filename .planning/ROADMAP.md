@@ -9,7 +9,7 @@ Five phases building from data foundation to production deployment. Phase 1 esta
 - [ ] **Phase 1: Foundation & Data Layer** - Project scaffolding, i18n, almanac engine, Redis cache, PostgreSQL, legal disclaimers
 - [ ] **Phase 2: Core Almanac UI** - Today's almanac card, hourly fortune table, monthly calendar, solar terms
 - [x] **Phase 3: SEO Content Matrix** - Auspicious day queries, zodiac, BaZi, Feng Shui, naming tool, sitemap, structured data
-- [ ] **Phase 4: Metaphysics Depth & Product Experience** - Professional BaZi chart, interactive auspicious-date scoring, metaphysics knowledge base, richer term hints
+- [x] **Phase 4: Metaphysics Depth & Product Experience** - Professional BaZi chart, interactive auspicious-date scoring, metaphysics knowledge base, richer term hints (completed 2026-05-18)
 - [ ] **Phase 5: Production Deployment** - Docker Compose, BaoTa + Nginx, PM2 cluster
 
 ## Phase Details
@@ -86,7 +86,7 @@ Plans:
 - [x] 04-02-PLAN.md — Metaphysics knowledge taxonomy: story-rich entries, richer term hints, `/knowledge` pages, registry/sitemap coverage
 **Wave 2** *(blocked on Wave 1 completion)*
 - [x] 04-03-PLAN.md — BaZi result UI: summary-first professional chart, element strength panel, and knowledge-linked term hints
-- [ ] 04-04-PLAN.md — Interactive auspicious-date scoring: scene-specific people inputs, ranked results, score breakdown, and jieri page links
+- [x] 04-04-PLAN.md — Interactive auspicious-date scoring: scene-specific people inputs, ranked results, score breakdown, and jieri page links
 
 Cross-cutting constraints:
 - AI provider registry, streaming AI routes, and model failover are deferred from Phase 4.
@@ -110,5 +110,5 @@ Cross-cutting constraints:
 | 1. Foundation & Data Layer | 3/3 | Planning complete | 2026-05-17 |
 | 2. Core Almanac UI | 4/4 | Complete | 2026-05-17 |
 | 3. SEO Content Matrix | 6/6 | Complete | 2026-05-17 |
-| 4. Metaphysics Depth & Product Experience | 3/4 | In Progress|  |
+| 4. Metaphysics Depth & Product Experience | 4/4 | Complete   | 2026-05-18 |
 | 5. Production Deployment | 0/TBD | Not started | - |
