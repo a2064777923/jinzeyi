@@ -70,7 +70,7 @@ export default async function KnowledgeIndexPage({ params }: Props) {
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="rounded-lg border border-border bg-card p-5 text-sm leading-7 text-muted-foreground">
             <h2 className="text-lg font-semibold text-foreground">
-              {localizeBodyCopy(locale, '先把工具里的词读懂')}
+              {localizeBodyCopy(locale, '工具里的关键词')}
             </h2>
             <p className="mt-2">{localizeBodyCopy(locale, knowledgeIndexPage.body)}</p>
           </div>

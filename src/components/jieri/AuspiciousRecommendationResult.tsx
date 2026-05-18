@@ -16,17 +16,18 @@ const gradeLabel = {
 interface AuspiciousRecommendationResultProps {
   results: RecommendationResult[];
   locale: LocaleCode;
+  hasSubmitted?: boolean;
 }
 
-export function AuspiciousRecommendationResult({ results, locale }: AuspiciousRecommendationResultProps) {
+export function AuspiciousRecommendationResult({ results, locale, hasSubmitted = false }: AuspiciousRecommendationResultProps) {
   if (results.length === 0) {
     return (
       <section className="rounded-lg border border-border bg-card p-5 text-sm leading-7 text-muted-foreground">
         <h2 className="text-lg font-semibold text-foreground">
-          {localizeBodyCopy(locale, '未找到足够合适的日期')}
+          {localizeBodyCopy(locale, hasSubmitted ? '这段时间没有明显优选' : '候选日会出现在这里')}
         </h2>
         <p className="mt-2">
-          {localizeBodyCopy(locale, '可以放宽日期范围，或先减少可选条件后重新推荐。')}
+          {localizeBodyCopy(locale, hasSubmitted ? '换一段日期，或减少可选参与者。' : '结果包含分数、理由、提醒和可用吉时。')}
         </p>
       </section>
     );
@@ -39,7 +40,7 @@ export function AuspiciousRecommendationResult({ results, locale }: AuspiciousRe
           {localizeBodyCopy(locale, '推荐结果')}
         </h2>
         <p className="mt-1 text-sm leading-6 text-muted-foreground">
-          {localizeBodyCopy(locale, '按总分排序，展开每一天可查看黄历、场景、冲煞、八字五行和吉时维度。')}
+          {localizeBodyCopy(locale, '高分日期在前，冲煞、五行和吉时提醒都在同一张卡里。')}
         </p>
       </div>
 
@@ -92,7 +93,7 @@ export function AuspiciousRecommendationResult({ results, locale }: AuspiciousRe
                 href={`/almanac/${result.date}`}
                 className="inline-flex w-fit items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm font-semibold text-primary transition hover:bg-secondary"
               >
-                {localizeBodyCopy(locale, '查看当日黄历')}
+                {localizeBodyCopy(locale, '打开当日黄历')}
                 <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
             </div>

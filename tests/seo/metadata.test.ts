@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  SITE_ORIGIN,
   buildArticleJsonLd,
   buildBreadcrumbJsonLd,
   buildFaqJsonLd,
@@ -81,8 +82,8 @@ describe('Phase 3 SEO helpers', () => {
 
     expect(jsonLd['@type']).toBe('BreadcrumbList');
     expect(jsonLd.itemListElement).toEqual([
-      expect.objectContaining({ position: 1, item: 'http://43.139.84.61:3000/zh-hant' }),
-      expect.objectContaining({ position: 2, item: 'http://43.139.84.61:3000/zh-hant/tools/bazi' }),
+      expect.objectContaining({ position: 1, item: `${SITE_ORIGIN}/zh-hant` }),
+      expect.objectContaining({ position: 2, item: `${SITE_ORIGIN}/zh-hant/tools/bazi` }),
     ]);
   });
 
@@ -135,4 +136,3 @@ describe('Phase 3 SEO helpers', () => {
     ]);
   });
 });
-

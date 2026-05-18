@@ -44,12 +44,14 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
   const [endDate, setEndDate] = useState('2026-06-15');
   const [results, setResults] = useState<RecommendationResult[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   function changeScene(nextSceneSlug: string) {
     const nextScene = jieriScenes.find((scene) => scene.slug === nextSceneSlug) ?? jieriScenes[0];
     setSceneSlug(nextScene.slug);
     setPeople(createPeopleDraft(nextScene.personRoles));
     setResults([]);
+    setHasSubmitted(false);
     setError(null);
   }
 
@@ -69,6 +71,7 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
     setStartDate('2026-05-18');
     setEndDate('2026-06-15');
     setResults([]);
+    setHasSubmitted(false);
     setError(null);
   }
 
@@ -85,10 +88,12 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
         limit: 8,
       });
       setResults(scored);
+      setHasSubmitted(true);
       setError(null);
     } catch (caught) {
       setResults([]);
-      setError(caught instanceof Error ? caught.message : localizeBodyCopy(locale, '推荐失败，请检查输入。'));
+      setHasSubmitted(true);
+      setError(caught instanceof Error ? caught.message : localizeBodyCopy(locale, '资料不完整，补齐后重试。'));
     }
   }
 
@@ -101,7 +106,7 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
               {localizeBodyCopy(locale, '推荐日期')}
             </h2>
             <p className="mt-1 text-sm leading-6 text-muted-foreground">
-              {localizeBodyCopy(locale, '选择场景、填写参与者资料和日期范围，获取可解释排序。')}
+              {localizeBodyCopy(locale, '把更合适的日子排到前面，理由和提醒一起看。')}
             </p>
           </div>
           <Button type="button" variant="outline" size="icon" onClick={reset} aria-label={localizeBodyCopy(locale, '重置推荐表单')}>
@@ -110,7 +115,7 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
         </div>
 
         <div className="grid gap-4">
-          <Field label={localizeBodyCopy(locale, '选择场景')}>
+          <Field label={localizeBodyCopy(locale, '事项')}>
             <select
               value={sceneSlug}
               onChange={(event) => changeScene(event.target.value)}
@@ -126,7 +131,7 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
 
           <fieldset className="grid gap-3 rounded-md border border-border bg-background/70 p-3">
             <legend className="px-1 text-sm font-semibold">
-              {localizeBodyCopy(locale, '参与者资料')}
+              {localizeBodyCopy(locale, '关键参与者')}
             </legend>
             {selectedScene.personRoles.map((role) => (
               <PersonRoleFields
@@ -177,11 +182,11 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
 
         <Button type="submit" className="mt-4 w-full" size="lg">
           <CalendarCheck data-icon="inline-start" />
-          {localizeBodyCopy(locale, '生成推荐结果')}
+          {localizeBodyCopy(locale, '找合适日期')}
         </Button>
       </form>
 
-      <AuspiciousRecommendationResult results={results} locale={locale} />
+      <AuspiciousRecommendationResult results={results} locale={locale} hasSubmitted={hasSubmitted} />
     </section>
   );
 }

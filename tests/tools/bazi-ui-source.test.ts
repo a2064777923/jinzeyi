@@ -66,4 +66,19 @@ describe('professional BaZi UI source contracts', () => {
     expect(combined).not.toMatch(/必定|一定|保证|保證/);
     expect(combined).not.toMatch(/大运|大運|流年|神煞/);
   });
+
+  it('keeps BaZi UI copy direct and user-facing', () => {
+    const combined = [
+      baziSummarySource,
+      professionalChartSource,
+      elementPanelSource,
+      baziPageSource,
+    ].join('\n');
+
+    expect(combined).not.toMatch(/先看|先把|此功能|工具的目标|用户输入|用戶輸入/);
+    expect(baziSummarySource).toContain('盘面摘要');
+    expect(professionalChartSource).toContain('集中在一张盘里');
+    expect(elementPanelSource).toContain('一眼看清');
+    expect(baziPageSource).toContain('盘面关键词');
+  });
 });

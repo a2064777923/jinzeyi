@@ -28,7 +28,7 @@ export function NamingForm() {
       setResult(analyzeName(values));
       setError(null);
     } catch {
-      setError('请输入 1-2 个中文姓氏字和 1-2 个中文名字字，不支持数字或符号。');
+      setError('输入 1-2 个中文姓氏字和 1-2 个中文名字字，不支持数字或符号。');
     }
   }
 
@@ -37,7 +37,7 @@ export function NamingForm() {
       <form className="rounded-lg border border-border bg-card p-4 shadow-sm" onSubmit={onSubmit} noValidate>
         <div className="mb-4">
           <h2 className="text-lg font-semibold">输入姓名</h2>
-          <p className="mt-1 text-sm leading-6 text-muted-foreground">先看单字五行、收录状态和基础组合。</p>
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">单字五行、收录状态和基础组合一并呈现。</p>
         </div>
 
         <div className="grid gap-3">

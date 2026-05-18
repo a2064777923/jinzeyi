@@ -18,18 +18,6 @@ function expectedYearPillar(year: number, month: number): string {
   return stems[stemIdx] + branches[branchIdx];
 }
 
-function expectedZodiac(year: number): string {
-  // Zodiac based on year pillar's Earthly Branch
-  // 1900 = 子 = 鼠
-  const branchAnimals: Record<string, string> = {
-    '子': '鼠', '丑': '牛', '寅': '虎', '卯': '兔',
-    '辰': '龙', '巳': '蛇', '午': '马', '未': '羊',
-    '申': '猴', '酉': '鸡', '戌': '狗', '亥': '猪',
-  };
-  const pillar = expectedYearPillar(year);
-  return branchAnimals[pillar[1]];
-}
-
 describe('tyme4ts regression: 1900-2100 spot checks', () => {
   // Test at 10-year intervals: 1900, 1910, 1920, ..., 2090, 2100
   const testYears = Array.from({ length: 22 }, (_, i) => 1900 + i * 10);

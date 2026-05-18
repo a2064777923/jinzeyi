@@ -57,11 +57,22 @@ describe('jieri recommendation route contracts', () => {
     expect(formSource).toContain('export function AuspiciousRecommendationForm');
     expect(resultSource).toContain('export function AuspiciousRecommendationResult');
     expect(scoreSource).toContain('export function ScoreBreakdown');
-    expect(formSource).toContain('选择场景');
-    expect(formSource).toContain('参与者资料');
+    expect(formSource).toContain('事项');
+    expect(formSource).toContain('关键参与者');
     expect(formSource).toContain('日期范围');
     expect(resultSource).toContain('推荐结果');
+    expect(resultSource).toContain('候选日会出现在这里');
     expect(resultSource).toContain('ScoreBreakdown');
+  });
+
+  it('keeps recommendation UI copy user-facing instead of product-doc style', () => {
+    const combined = [routeSource, formSource, resultSource, scenePageSource].join('\n');
+
+    expect(combined).not.toMatch(/先[^'"\n。]*再/);
+    expect(combined).not.toMatch(/请查看|請查看|此功能|工具用于|工具用於|获取可解释/);
+    expect(combined).not.toContain('查看当日黄历');
+    expect(formSource).toContain('找合适日期');
+    expect(resultSource).toContain('打开当日黄历');
   });
 
   it('links annual jieri pages into the recommendation flow', () => {

@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import {
   Table,
   TableBody,
@@ -7,8 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FortuneMarker } from './FortuneMarker';
+import { cn } from '@/lib/utils';
+import { convertToTraditional } from '@/lib/opencc';
 import type { HourlyFortune } from '@/lib/almanac/types';
 
 interface HourlyFortuneTableProps {
@@ -17,13 +18,56 @@ interface HourlyFortuneTableProps {
 
 export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
   const t = await getTranslations('HourlyFortune');
+  const locale = await getLocale();
+  const localize = (value: string) =>
+    locale === 'zh-hant' ? convertToTraditional(value) : value;
+  const luckyCount = hours.filter((hour) => hour.fortune === '吉').length;
 
   return (
-    <div className="w-full space-y-4">
-      <h2 className="text-xl font-semibold">{t('title')}</h2>
+    <div className="w-full min-w-0 space-y-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-sm font-medium text-muted-foreground">{t('fortune')}</p>
+          <h2 className="font-serif-display text-2xl font-semibold text-foreground">
+            {t('title')}
+          </h2>
+        </div>
+        <div className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm shadow-sm">
+          <span className="font-semibold text-lucky">{luckyCount} 吉</span>
+          <span className="h-4 w-px bg-border" aria-hidden="true" />
+          <span className="font-semibold text-ominous">{hours.length - luckyCount} 凶</span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-12 gap-1 rounded-lg border border-border bg-card p-2 shadow-sm">
+        {hours.map((hour, index) => (
+          <div
+            key={`${hour.name}-bar`}
+            className={cn(
+              'group relative h-14 overflow-hidden rounded-md border transition duration-200 hover:-translate-y-0.5',
+              hour.fortune === '吉'
+                ? 'border-lucky/35 bg-lucky/14 shadow-lucky/10'
+                : 'border-ominous/40 bg-ominous/14 shadow-ominous/10'
+            )}
+            title={`${localize(hour.name)} ${hour.fortune}`}
+          >
+            <div
+              className={cn(
+                'absolute inset-x-0 bottom-0',
+                hour.fortune === '吉' ? 'bg-lucky' : 'bg-ominous'
+              )}
+              style={{ height: hour.fortune === '吉' ? '82%' : '42%' }}
+              aria-hidden="true"
+            />
+            <span className="absolute inset-0 grid place-items-center text-xs font-bold text-card">
+              {index + 1}
+            </span>
+          </div>
+        ))}
+      </div>
 
       {/* Desktop table */}
-      <div className="hidden md:block">
+      <div className="hidden overflow-hidden rounded-lg border border-border bg-card shadow-sm md:block">
         <Table>
           <TableHeader>
             <TableRow>
@@ -37,18 +81,30 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
           </TableHeader>
           <TableBody>
             {hours.map((hour) => (
-              <TableRow key={hour.name}>
-                <TableCell className="font-medium">{hour.name}</TableCell>
-                <TableCell>{hour.ganZhi}</TableCell>
+              <TableRow
+                key={hour.name}
+                className={cn(
+                  'transition duration-200',
+                  hour.fortune === '吉'
+                    ? 'bg-lucky/5 hover:bg-lucky/10'
+                    : 'bg-ominous/5 hover:bg-ominous/10'
+                )}
+              >
+                <TableCell className="font-medium">{localize(hour.name)}</TableCell>
+                <TableCell>{localize(hour.ganZhi)}</TableCell>
                 <TableCell>
-                  <FortuneMarker fortune={hour.fortune} size="sm" />
+                  <FortuneMarker fortune={hour.fortune} size="sm" variant="pill" />
                 </TableCell>
-                <TableCell>{hour.star}</TableCell>
+                <TableCell>{localize(hour.star)}</TableCell>
                 <TableCell className="text-sm">
-                  {hour.yi.length > 0 ? hour.yi.slice(0, 3).join('、') : t('noYi')}
+                  {hour.yi.length > 0
+                    ? hour.yi.map(localize).slice(0, 3).join('、')
+                    : t('noYi')}
                 </TableCell>
                 <TableCell className="text-sm">
-                  {hour.ji.length > 0 ? hour.ji.slice(0, 3).join('、') : t('noJi')}
+                  {hour.ji.length > 0
+                    ? hour.ji.map(localize).slice(0, 3).join('、')
+                    : t('noJi')}
                 </TableCell>
               </TableRow>
             ))}
@@ -57,29 +113,39 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
       </div>
 
       {/* Mobile cards */}
-      <div className="md:hidden space-y-3">
+      <div className="max-w-full overflow-hidden md:hidden">
+        <div className="flex max-w-full snap-x gap-3 overflow-x-auto pb-2">
         {hours.map((hour) => (
-          <Card key={hour.name}>
-            <CardContent className="py-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{hour.name}</span>
-                <span className="text-sm text-muted-foreground">{hour.ganZhi}</span>
+          <div
+            key={hour.name}
+            className={cn(
+              'min-w-[13.5rem] snap-start rounded-lg border p-3 shadow-sm',
+              hour.fortune === '吉'
+                ? 'border-lucky/25 bg-lucky/6'
+                : 'border-ominous/25 bg-ominous/6'
+            )}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <span className="block font-medium">{localize(hour.name)}</span>
+                <span className="text-sm text-muted-foreground">{localize(hour.ganZhi)}</span>
               </div>
-              <div className="flex justify-center">
-                <FortuneMarker fortune={hour.fortune} size="lg" />
-              </div>
-              <div className="text-sm text-muted-foreground">{hour.star}</div>
-              <div className="text-sm">
-                <span className="text-gold">{t('yi')}:</span>{' '}
-                {hour.yi.length > 0 ? hour.yi.slice(0, 3).join('、') : t('noYi')}
-              </div>
-              <div className="text-sm">
-                <span className="text-muted-foreground">{t('ji')}:</span>{' '}
-                {hour.ji.length > 0 ? hour.ji.slice(0, 3).join('、') : t('noJi')}
-              </div>
-            </CardContent>
-          </Card>
+              <FortuneMarker fortune={hour.fortune} size="sm" />
+            </div>
+            <div className="mt-2 text-sm font-medium text-muted-foreground">{localize(hour.star)}</div>
+            <div className="mt-3 grid gap-1 text-sm leading-5">
+              <p className="line-clamp-2">
+                <span className="font-semibold text-lucky">{t('yi')}:</span>{' '}
+                {hour.yi.length > 0 ? hour.yi.map(localize).slice(0, 3).join('、') : t('noYi')}
+              </p>
+              <p className="line-clamp-2">
+                <span className="font-semibold text-ominous">{t('ji')}:</span>{' '}
+                {hour.ji.length > 0 ? hour.ji.map(localize).slice(0, 3).join('、') : t('noJi')}
+              </p>
+            </div>
+          </div>
         ))}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import sitemap from '@/app/[locale]/sitemap';
 import { jieriScenes } from '@/lib/content/registry';
+import { SITE_ORIGIN } from '@/lib/seo';
 
 async function loadSitemap(locale: 'zh-hant' | 'zh-hans' = 'zh-hant') {
   return sitemap({ params: Promise.resolve({ locale }) });
@@ -11,24 +12,24 @@ describe('locale sitemap', () => {
     const entries = await loadSitemap();
     const urls = entries.map((entry) => entry.url);
 
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/tools/bazi');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/tools/naming');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/tools/jieri-recommend');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/zodiac/rat');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/zodiac/rat/rat-xingge');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/feng-shui/home/xuan-guan-ke-ting');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/knowledge');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/knowledge/zhou-tian-xing-dou');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hant/knowledge/day-master');
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/tools/bazi`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/tools/naming`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/tools/jieri-recommend`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/zodiac/rat`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/zodiac/rat/rat-xingge`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/feng-shui/home/xuan-guan-ke-ting`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/knowledge`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/knowledge/zhou-tian-xing-dou`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/knowledge/day-master`);
   });
 
   it('includes Simplified knowledge URLs from registry candidates', async () => {
     const entries = await loadSitemap('zh-hans');
     const urls = entries.map((entry) => entry.url);
 
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hans/knowledge/day-master');
-    expect(urls).toContain('http://43.139.84.61:3000/zh-hans/tools/jieri-recommend');
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hans/knowledge/day-master`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hans/tools/jieri-recommend`);
     expect(urls.some((url) => url.includes('/ai'))).toBe(false);
   });
 
@@ -37,11 +38,11 @@ describe('locale sitemap', () => {
     const entries = await loadSitemap();
     const urls = entries.map((entry) => entry.url);
 
-    expect(urls).toContain(`http://43.139.84.61:3000/zh-hant/jieri/${scene}/2006`);
-    expect(urls).toContain(`http://43.139.84.61:3000/zh-hant/jieri/${scene}/2046`);
-    expect(urls).not.toContain(`http://43.139.84.61:3000/zh-hant/jieri/${scene}/0`);
-    expect(urls).not.toContain(`http://43.139.84.61:3000/zh-hant/jieri/${scene}/1`);
-    expect(urls).not.toContain(`http://43.139.84.61:3000/zh-hant/jieri/${scene}/5000`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/jieri/${scene}/2006`);
+    expect(urls).toContain(`${SITE_ORIGIN}/zh-hant/jieri/${scene}/2046`);
+    expect(urls).not.toContain(`${SITE_ORIGIN}/zh-hant/jieri/${scene}/0`);
+    expect(urls).not.toContain(`${SITE_ORIGIN}/zh-hant/jieri/${scene}/1`);
+    expect(urls).not.toContain(`${SITE_ORIGIN}/zh-hant/jieri/${scene}/5000`);
   });
 
   it('adds zh-Hans, zh-Hant, and x-default alternates to every entry', async () => {

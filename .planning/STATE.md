@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 04 complete (4/4) — ready to plan Phase 5
-last_updated: "2026-05-18T07:29:06.747Z"
+status: deployment-prep
+stopped_at: Repository handoff and GitHub push preparation for Phase 5
+last_updated: "2026-05-18T19:49:58+08:00"
 last_activity: 2026-05-18
 progress:
   total_phases: 5
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-16)
 
 **Core value:** 逐步走向 AI 驱动的个性化择吉体验；当前 v1 先把确定性的黄历、八字、知识库和解释层做深
-**Current focus:** Phase 5 — production deployment
+**Current focus:** Phase 5 — production deployment, domain binding, and CI/CD handoff
 
 ## Current Position
 
 Phase: 5
 Plan: Not started
-Status: Ready to plan
+Status: Repository handoff prepared; ready to plan CI/CD and production hardening
 Last activity: 2026-05-18
 
 Progress: [██████████] 100%
@@ -65,7 +65,10 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-Phase 4 planning is complete. Next work should execute Phase 4 plans in wave order.
+- Bind the production domain and set `NEXT_PUBLIC_SITE_ORIGIN` before the final production build.
+- Add CI/CD on the GitHub repository after the initial push.
+- Plan Phase 5 deployment hardening: PM2/Nginx or Docker Compose, SSL, process monitoring, backups, and rollback.
+- Keep AI provider registry and streaming AI routes deferred until the deterministic product surface is stronger.
 
 ### Blockers/Concerns
 
@@ -81,6 +84,6 @@ Phase 4 planning is complete. Next work should execute Phase 4 plans in wave ord
 
 ## Session Continuity
 
-Last session: 2026-05-18T07:29:06.723Z
-Stopped at: Phase 04 complete (4/4) — ready to plan Phase 5
+Last session: 2026-05-18T19:49:58+08:00
+Stopped at: Repository handoff and initial production-readiness documentation
 Resume file: .planning/ROADMAP.md

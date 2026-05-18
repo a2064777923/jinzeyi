@@ -25,7 +25,7 @@
   "Homepage": {
     "title": "今日黃曆｜今擇易",
     "description": "今擇易提供今日黃曆、農曆日期、宜忌事項、吉時凶時、沖煞方位、月曆吉日凶日與二十四節氣查詢，適合快速參考傳統擇日資訊。",
-    "cta": "查看今日黃曆",
+    "cta": "打開今日黃曆",
     "heroKicker": "擇日 · 時辰 · 節令",
     "heroLead": "把今日宜忌、吉時凶時和節氣節令放在同一個視圖，方便快速判斷今天適合做什麼。",
     "summary": "今日概覽",
@@ -36,12 +36,12 @@
     "search": {
       "label": "查找指定日期黃曆",
       "button": "查詢",
-      "invalid": "請選擇 1900-01-01 至 2100-12-31 之間的有效日期"
+      "invalid": "輸入 0002-01-01 至 5000-12-31 之間的有效日期，格式為 YYYY-MM-DD"
     },
     "loading": "載入中...",
     "error": {
       "heading": "發生錯誤",
-      "body": "請稍後再試，或聯繫我們。"
+      "body": "稍後再試，或聯繫我們。"
     }
   },
   "Almanac": {
@@ -94,8 +94,8 @@
     "today": "今天",
     "prevMonth": "上個月",
     "nextMonth": "下個月",
-    "prevMonthAria": "查看 {year} 年 {month} 月月曆",
-    "nextMonthAria": "查看 {year} 年 {month} 月月曆",
+    "prevMonthAria": "打開 {year} 年 {month} 月月曆",
+    "nextMonthAria": "打開 {year} 年 {month} 月月曆",
     "legend": {
       "auspicious": "紅金 = 吉日",
       "inauspicious": "灰紋 = 凶日",
@@ -108,8 +108,8 @@
       "solarTerms": "節氣",
       "noSolarTerm": "本月無節氣",
       "recommendedTitle": "本月好入手的吉日",
-      "avoidTitle": "需要謹慎查看的凶日",
-      "noYi": "查看詳情",
+      "avoidTitle": "需要謹慎的凶日",
+      "noYi": "打開詳情",
       "monthOverview": "月度",
       "luckyRatio": "本月吉日佔比",
       "bestEntry": "最快入口",
@@ -123,26 +123,26 @@
     },
     "search": {
       "label": "跳轉到指定日期",
-      "button": "查看",
-      "invalid": "請選擇 1900-01-01 至 2100-12-31 之間的有效日期"
+      "button": "打開",
+      "invalid": "輸入 0002-01-01 至 5000-12-31 之間的有效日期，格式為 YYYY-MM-DD"
     },
     "guide": {
       "title": "怎麼讀這張月曆",
-      "stepFortune": "先看格子右上角的「吉/凶」印記：吉日用紅金，凶日用灰紋，避免只靠顏色判斷。",
-      "stepSolarTerm": "再看日期下方：遇到節氣會優先顯示節氣名，否則顯示農曆日；桌面端還會顯示值神與星神。",
-      "stepDetail": "最後看宜忌摘要；若要安排具體事項，點進詳情頁再結合時辰吉凶、沖煞和方位。",
+      "stepFortune": "格子右上角的「吉/凶」印記代表整日基調：吉日用紅金，凶日用灰紋，避免只靠顏色判斷。",
+      "stepSolarTerm": "日期下方顯示節氣或農曆日；桌面端還會顯示值神與星神。",
+      "stepDetail": "宜忌摘要適合快速篩選；若要安排具體事項，詳情頁還有時辰吉凶、沖煞和方位。",
       "noteTitle": "今日提示",
       "todayNote": "今天是 {date}，月曆判斷為「{fortune}」。具體安排仍建議進入詳情看宜忌與時辰。",
-      "generalNote": "當前月份不包含今天。可切回本月或直接點日期查看詳情。"
+      "generalNote": "當前月份不包含今天。可切回本月，或直接打開日期詳情。"
     },
     "error": {
       "heading": "無法載入月曆資料",
-      "body": "請稍後再試，或返回首頁。"
+      "body": "稍後再試，或返回首頁。"
     }
   },
   "SolarTerms": {
     "title": "二十四節氣",
-    "description": "按春、夏、秋、冬整理全年節氣，查看日期、節令含義與傳統習俗。",
+    "description": "按春、夏、秋、冬整理全年節氣、日期、節令含義與傳統習俗。",
     "countLabel": "{count} 個節氣",
     "seasonCountLabel": "四季輪轉",
     "jieCountLabel": "節令節點",
@@ -158,9 +158,10 @@
     "dateDay": "日",
     "meaningLabel": "含義",
     "customsLabel": "傳統習俗",
+    "seasonNavAria": "節氣季節快速跳轉",
     "error": {
       "heading": "節氣資料載入失敗",
-      "body": "請稍後再試，或返回首頁。"
+      "body": "稍後再試，或返回首頁。"
     },
     "terms": {
       "立春": { "meaning": "春季開始，萬物復蘇", "customs": "咬春、打春牛、貼春聯" },
@@ -207,11 +208,11 @@
     "backToToday": "回到今天",
     "notFound": {
       "heading": "找不到該日黃曆",
-      "body": "請檢查日期是否正確，或返回月曆瀏覽。"
+      "body": "日期可能不正確，也可以返回月曆瀏覽。"
     },
     "error": {
       "heading": "黃曆資料載入失敗",
-      "body": "請稍後再試，或返回月曆瀏覽。"
+      "body": "稍後再試，或返回月曆瀏覽。"
     },
     "overview": {
       "lunarDate": "農曆",
@@ -253,8 +254,8 @@
     }
   },
   "NotFound": {
-    "heading": "頁面未找到",
-    "body": "您要找的頁面不存在。",
+    "heading": "找不到這一頁",
+    "body": "這個地址不存在。",
     "cta": "返回首頁"
   }
 }

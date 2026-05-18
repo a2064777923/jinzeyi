@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
+import { SharePanel } from '@/components/share/SharePanel';
 import { cn } from '@/lib/utils';
 
 interface SeoHeroProps {
@@ -13,6 +14,8 @@ interface SeoHeroProps {
   icon?: ReactNode;
   controls?: ReactNode;
   className?: string;
+  shareUrl?: string;
+  shareLabel?: string;
 }
 
 export function SeoHero({
@@ -21,11 +24,15 @@ export function SeoHero({
   kicker,
   badges = [],
   imageSrc,
-  imageAlt = '',
+  imageAlt,
   icon,
   controls,
   className,
+  shareUrl,
+  shareLabel,
 }: SeoHeroProps) {
+  const resolvedImageAlt = imageAlt ?? title;
+
   return (
     <div
       className={cn(
@@ -39,7 +46,7 @@ export function SeoHero({
           <div className="flex flex-wrap items-center gap-3">
             {imageSrc ? (
               <span className="flex size-14 shrink-0 items-center justify-center rounded-lg border border-border bg-background/85 p-2 shadow-sm">
-                <Image src={imageSrc} alt={imageAlt} width={40} height={40} className="size-10 object-contain" />
+                <Image src={imageSrc} alt={resolvedImageAlt} width={40} height={40} className="size-10 object-contain" />
               </span>
             ) : icon ? (
               <span className="flex size-14 shrink-0 items-center justify-center rounded-lg border border-border bg-background/85 text-primary shadow-sm">
@@ -76,7 +83,23 @@ export function SeoHero({
           </div>
         )}
       </div>
+      {shareUrl ? (
+        <div className="relative mt-5">
+          <SharePanel
+            title={title}
+            text={deck}
+            url={shareUrl}
+            labels={{
+              title: shareLabel ?? '分享這頁',
+              copyLink: '複製連結',
+              copySummary: '複製摘要',
+              copied: '已複製',
+              nativeShare: '系統分享',
+            }}
+            className="bg-background/82"
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
-

@@ -1,28 +1,71 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { Noto_Sans_SC, Noto_Sans_TC } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import '@/styles/globals.css';
+import { ServiceWorkerRegister } from '@/components/pwa/ServiceWorkerRegister';
+import type { Metadata, Viewport } from 'next';
+import { DEFAULT_OG_IMAGE, SITE_KEYWORDS, SITE_NAME, SITE_ORIGIN } from '@/lib/seo';
 
-const notoSansSC = Noto_Sans_SC({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  weight: ['400', '500', '600'],
-  display: 'swap',
-});
+type Locale = (typeof routing.locales)[number];
 
-const notoSansTC = Noto_Sans_TC({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  weight: ['400', '500', '600'],
-  display: 'swap',
-});
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_ORIGIN),
+  applicationName: SITE_NAME,
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: '今日黃曆、月曆、宜忌、時辰吉凶與二十四節氣查詢。',
+  keywords: SITE_KEYWORDS,
+  icons: {
+    icon: [
+      { url: '/jinzeyi-icon.svg', type: 'image/svg+xml' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'icon', url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { rel: 'icon', url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+  },
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    title: SITE_NAME,
+    statusBarStyle: 'default',
+  },
+  other: {
+    'apple-mobile-web-app-capable': 'yes',
+    'mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-title': SITE_NAME,
+  },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    images: [{ url: DEFAULT_OG_IMAGE, width: 512, height: 512, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [DEFAULT_OG_IMAGE],
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#047857',
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
+}
+
+function isLocale(locale: string): locale is Locale {
+  return routing.locales.some((supportedLocale) => supportedLocale === locale);
 }
 
 export default async function LocaleLayout({
@@ -34,17 +77,18 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as any)) notFound();
+  if (!isLocale(locale)) notFound();
 
+  setRequestLocale(locale);
   const messages = await getMessages();
-  const fontClass = locale === 'zh-hant' ? notoSansTC : notoSansSC;
 
   return (
-    <html lang={locale} className={fontClass.variable}>
+    <html lang={locale} data-scroll-behavior="smooth">
       <body className="min-h-screen bg-background text-foreground font-sans antialiased flex flex-col">
         <NextIntlClientProvider messages={messages}>
+          <ServiceWorkerRegister />
           <Header />
-          <main className="flex-1 mx-auto max-w-[65ch] w-full px-4 py-8">
+          <main className="w-full flex-1">
             {children}
           </main>
           <Footer />

@@ -17,23 +17,23 @@ const ELEMENT_CLASS: Record<FiveElement, string> = {
 const copy = {
   'zh-hans': {
     title: '五行强弱信号',
-    deck: '区分表层干支计数和地支藏干加权，避免只看四柱表面字数。',
+    deck: '哪种五行更明显，哪种偏少，一眼看清。',
     visibleCounts: '表层',
     hiddenStemWeightedCounts: '藏干',
     combinedScores: '综合',
     strongest: '较明显',
     weakest: '偏少',
-    method: '计算方法',
+    method: '权重说明',
   },
   'zh-hant': {
     title: '五行強弱信號',
-    deck: '區分表層干支計數和地支藏干加權，避免只看四柱表面字數。',
+    deck: '哪種五行更明顯，哪種偏少，一眼看清。',
     visibleCounts: '表層',
     hiddenStemWeightedCounts: '藏干',
     combinedScores: '綜合',
     strongest: '較明顯',
     weakest: '偏少',
-    method: '計算方法',
+    method: '權重說明',
   },
 } satisfies Record<LocaleCode, Record<string, string>>;
 
@@ -94,7 +94,7 @@ export function BaziElementStrengthPanel({ result, locale = 'zh-hans' }: { resul
         </p>
         <p className="rounded-lg border border-border bg-background/75 p-3 text-xs leading-6 text-muted-foreground">
           <span className="font-semibold text-foreground">{t.method}：</span>
-          {localizeBodyCopy(locale, '表层干支按每次出现计数，藏干按主气三分、中气两分、余气一分加权；综合分用于显示结构信号，不作为单独断语。')}
+          {localizeBodyCopy(locale, '综合分会纳入藏干权重，避免只按表面字数判断。')}
         </p>
       </div>
     </section>

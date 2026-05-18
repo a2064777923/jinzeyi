@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { localizeBodyCopy } from '@/lib/content/localize';
 import type { BreadcrumbItem, FaqItem, LocaleCode } from '@/lib/content/types';
 
-export const SITE_ORIGIN = 'http://43.139.84.61:3000';
+export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || 'http://43.139.84.61:3000';
 export const SITE_NAME = '今擇易';
 export const SITE_KEYWORDS = [
   '黄历',
@@ -20,6 +21,7 @@ export const SITE_KEYWORDS = [
   '时辰吉凶',
   '時辰吉凶',
 ];
+export const DEFAULT_OG_IMAGE = '/jinzeyi-icon.svg';
 
 type Locale = 'zh-hans' | 'zh-hant';
 
@@ -50,11 +52,19 @@ export function buildLocalizedMetadata({
   path,
   title,
   description,
+  image = DEFAULT_OG_IMAGE,
+  imageAlt = SITE_NAME,
+  imageWidth = 512,
+  imageHeight = 512,
 }: {
   locale: Locale;
   path: string;
   title: string;
   description: string;
+  image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 }): Metadata {
   const normalizedPath = normalizedLocalePath(path);
   const currentPath = `/${locale}${normalizedPath}`;
@@ -86,18 +96,18 @@ export function buildLocalizedMetadata({
       siteName: SITE_NAME,
       images: [
         {
-          url: '/jinzeyi-icon.svg',
-          width: 512,
-          height: 512,
-          alt: SITE_NAME,
+          url: image,
+          width: imageWidth,
+          height: imageHeight,
+          alt: imageAlt,
         },
       ],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title,
       description,
-      images: ['/jinzeyi-icon.svg'],
+      images: [image],
     },
     other: {
       'content-language': locale === 'zh-hans' ? 'zh-Hans' : 'zh-Hant',
@@ -162,7 +172,7 @@ export function buildBreadcrumbJsonLd({
     itemListElement: items.map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,
-      name: item.name,
+      name: localizeBodyCopy(locale, item.name),
       item: absoluteUrl(locale, item.href),
     })),
   };
@@ -181,10 +191,10 @@ export function buildFaqJsonLd({
     inLanguage: languageTag(locale),
     mainEntity: faq.map((item) => ({
       '@type': 'Question',
-      name: item.question,
+      name: localizeBodyCopy(locale, item.question),
       acceptedAnswer: {
         '@type': 'Answer',
-        text: item.answer,
+        text: localizeBodyCopy(locale, item.answer),
       },
     })),
   };

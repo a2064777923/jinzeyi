@@ -314,7 +314,7 @@ function scoreLuckyHoursDimension(date: string, scene: JieriSceneRule): Auspicio
     score: Math.min(10, 4 + usable.length * 2),
     maxScore: 10,
     reasons: [`可用吉时：${usable.slice(0, 4).join('、')}`],
-    cautions: usable.length > 4 ? ['可用吉时较多，仍需结合实际流程安排关键动作。'] : [],
+    cautions: usable.length > 4 ? ['可用吉时较多，仍需结合实际安排关键动作。'] : [],
   };
 }
 

@@ -5,9 +5,12 @@ import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
 import { SeoHero } from '@/components/seo/SeoHero';
 import { SeoPageBand, SeoPageShell } from '@/components/seo/SeoPageShell';
+import { GlossaryPanel } from '@/components/knowledge/GlossaryPanel';
+import { SharePanel } from '@/components/share/SharePanel';
 import { Link } from '@/i18n/navigation';
 import { getToolPage, toolPages } from '@/lib/content/tools';
 import { localizeBodyCopy, localizeSeo } from '@/lib/content/localize';
+import { getGlossaryEntries } from '@/lib/content/glossary';
 import { buildPageJsonLd, buildSeoPageMetadata } from '@/lib/seo';
 
 interface Props {
@@ -98,14 +101,39 @@ export default async function ToolsIndexPage({ params }: Props) {
       </SeoPageBand>
       <SeoPageBand tone="muted">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
-          <p className="rounded-lg border border-border bg-card p-5 text-sm leading-7 text-muted-foreground">
-            {localizeBodyCopy(locale, page.body)}
-          </p>
+          <div className="rounded-lg border border-border bg-card p-5 text-sm leading-7 text-muted-foreground">
+            <h2 className="mb-3 text-lg font-semibold text-foreground">
+              {localizeBodyCopy(locale, '工具不是斷語，是下一步資料整理')}
+            </h2>
+            <p>{localizeBodyCopy(locale, page.body)}</p>
+            <p className="mt-3">
+              {localizeBodyCopy(locale, '八字排盤整理出生日期、時間、地點與性別，呈現四柱和五行分佈；姓名五行拆出單字五行與基礎建議。這些結果適合輔助理解，不適合作為單一決策依據。')}
+            </p>
+          </div>
           <div className="flex flex-col gap-4">
-            <FaqBlock items={page.faq} />
-            <InternalLinkGrid links={page.relatedLinks} />
+            <FaqBlock items={page.faq} locale={locale} />
+            <SharePanel
+              title={seo.h1}
+              text={seo.deck}
+              url={`/${locale}/tools`}
+              labels={{
+                title: localizeBodyCopy(locale, '分享工具入口'),
+                copyLink: localizeBodyCopy(locale, '複製連結'),
+                copySummary: localizeBodyCopy(locale, '複製摘要'),
+                copied: localizeBodyCopy(locale, '已複製'),
+                nativeShare: localizeBodyCopy(locale, '系統分享'),
+              }}
+            />
+            <InternalLinkGrid links={page.relatedLinks} locale={locale} />
           </div>
         </div>
+      </SeoPageBand>
+      <SeoPageBand tone="plain" className="pt-0">
+        <GlossaryPanel
+          title={localizeBodyCopy(locale, '工具頁常見名詞')}
+          intro={localizeBodyCopy(locale, '先理解四柱和五行，排盤結果才不會只剩幾個看不懂的字。')}
+          entries={getGlossaryEntries(['fourPillars', 'fiveElements', 'ganZhi'], locale)}
+        />
       </SeoPageBand>
     </SeoPageShell>
   );

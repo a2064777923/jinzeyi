@@ -5,6 +5,7 @@ import { BaziForm } from '@/components/tools/BaziForm';
 import { GlossaryPanel } from '@/components/knowledge/GlossaryPanel';
 import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
+import { SharePanel } from '@/components/share/SharePanel';
 import { SeoHero } from '@/components/seo/SeoHero';
 import { SeoPageBand, SeoPageShell } from '@/components/seo/SeoPageShell';
 import { getToolPage } from '@/lib/content/tools';
@@ -75,8 +76,8 @@ export default async function BaziToolPage({ params }: Props) {
       </SeoPageBand>
       <SeoPageBand tone="plain" className="pt-0">
         <GlossaryPanel
-          title={localizeBodyCopy(locale, '读盘前先看这些词')}
-          intro={localizeBodyCopy(locale, '日主、十神、藏干和纳音是专业盘面的核心标签，工具里会把它们放在对应字段旁边。')}
+          title={localizeBodyCopy(locale, '盘面关键词')}
+          intro={localizeBodyCopy(locale, '日主、十神、藏干和纳音会出现在盘面字段旁，提示里有简短解释。')}
           entries={getGlossaryEntries(['dayMaster', 'tenGods', 'hiddenStems', 'naYin', 'fiveElements'], locale)}
         />
       </SeoPageBand>
@@ -86,8 +87,20 @@ export default async function BaziToolPage({ params }: Props) {
             {localizeBodyCopy(locale, page.body)}
           </p>
           <div className="flex flex-col gap-4">
-            <FaqBlock items={page.faq} />
-            <InternalLinkGrid links={page.relatedLinks} />
+            <FaqBlock items={page.faq} locale={locale} />
+            <SharePanel
+              title={seo.h1}
+              text={seo.deck}
+              url={`/${locale}${page.path}`}
+              labels={{
+                title: localizeBodyCopy(locale, '分享八字排盘'),
+                copyLink: localizeBodyCopy(locale, '复制链接'),
+                copySummary: localizeBodyCopy(locale, '复制摘要'),
+                copied: localizeBodyCopy(locale, '已复制'),
+                nativeShare: localizeBodyCopy(locale, '系统分享'),
+              }}
+            />
+            <InternalLinkGrid links={page.relatedLinks} locale={locale} />
           </div>
         </div>
       </SeoPageBand>

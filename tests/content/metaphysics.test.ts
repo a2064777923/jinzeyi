@@ -6,6 +6,7 @@ import {
   getMetaphysicsEntries,
   getMetaphysicsEntriesByCategory,
   getMetaphysicsEntry,
+  knowledgeIndexPage,
   metaphysicsEntries,
 } from '@/lib/content/metaphysics';
 
@@ -93,6 +94,19 @@ describe('metaphysics knowledge taxonomy', () => {
     const serialized = JSON.stringify(getMetaphysicsEntries());
 
     expect(serialized).not.toMatch(/必定|一定|保证|保證/);
+  });
+
+  it('keeps visible knowledge copy out of product-doc phrasing', () => {
+    const serialized = JSON.stringify([
+      knowledgeIndexPage,
+      ...getMetaphysicsEntries(),
+      getGlossaryEntry('fiveElements', 'zh-hant'),
+      getGlossaryEntry('fourPillars', 'zh-hant'),
+    ]);
+
+    expect(serialized).not.toMatch(/先[^。；，]*再/);
+    expect(serialized).not.toMatch(/此功能|工具用于|工具用於|请查看|請查看|查看完整/);
+    expect(serialized).not.toMatch(/用户输入|用户先|用戶先|工具会|工具會/);
   });
 
   it('wires richer term hint source fields and knowledge links', () => {

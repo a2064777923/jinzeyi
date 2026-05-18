@@ -1,7 +1,6 @@
 import { SolarDay, SolarTerm, SolarTime } from 'tyme4ts';
+import { LEGAL_YEAR_MAX, LEGAL_YEAR_MIN, isLegalRouteYear } from './date-range';
 
-export const LEGAL_YEAR_MIN = 2;
-export const LEGAL_YEAR_MAX = 5000;
 export const INDEXED_YEAR_START = 2006;
 export const INDEXED_YEAR_END = 2046;
 
@@ -19,16 +18,16 @@ export interface YearProbeResult {
   checks: Record<YearProbeCheck, { ok: boolean; value?: string; error?: string }>;
 }
 
-export function isLegalRouteYear(year: number): boolean {
-  return Number.isInteger(year) && year >= LEGAL_YEAR_MIN && year <= LEGAL_YEAR_MAX;
-}
-
 export function getIndexedYearRange(_referenceDate?: Date): { start: number; end: number } {
+  void _referenceDate;
+
   return {
     start: INDEXED_YEAR_START,
     end: INDEXED_YEAR_END,
   };
 }
+
+export { LEGAL_YEAR_MAX, LEGAL_YEAR_MIN, isLegalRouteYear };
 
 export function isIndexedYear(year: number, referenceDate?: Date): boolean {
   const { start, end } = getIndexedYearRange(referenceDate);

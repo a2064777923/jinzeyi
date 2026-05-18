@@ -5,14 +5,10 @@ export async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-card border-t border-border py-6 px-4">
-      <div className="max-w-7xl mx-auto text-center">
-        <p className="text-xs text-muted-foreground">
-          {t('disclaimer')}
-        </p>
-        <p className="text-xs text-muted-foreground mt-2">
-          {t('copyright', { year })}
-        </p>
+    <footer className="border-t border-border bg-card px-4 py-6">
+      <div className="mx-auto max-w-7xl text-center">
+        <p className="text-xs text-muted-foreground">{t('disclaimer')}</p>
+        <p className="mt-2 text-xs text-muted-foreground">{t('copyright', { year })}</p>
       </div>
     </footer>
   );

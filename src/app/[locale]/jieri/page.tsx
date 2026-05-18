@@ -69,6 +69,8 @@ export default async function JieriIndexPage({ params }: Props) {
           kicker={locale === 'zh-hant' ? '場景擇日' : '场景择日'}
           imageSrc="/assets/almanac-icons/auspicious-seal.png"
           badges={[`${currentYear}`, locale === 'zh-hant' ? '宜忌匹配' : '宜忌匹配', locale === 'zh-hant' ? '凶日降級' : '凶日降级']}
+          shareUrl={`/${locale}/jieri`}
+          shareLabel={locale === 'zh-hant' ? '分享吉日查詢' : '分享吉日查询'}
         />
       </SeoPageBand>
 
@@ -82,7 +84,13 @@ export default async function JieriIndexPage({ params }: Props) {
             >
               <div className="flex items-start gap-3">
                 <span className="relative size-12 shrink-0 rounded-lg border border-border bg-background p-2">
-                  <Image src={scene.icon} alt="" fill className="object-contain p-2" sizes="48px" />
+                  <Image
+                    src={scene.icon}
+                    alt={localizeBodyCopy(locale, `${scene.name}吉日圖示`)}
+                    fill
+                    className="object-contain p-2"
+                    sizes="48px"
+                  />
                 </span>
                 <span className="min-w-0">
                   <span className="block text-lg font-semibold">{scene.name}吉日</span>
@@ -117,12 +125,11 @@ export default async function JieriIndexPage({ params }: Props) {
             </p>
           </div>
           <div className="flex flex-col gap-4">
-            <FaqBlock items={jieriIndexPage.faq} />
-            <InternalLinkGrid links={jieriIndexPage.relatedLinks} />
+            <FaqBlock items={jieriIndexPage.faq} locale={locale} />
+            <InternalLinkGrid links={jieriIndexPage.relatedLinks} locale={locale} />
           </div>
         </div>
       </SeoPageBand>
     </SeoPageShell>
   );
 }
-

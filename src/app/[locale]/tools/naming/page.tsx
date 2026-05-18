@@ -3,6 +3,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { Sparkles } from 'lucide-react';
 import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
+import { SharePanel } from '@/components/share/SharePanel';
 import { SeoHero } from '@/components/seo/SeoHero';
 import { SeoPageBand, SeoPageShell } from '@/components/seo/SeoPageShell';
 import { NamingForm } from '@/components/tools/NamingForm';
@@ -73,8 +74,20 @@ export default async function NamingToolPage({ params }: Props) {
             {localizeBodyCopy(locale, page.body)}
           </p>
           <div className="flex flex-col gap-4">
-            <FaqBlock items={page.faq} />
-            <InternalLinkGrid links={page.relatedLinks} />
+            <FaqBlock items={page.faq} locale={locale} />
+            <SharePanel
+              title={seo.h1}
+              text={seo.deck}
+              url={`/${locale}${page.path}`}
+              labels={{
+                title: localizeBodyCopy(locale, '分享姓名五行工具'),
+                copyLink: localizeBodyCopy(locale, '复制链接'),
+                copySummary: localizeBodyCopy(locale, '复制摘要'),
+                copied: localizeBodyCopy(locale, '已复制'),
+                nativeShare: localizeBodyCopy(locale, '系统分享'),
+              }}
+            />
+            <InternalLinkGrid links={page.relatedLinks} locale={locale} />
           </div>
         </div>
       </SeoPageBand>

@@ -57,6 +57,8 @@ export function JieriScenePage({ locale, year, scene, results, zodiac, faq }: Ji
             localizeBodyCopy(locale, `推荐 ${recommendedCount}`),
             localizeBodyCopy(locale, `谨慎 ${cautionCount}`),
           ]}
+          shareUrl={`/${locale}/jieri/${scene.slug}/${year}${zodiac ? `?zodiac=${encodeURIComponent(zodiac)}` : ''}`}
+          shareLabel={localizeBodyCopy(locale, '分享這份吉日清單')}
           controls={
             <div className="lg:hidden">
               <JieriFilterPanel locale={locale} scene={scene} year={year} zodiac={zodiac} months={months} />
@@ -87,7 +89,7 @@ export function JieriScenePage({ locale, year, scene, results, zodiac, faq }: Ji
               href={`/tools/jieri-recommend?scene=${scene.slug}`}
               className="inline-flex w-fit items-center gap-2 rounded-md border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
-              {localizeBodyCopy(locale, '输入参与者资料推荐日期')}
+              {localizeBodyCopy(locale, '按参与者筛日期')}
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
 
@@ -105,8 +107,8 @@ export function JieriScenePage({ locale, year, scene, results, zodiac, faq }: Ji
             <div className="hidden lg:block">
               <JieriFilterPanel locale={locale} scene={scene} year={year} zodiac={zodiac} months={months} />
             </div>
-            <FaqBlock items={faq} />
-            <InternalLinkGrid links={jieriIndexPage.relatedLinks} />
+            <FaqBlock items={faq} locale={locale} />
+            <InternalLinkGrid links={jieriIndexPage.relatedLinks} locale={locale} />
           </div>
         </div>
       </SeoPageBand>

@@ -83,13 +83,13 @@ export default async function JieriYearPage({ params, searchParams }: Props) {
   const title = buildSceneTitle(scene.name, year, locale);
   const description = localizeBodyCopy(
     locale,
-    `${title}按宜项、吉凶、冲煞和生肖条件整理，适合先筛选年度备选日期，再进入每日黄历查看时辰。`,
+    `${title}按宜项、吉凶、冲煞和生肖条件整理，适合筛出年度备选日期，再打开每日黄历核对时辰。`,
   );
   const faq = [
     {
       id: `${scene.slug}-annual-method`,
       question: localizeBodyCopy(locale, `${year}年${scene.name}吉日怎么筛选？`),
-      answer: localizeBodyCopy(locale, `先匹配黄历宜项「${scene.yiTerms.join('、')}」，再看当日吉凶、冲煞和生肖避冲，凶日会保留但降级提示。`),
+      answer: localizeBodyCopy(locale, `黄历宜项「${scene.yiTerms.join('、')}」、当日吉凶、冲煞和生肖避冲会一起参与判断，凶日会保留但降级提示。`),
     },
     {
       id: `${scene.slug}-caution`,
@@ -132,4 +132,3 @@ export default async function JieriYearPage({ params, searchParams }: Props) {
     </>
   );
 }
-

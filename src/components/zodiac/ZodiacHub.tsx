@@ -29,6 +29,8 @@ export function ZodiacHub({ locale, profile, articles }: ZodiacHubProps) {
           imageSrc="/assets/almanac-icons/zodiac-ring.png"
           kicker={localizeBodyCopy(locale, `${profile.earthlyBranch} · ${profile.elementHint}`)}
           badges={profile.traits.map((trait) => localizeBodyCopy(locale, trait))}
+          shareUrl={`/${locale}${profile.path}`}
+          shareLabel={localizeBodyCopy(locale, '分享生肖頁')}
         />
       </SeoPageBand>
       <SeoPageBand tone="plain" className="pt-0">
@@ -36,7 +38,13 @@ export function ZodiacHub({ locale, profile, articles }: ZodiacHubProps) {
           <div className="flex flex-col gap-5">
             <section className="grid gap-4 rounded-lg border border-border bg-card p-5 md:grid-cols-[8rem_minmax(0,1fr)]">
               <div className="relative mx-auto size-28">
-                <Image src="/assets/almanac-icons/zodiac-ring.png" alt="" fill className="object-contain" sizes="112px" />
+                <Image
+                  src="/assets/almanac-icons/zodiac-ring.png"
+                  alt={localizeBodyCopy(locale, `属${profile.animal}生肖图示`)}
+                  fill
+                  className="object-contain"
+                  sizes="112px"
+                />
               </div>
               <div>
                 <h2 className="text-xl font-semibold">{localizeBodyCopy(locale, '性格与使用提示')}</h2>
@@ -68,12 +76,11 @@ export function ZodiacHub({ locale, profile, articles }: ZodiacHubProps) {
             </section>
           </div>
           <aside className="flex flex-col gap-4 lg:sticky lg:top-24">
-            <FaqBlock items={profile.faq} />
-            <InternalLinkGrid links={profile.relatedLinks} />
+            <FaqBlock items={profile.faq} locale={locale} />
+            <InternalLinkGrid links={profile.relatedLinks} locale={locale} />
           </aside>
         </div>
       </SeoPageBand>
     </SeoPageShell>
   );
 }
-

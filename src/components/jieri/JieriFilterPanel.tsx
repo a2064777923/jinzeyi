@@ -30,13 +30,13 @@ export function JieriFilterPanel({ locale, scene, year, zodiac, months }: JieriF
       </div>
 
       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2">
-        <Button variant="outline" size="icon" render={<Link href={`/jieri/${scene.slug}/${prevYear}`} />} aria-label={localizeBodyCopy(locale, `查看${prevYear}年${scene.name}吉日`)}>
+        <Button variant="outline" size="icon" render={<Link href={`/jieri/${scene.slug}/${prevYear}`} />} aria-label={localizeBodyCopy(locale, `打开${prevYear}年${scene.name}吉日`)}>
           <ChevronLeft />
         </Button>
         <div className="rounded-md border border-border bg-background px-3 py-2 text-center text-sm font-semibold">
           {year}
         </div>
-        <Button variant="outline" size="icon" render={<Link href={`/jieri/${scene.slug}/${nextYear}`} />} aria-label={localizeBodyCopy(locale, `查看${nextYear}年${scene.name}吉日`)}>
+        <Button variant="outline" size="icon" render={<Link href={`/jieri/${scene.slug}/${nextYear}`} />} aria-label={localizeBodyCopy(locale, `打开${nextYear}年${scene.name}吉日`)}>
           <ChevronRight />
         </Button>
       </div>
@@ -90,4 +90,3 @@ export function JieriFilterPanel({ locale, scene, year, zodiac, months }: JieriF
     </aside>
   );
 }
-

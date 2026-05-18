@@ -1,5 +1,6 @@
 import { SolarDay, SolarMonth, SolarTerm as TymeSolarTerm } from 'tyme4ts';
 import { getCachedAlmanac, setCachedAlmanac, getCachedHourlyFortune, setCachedHourlyFortune, getCachedMonthlyCalendar, setCachedMonthlyCalendar, getCachedSolarTerms, setCachedSolarTerms } from './cache';
+import { formatAlmanacDate } from './date-range';
 import type { DailyAlmanac, HourlyFortune, CalendarDay, SolarTerm } from './types';
 
 type Fortune = '吉' | '凶';
@@ -119,7 +120,7 @@ export async function getMonthlyCalendar(year: number, month: number): Promise<C
   const days = SolarMonth.fromYm(year, month).getDays();
   const result: CalendarDay[] = days.map((d) => {
     const lunar = d.getLunarDay();
-    const dateStr = `${d.getYear()}-${String(d.getMonth()).padStart(2, '0')}-${String(d.getDay()).padStart(2, '0')}`;
+    const dateStr = formatAlmanacDate(d.getYear(), d.getMonth(), d.getDay());
     const term = d.getTermDay();
     const isTermDay = term.getDayIndex() === 0;
     return {

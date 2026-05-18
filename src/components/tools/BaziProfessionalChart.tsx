@@ -11,7 +11,7 @@ const PILLAR_ORDER: PillarKey[] = ['year', 'month', 'day', 'hour'];
 const copy = {
   'zh-hans': {
     title: '专业四柱盘',
-    deck: '先看每柱的天干地支，再看十神、藏干、纳音和十二长生状态。',
+    deck: '四柱、十神、藏干、纳音和十二长生集中在一张盘里。',
     heavenlyStem: '天干',
     earthlyBranch: '地支',
     tenGod: '十神',
@@ -25,7 +25,7 @@ const copy = {
   },
   'zh-hant': {
     title: '專業四柱盤',
-    deck: '先看每柱的天干地支，再看十神、藏干、納音和十二長生狀態。',
+    deck: '四柱、十神、藏干、納音和十二長生集中在一張盤裡。',
     heavenlyStem: '天干',
     earthlyBranch: '地支',
     tenGod: '十神',

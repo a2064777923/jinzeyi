@@ -21,10 +21,10 @@ export interface FengShuiArticle extends ArticleContent {
 }
 
 export const fengShuiCategories: FengShuiCategory[] = [
-  { slug: 'home', name: '家居', icon: '/assets/almanac-icons/lotus.png', summary: '从玄关、客厅、卧室和厨房动线入手，先把日常空间整理顺。' },
+  { slug: 'home', name: '家居', icon: '/assets/almanac-icons/lotus.png', summary: '从玄关、客厅、卧室和厨房动线入手，让日常空间更顺。' },
   { slug: 'office', name: '办公室', icon: '/assets/almanac-icons/compass.png', summary: '关注座位背靠、光线、动线和会议协作，让办公空间更稳定。' },
   { slug: 'shop', name: '商铺', icon: '/assets/almanac-icons/auspicious-seal.png', summary: '围绕门面、收银、货架和开业动线，整理可操作的商铺检查点。' },
-  { slug: 'directions', name: '方位', icon: '/assets/almanac-icons/mountain.png', summary: '用方位观念帮助用户理解门、床、桌和动工位置的取舍。' },
+  { slug: 'directions', name: '方位', icon: '/assets/almanac-icons/mountain.png', summary: '把门、床、桌和动工位置的取舍讲清楚。' },
   { slug: 'wealth', name: '财位', icon: '/assets/almanac-icons/sprout.png', summary: '把明财位、整洁度、光线和日常维护讲清楚，避免过度许诺。' },
 ];
 
@@ -40,13 +40,13 @@ function categoryBySlug(slug: FengShuiCategorySlug): FengShuiCategory {
 
 function linksFor(category: FengShuiCategorySlug): InternalLink[] {
   const shared: InternalLink[] = [
-    { href: '/calendar', label: '月历吉凶', description: '按月份查看每日吉凶与节气。', family: 'core' },
-    { href: '/tools/bazi', label: '八字排盘', description: '需要出生资料时可先排四柱。', family: 'tool' },
+    { href: '/calendar', label: '月历吉凶', description: '按月份比较每日吉凶与节气。', family: 'core' },
+    { href: '/tools/bazi', label: '八字排盘', description: '用出生资料排出四柱。', family: 'tool' },
   ];
 
   if (category === 'shop') {
     return [
-      { href: '/jieri/kaiye/2026', label: '开业吉日', description: '查看开业、交易、立券相关日子。', family: 'jieri' },
+      { href: '/jieri/kaiye/2026', label: '开业吉日', description: '开业、交易、立券相关日子。', family: 'jieri' },
       { href: '/tools/naming', label: '店名五行', description: '用姓名五行工具初看店名字义。', family: 'tool' },
       ...shared.slice(0, 1),
     ];
@@ -54,28 +54,28 @@ function linksFor(category: FengShuiCategorySlug): InternalLink[] {
 
   if (category === 'home') {
     return [
-      { href: '/jieri/banjia/2026', label: '搬家吉日', description: '查看入宅、移徙、安床相关日子。', family: 'jieri' },
-      { href: '/jieri/zhuangxiu/2026', label: '装修吉日', description: '查看修造、动土、上梁相关日子。', family: 'jieri' },
+      { href: '/jieri/banjia/2026', label: '搬家吉日', description: '入宅、移徙、安床相关日子。', family: 'jieri' },
+      { href: '/jieri/zhuangxiu/2026', label: '装修吉日', description: '修造、动土、上梁相关日子。', family: 'jieri' },
       ...shared.slice(0, 1),
     ];
   }
 
   if (category === 'office') {
     return [
-      { href: '/jieri/qianyue/2026', label: '签约吉日', description: '查看交易、立券、纳财相关日子。', family: 'jieri' },
+      { href: '/jieri/qianyue/2026', label: '签约吉日', description: '交易、立券、纳财相关日子。', family: 'jieri' },
       ...shared,
     ];
   }
 
   if (category === 'wealth') {
     return [
-      { href: '/jieri/kaiye/2026', label: '纳财开业吉日', description: '查看开市、交易、纳财日期。', family: 'jieri' },
+      { href: '/jieri/kaiye/2026', label: '纳财开业吉日', description: '开市、交易、纳财日期。', family: 'jieri' },
       ...shared,
     ];
   }
 
   return [
-    { href: '/jieri/zhuangxiu/2026', label: '动工吉日', description: '涉及动土、修造时先看日子。', family: 'jieri' },
+    { href: '/jieri/zhuangxiu/2026', label: '动工吉日', description: '动土、修造相关日子。', family: 'jieri' },
     ...shared,
   ];
 }
@@ -90,7 +90,27 @@ function faqFor(category: FengShuiCategorySlug, title: string): FaqItem[] {
     {
       id: `${category}-${title}-promise`,
       question: '照着清单做就一定有效吗？',
-      answer: '不能作保证。清单用于帮助检查空间秩序、动线和传统避忌，实际效果还要看居住习惯、行业环境和执行细节。',
+      answer: '不能作保证。清单帮助检查空间秩序、动线和传统避忌，实际效果还要看居住习惯、行业环境和执行细节。',
+    },
+    {
+      id: `${category}-${title}-first-step`,
+      question: '风水调整第一步应该做什么？',
+      answer: '先做不花钱也不冒险的部分：清理通道、改善光线、处理潮湿和杂物。等空间基本顺了，再考虑方位、摆设和择日。',
+    },
+    {
+      id: `${category}-${title}-taboo`,
+      question: '看到禁忌就一定要马上改吗？',
+      answer: '不用急。先判断它是否真的影响安全、通风、睡眠、工作或客流。若只是象征性问题，可以排在真实生活问题之后处理。',
+    },
+    {
+      id: `${category}-${title}-rent`,
+      question: '租房或租办公室也能调整吗？',
+      answer: '可以从可移动、可恢复的动作开始，比如灯光、收纳、桌椅位置和入口整洁。不要为了风水做破坏结构或违反租约的改动。',
+    },
+    {
+      id: `${category}-${title}-date-link`,
+      question: '什么时候需要同时看吉日？',
+      answer: '普通整理不必特意择日。涉及开业、入宅、动土、安床、装修、上梁等仪式性或工程性动作时，可配合黄历和吉日列表核对。',
     },
   ];
 }
@@ -107,21 +127,21 @@ const articleSeeds: Array<{
     category: 'home',
     slug: 'xuan-guan-ke-ting',
     title: '玄关与客厅风水检查',
-    deck: '从入门第一眼、客厅明堂和日常动线开始，把家里的气口先整理顺。',
+    deck: '从入门第一眼、客厅明堂和日常动线开始，让家里的气口更顺。',
     checklist: ['入门通道保持明亮，不堆鞋盒杂物', '客厅中心留出走动空间，不让茶几堵住主通道', '沙发背后尽量有墙或稳定柜体，不长期背空'],
     sections: [
-      { heading: '先看入门处是否顺', body: '玄关是家里每天最先被使用的位置。传统说法里讲气口，落到生活里，就是门口能不能打开、鞋物会不会绊脚、光线会不会让人一进门就压抑。先把这处整理清楚，比急着摆吉祥物更有用。' },
-      { heading: '客厅重在聚而不堵', body: '客厅适合有一块相对完整的活动面。沙发、茶几和电视柜之间要留出顺畅距离，家人坐下说话、孩子走动、客人进出都不别扭，空间自然就稳。若要添置摆件，也先看它会不会妨碍清洁和走动。' },
+      { heading: '入门处要顺', body: '玄关是家里每天最早被使用的位置。传统说法里讲气口，落到生活里，就是门口能不能打开、鞋物会不会绊脚、光线会不会让人一进门就压抑。这里清爽，比急着摆吉祥物更有用。' },
+      { heading: '客厅重在聚而不堵', body: '客厅适合有一块相对完整的活动面。沙发、茶几和电视柜之间要留出顺畅距离，家人坐下说话、孩子走动、客人进出都不别扭，空间自然就稳。若要添置摆件，关键是别妨碍清洁和走动。' },
     ],
   },
   {
     category: 'home',
     slug: 'wo-shi-an-chuang',
     title: '卧室安床与睡眠动线',
-    deck: '卧室风水先看床位安全感、门窗关系和夜间动线，不把休息区做成杂物区。',
+    deck: '卧室风水重在床位安全感、门窗关系和夜间动线，不把休息区做成杂物区。',
     checklist: ['床头尽量靠实墙，避免长期悬空', '床边至少一侧留出顺畅起身通道', '镜面不直接照向睡眠位置，夜间少受惊扰'],
     sections: [
-      { heading: '床位先求安稳', body: '卧室最重要的是能休息。床头靠实、左右能起身、门窗不直冲枕边，这些看似朴素，却决定了人在房间里是否放松。传统安床讲究日子，日常布置则先看安全和舒适。' },
+      { heading: '床位求安稳', body: '卧室最重要的是能休息。床头靠实、左右能起身、门窗不直冲枕边，这些看似朴素，却决定了人在房间里是否放松。传统安床讲究日子，日常布置更重安全和舒适。' },
       { heading: '少一点杂物，气息更清', body: '床底、床头和窗边长期堆放杂物，会让清洁和通风都变麻烦。风水里说藏污纳浊，现实里就是灰尘、潮气和心理负担一起增加。睡前能少看见一堆待处理的东西，人的心也容易慢慢安下来，第二天起身也不容易被杂乱牵住情绪。' },
     ],
   },
@@ -129,7 +149,7 @@ const articleSeeds: Array<{
     category: 'office',
     slug: 'gong-wei-zuo-xiang',
     title: '办公室工位坐向怎么安排',
-    deck: '办公桌先看背靠、视线和协作距离，让人坐得稳，也方便真正工作。',
+    deck: '办公桌重在背靠、视线和协作距离，让人坐得稳，也方便真正工作。',
     checklist: ['座位背后避免主通道直冲', '电脑屏幕不正对强光窗面', '常用文件和工具放在伸手可及的位置'],
     sections: [
       { heading: '背后稳定，心神才稳', body: '很多办公室问题不是神秘方位造成，而是座位背后人来人往，注意力被不断打断。若条件允许，背后有墙、柜或低隔断，会比空荡通道更容易让人进入状态。' },
@@ -155,17 +175,17 @@ const articleSeeds: Array<{
     checklist: ['门口招牌、营业信息和入口不互相遮挡', '收银台能看见主要入口但不阻挡客流', '通往热销区的动线保持简单直接'],
     sections: [
       { heading: '门面先讲清楚', body: '商铺的第一层风水，是路过的人能不能看懂你卖什么、从哪里进、营业到几点。门口若被堆货、海报和杂物挡住，再好的摆设也很难发挥作用。' },
-      { heading: '收银位要稳而不堵', body: '收银台适合放在能照看入口和货区的位置，但不能卡住客人进出。传统说守财，落到店里就是交易流程顺、找零扫码方便、员工不慌张。客人结账时少等一步，门店的气就顺一分，也更容易把最后的体验留得干净利落，复购也更自然。' },
+      { heading: '收银位要稳而不堵', body: '收银台适合放在能照看入口和货区的位置，但不能卡住客人进出。传统说守财，落到店里就是交易动线顺、找零扫码方便、员工不慌张。客人结账时少等一步，门店的气就顺一分，也更容易把最后的体验留得干净利落，复购也更自然。' },
     ],
   },
   {
     category: 'shop',
     slug: 'kai-ye-bu-ju',
     title: '开业前商铺布置清单',
-    deck: '开业前先把灯光、动线、收银和开门时间排好，再配合吉日做仪式。',
+    deck: '开业前把灯光、动线、收银和开门时间排好，仪式才接得住。',
     checklist: ['开业前完成水电、招牌、收银和消防检查', '主通道不摆临时箱包，避免首日拥堵', '若做仪式，提前核对开业吉日和当日时辰'],
     sections: [
-      { heading: '仪式之前先把店开顺', body: '开业择日有仪式感，但真正承接好运的是店铺本身。灯是否亮、货是否齐、收银是否能用、员工是否知道流程，这些比临时加摆件更关键。' },
+      { heading: '店先开顺', body: '开业择日有仪式感，但真正承接好运的是店铺本身。灯是否亮、货是否齐、收银是否能用、员工是否知道安排，这些比临时加摆件更关键。' },
       { heading: '开门气氛要明朗', body: '首日可以重视门口、橱窗和收银区的整洁。让第一批客人走得顺、看得清、问得到人，就是商铺风水里最实在的旺气。开业当天少做临时大调整，把精力留给接待和复盘；若要择日，也把布置完成时间提前到前一天，别让仪式压过经营本身。' },
     ],
   },
@@ -185,9 +205,9 @@ const articleSeeds: Array<{
     slug: 'dong-gong-fang-wei',
     title: '装修动工方位怎么避忌',
     deck: '动工方位要同时看安全、施工顺序和黄历提示，不把传统避忌和工程管理分开。',
-    checklist: ['先确认承重墙、水电和消防限制', '动土、拆改、上梁等大动作先看黄历宜忌', '施工入口和材料堆放避开主要生活通道'],
+    checklist: ['确认承重墙、水电和消防限制', '动土、拆改、上梁等大动作核对黄历宜忌', '施工入口和材料堆放避开主要生活通道'],
     sections: [
-      { heading: '动工不是只看一锤子', body: '装修动工常被问到方位吉凶。实际安排里，先要确认结构安全、物业规定和施工顺序，再看黄历里的修造、动土、上梁等宜项，顺序不能反过来。' },
+      { heading: '动工不只是一锤子', body: '装修动工常被问到方位吉凶。实际安排里，结构安全、物业规定和施工顺序更靠前；黄历里的修造、动土、上梁等宜项适合做辅助核对。日子选得稳，现场也要稳。' },
       { heading: '方位避忌要落到现场', body: '传统上有些年份和方位会被提醒谨慎，落到家里可以理解为少在敏感位置长期大拆大改。若必须施工，就把保护、清洁、噪音和时间安排做得更稳，并提前给家人和邻里留出缓冲。这样即使不谈玄学，工程本身也更少出错。' },
     ],
   },
@@ -196,9 +216,9 @@ const articleSeeds: Array<{
     slug: 'ming-cai-wei',
     title: '明财位怎么找与怎么养',
     deck: '明财位常从入门对角线理解，重点是干净、明亮、稳定，不是堆满招财物。',
-    checklist: ['入门对角位置先保持整洁明亮', '避免把垃圾桶、杂物箱长期放在财位附近', '可放稳定柜体、绿植或常用收纳，但不妨碍通行'],
+    checklist: ['入门对角位置保持整洁明亮', '避免把垃圾桶、杂物箱长期放在财位附近', '可放稳定柜体、绿植或常用收纳，但不妨碍通行'],
     sections: [
-      { heading: '先找得到，再养得住', body: '民间常把入门后的对角位置称为明财位。这个说法适合做空间提醒：那里若总是堆满杂物、光线昏暗、走路磕碰，人的感受自然不会好。' },
+      { heading: '找得到，也养得住', body: '民间常把入门后的对角位置称为明财位。这个说法适合做空间提醒：那里若总是堆满杂物、光线昏暗、走路磕碰，人的感受自然不会好。' },
       { heading: '财位贵在稳定', body: '财位不需要摆得复杂。干净、明亮、少移动、不过度潮湿，比摆满象征物更重要。若要放植物或收纳，也要以好打理、不挡路为前提；长期能维持，才比一时热闹更有意义。每周顺手擦拭和整理，比偶尔大张旗鼓布置更可靠，也更接近日常的养财。' },
     ],
   },
@@ -229,22 +249,49 @@ export const fengShuiIndexPage: IndexablePage = {
     deck: '以实用场景整理风水文章入口，把空间检查、动工择日和方位提示连在一起。',
     keywords: ['风水知识', '家居风水', '办公室风水', '财位', '方位'],
   }),
-  body: '风水内容在今择易里不是玄而又玄的断语，而是面向日常空间的检查清单。家居、办公室、商铺、方位和财位五类内容会优先回答用户最常遇到的问题：哪里需要保持通畅，哪些位置适合安静，动工和开门是否需要看日子，财位布置又该避开什么。后续文章会和黄历、吉日、装修动工、开业择日等入口互相连接，形成可阅读也可操作的知识路径。',
+  body: '风水内容不是玄而又玄的断语，而是面向日常空间的检查清单。家居、办公室、商铺、方位和财位五类内容聚焦最常见的问题：哪里需要保持通畅，哪些位置适合安静，动工和开门是否需要看日子，财位布置又该避开什么。',
   faq: [
     {
       id: 'feng-shui-where',
       question: '风水文章会从哪些场景开始？',
-      answer: '先从家居、办公室、商铺、方位和财位五类入手，每篇都配合实际检查点和相关择日入口。',
+      answer: '从家居、办公室、商铺、方位和财位五类入手，每篇都配合实际检查点和相关择日入口。',
     },
     {
       id: 'feng-shui-date',
       question: '风水调整需要看黄历吗？',
-      answer: '涉及动土、装修、开业、入宅等事项时建议同时查看黄历宜忌和吉日列表，普通整理则以安全和便利为先。',
+      answer: '涉及动土、装修、开业、入宅等事项时建议同时核对黄历宜忌和吉日列表，普通整理则以安全和便利为先。',
+    },
+    {
+      id: 'feng-shui-beginner',
+      question: '看风水从哪几件事开始？',
+      answer: '门口是否通畅、采光是否够、坐卧是否安稳、杂物是否长期堆积。把这些现实问题处理好，方位和财位才更容易读懂。',
+    },
+    {
+      id: 'feng-shui-compass',
+      question: '没有罗盘还能看风水文章吗？',
+      answer: '可以。风水内容优先解释动线、光线、整洁和使用习惯，方位只是其中一层，不需要一开始就懂复杂罗盘。',
+    },
+    {
+      id: 'feng-shui-wealth',
+      question: '财位是不是摆东西越多越好？',
+      answer: '不是。财位更重视干净、明亮、稳定和便于维护。摆得过满、积灰、挡路，反而违背了空间整理的初衷。',
+    },
+    {
+      id: 'feng-shui-cross-link',
+      question: '风水页怎么和吉日页一起使用？',
+      answer: '确认要做的动作，比如入宅、动土、安床或开业；再到吉日页按对应场景筛日期，打开黄历详情看时辰。',
+    },
+    {
+      id: 'feng-shui-safety',
+      question: '风水建议和安全规范冲突时听哪个？',
+      answer: '优先听安全规范和专业要求。承重墙、水电、消防、租约和法律限制不能因为风水建议被忽略。',
     },
   ],
   relatedLinks: [
-    { href: '/jieri/zhuangxiu/2026', label: '装修吉日', description: '查看装修动工相关吉日。', family: 'jieri' },
-    { href: '/jieri/kaiye/2026', label: '开业吉日', description: '查看商铺开张相关吉日。', family: 'jieri' },
+    { href: '/jieri/zhuangxiu/2026', label: '装修吉日', description: '装修动工相关吉日。', family: 'jieri' },
+    { href: '/jieri/kaiye/2026', label: '开业吉日', description: '商铺开张相关吉日。', family: 'jieri' },
+    { href: '/calendar', label: '月历吉凶', description: '按月比较动工与整理日期。', family: 'core' },
+    { href: '/tools/bazi', label: '八字排盘', description: '用出生资料排出四柱。', family: 'tool' },
   ],
   seed: {
     model: 'ContentPage',

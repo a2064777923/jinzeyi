@@ -77,6 +77,9 @@ export default async function ZodiacArticlePage({ params }: Props) {
           deck={seo.deck}
           faq={article.faq}
           relatedLinks={article.relatedLinks}
+          locale={locale}
+          shareUrl={`/${locale}${article.path}`}
+          shareLabel={localizeBodyCopy(locale, '分享这篇生肖文章')}
           rail={
             <div className="rounded-lg border border-border bg-card p-4 text-sm leading-6 text-muted-foreground">
               <p className="font-semibold text-foreground">{localizeBodyCopy(locale, '资料参考')}</p>
@@ -96,4 +99,3 @@ export default async function ZodiacArticlePage({ params }: Props) {
     </SeoPageShell>
   );
 }
-

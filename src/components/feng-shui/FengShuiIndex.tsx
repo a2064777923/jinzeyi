@@ -22,6 +22,8 @@ export function FengShuiIndex({ locale }: { locale: LocaleCode }) {
           kicker={localizeBodyCopy(locale, '空间清单 · 吉日入口')}
           imageSrc="/assets/almanac-icons/compass.png"
           badges={fengShuiCategories.map((category) => localizeBodyCopy(locale, category.name))}
+          shareUrl={`/${locale}/feng-shui`}
+          shareLabel={localizeBodyCopy(locale, '分享風水知識')}
         />
       </SeoPageBand>
 
@@ -33,7 +35,13 @@ export function FengShuiIndex({ locale }: { locale: LocaleCode }) {
               <section key={category.slug} id={category.slug} className="rounded-lg border border-border bg-card p-4">
                 <div className="grid gap-3 sm:grid-cols-[3rem_minmax(0,1fr)]">
                   <span className="relative size-12 rounded-lg border border-border bg-background p-2">
-                    <Image src={category.icon} alt="" fill className="object-contain p-2" sizes="48px" />
+                    <Image
+                      src={category.icon}
+                      alt={localizeBodyCopy(locale, `${category.name}風水圖示`)}
+                      fill
+                      className="object-contain p-2"
+                      sizes="48px"
+                    />
                   </span>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
@@ -74,8 +82,8 @@ export function FengShuiIndex({ locale }: { locale: LocaleCode }) {
             {localizeBodyCopy(locale, fengShuiIndexPage.body)}
           </p>
           <div className="flex flex-col gap-4">
-            <FaqBlock items={fengShuiIndexPage.faq} />
-            <InternalLinkGrid links={fengShuiIndexPage.relatedLinks} />
+            <FaqBlock items={fengShuiIndexPage.faq} locale={locale} />
+            <InternalLinkGrid links={fengShuiIndexPage.relatedLinks} locale={locale} />
           </div>
         </div>
       </SeoPageBand>

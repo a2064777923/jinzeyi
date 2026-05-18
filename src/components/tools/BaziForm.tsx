@@ -4,6 +4,7 @@ import { FormEvent, useId, useState } from 'react';
 import { Calculator, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { calculateBazi, type BaziInput, type BaziResult as BaziResultData, type Gender } from '@/lib/almanac/bazi';
+import { ALMANAC_DATE_MAX, ALMANAC_DATE_MIN } from '@/lib/almanac/date-range';
 import type { LocaleCode } from '@/lib/content/types';
 import { CHINA_CITIES } from '@/lib/tools/china-cities';
 import { BaziResult } from './BaziResult';
@@ -31,7 +32,7 @@ const copy = {
     birthPlace: '出生地点',
     gender: '性别',
     unspecified: '不指定',
-    error: '请确认日期在 0002-01-01 到 5000-12-31 之间，时间、城市和性别都已正确选择。',
+    error: '日期需在 0002-01-01 到 5000-12-31 之间，时间、城市和性别也要完整。',
     submit: '排盘',
   },
   'zh-hant': {
@@ -43,7 +44,7 @@ const copy = {
     birthPlace: '出生地點',
     gender: '性別',
     unspecified: '不指定',
-    error: '請確認日期在 0002-01-01 到 5000-12-31 之間，時間、城市和性別都已正確選擇。',
+    error: '日期需在 0002-01-01 到 5000-12-31 之間，時間、城市和性別也要完整。',
     submit: '排盤',
   },
 } satisfies Record<LocaleCode, Record<string, string>>;
@@ -93,10 +94,15 @@ export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
           <Field label={t.birthDate} htmlFor={`${id}-date`}>
             <input
               id={`${id}-date`}
-              type="date"
-              min="0002-01-01"
-              max="5000-12-31"
+              type="text"
+              inputMode="numeric"
+              autoComplete="bday"
+              placeholder={ALMANAC_DATE_MIN}
+              pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+              minLength={10}
+              maxLength={10}
               value={values.birthDate}
+              aria-label={`${t.birthDate}，格式 YYYY-MM-DD，范围 ${ALMANAC_DATE_MIN} 至 ${ALMANAC_DATE_MAX}`}
               onChange={(event) => updateValue('birthDate', event.target.value)}
               className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
             />

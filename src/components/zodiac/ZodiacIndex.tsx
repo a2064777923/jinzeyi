@@ -21,6 +21,8 @@ export function ZodiacIndex({ locale }: { locale: LocaleCode }) {
           imageSrc="/assets/almanac-icons/zodiac-ring.png"
           kicker={localizeBodyCopy(locale, '生肖年份 · 配对 · 择日')}
           badges={[localizeBodyCopy(locale, '十二生肖'), localizeBodyCopy(locale, '地支五行'), localizeBodyCopy(locale, '吉日入口')]}
+          shareUrl={`/${locale}/zodiac`}
+          shareLabel={localizeBodyCopy(locale, '分享生肖查詢')}
         />
       </SeoPageBand>
       <SeoPageBand tone="plain" className="pt-0">
@@ -32,7 +34,13 @@ export function ZodiacIndex({ locale }: { locale: LocaleCode }) {
               className="group grid grid-cols-[3rem_minmax(0,1fr)_auto] items-center gap-3 rounded-lg border border-border bg-card p-4 transition hover:border-primary/40 hover:bg-secondary/70"
             >
               <span className="relative size-12 rounded-lg border border-border bg-background p-2">
-                <Image src="/assets/almanac-icons/zodiac-ring.png" alt="" fill className="object-contain p-1.5" sizes="48px" />
+                <Image
+                  src="/assets/almanac-icons/zodiac-ring.png"
+                  alt={localizeBodyCopy(locale, `属${animal.animal}生肖图示`)}
+                  fill
+                  className="object-contain p-1.5"
+                  sizes="48px"
+                />
               </span>
               <span className="min-w-0">
                 <span className="block text-lg font-semibold">{localizeBodyCopy(locale, `属${animal.animal}`)}</span>
@@ -51,12 +59,11 @@ export function ZodiacIndex({ locale }: { locale: LocaleCode }) {
             {localizeBodyCopy(locale, zodiacIndexPage.body)}
           </p>
           <div className="flex flex-col gap-4">
-            <FaqBlock items={zodiacIndexPage.faq} />
-            <InternalLinkGrid links={zodiacIndexPage.relatedLinks} />
+            <FaqBlock items={zodiacIndexPage.faq} locale={locale} />
+            <InternalLinkGrid links={zodiacIndexPage.relatedLinks} locale={locale} />
           </div>
         </div>
       </SeoPageBand>
     </SeoPageShell>
   );
 }
-

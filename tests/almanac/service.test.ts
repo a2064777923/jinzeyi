@@ -171,6 +171,13 @@ describe('AlmanacService integration', () => {
     expect(liXia?.solarDay).toBe(5);
   });
 
+  it('getMonthlyCalendar formats early common-era dates with four-digit years', async () => {
+    const days = await getMonthlyCalendar(2, 1);
+
+    expect(days[0].dateStr).toBe('0002-01-01');
+    expect(days[0].dateStr).toHaveLength(10);
+  });
+
   it('getMonthlyCalendar ignores stale cached data without educational metadata', async () => {
     store.set(
       'almanac:monthly:2026-05:v2',

@@ -46,7 +46,7 @@ const CHARACTER_ELEMENTS: Record<string, { element: FiveElement; meaning: string
   沐: { element: '水', meaning: '润泽清新，适合柔和气质' },
   泽: { element: '水', meaning: '泽被万物，有润下之意' },
   森: { element: '木', meaning: '木气旺盛，重成长与生命力' },
-  梓: { element: '木', meaning: '木意清正，常用于文雅命名' },
+  梓: { element: '木', meaning: '木意清正，常见于文雅命名' },
   楠: { element: '木', meaning: '木材坚实，带稳健之象' },
   明: { element: '火', meaning: '光明清楚，火意温暖' },
   昕: { element: '火', meaning: '晨光初起，有开启之意' },
@@ -60,7 +60,7 @@ const CHARACTER_ELEMENTS: Record<string, { element: FiveElement; meaning: string
   诗: { element: '金', meaning: '文辞有韵，金气偏清雅' },
   雅: { element: '木', meaning: '文雅舒展，木气柔和' },
   宁: { element: '土', meaning: '安宁沉稳，土意较足' },
-  远: { element: '土', meaning: '空间开阔，重目标与格局' },
+  远: { element: '土', meaning: '空间开阔，重方向与格局' },
   然: { element: '火', meaning: '自然明亮，火意不躁' },
   玥: { element: '土', meaning: '美玉之意，土中藏珍' },
 };

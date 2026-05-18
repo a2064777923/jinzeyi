@@ -7,24 +7,24 @@ import type { LocaleCode } from '@/lib/content/types';
 
 const copy = {
   'zh-hans': {
-    title: '先看盘面摘要',
+    title: '盘面摘要',
     reference: '结构参考',
     adjusted: '真太阳时',
     offsetUnit: '分钟',
     dayMaster: '日主',
     strongest: '较明显',
     weakest: '偏少',
-    method: '读法',
+    method: '重点',
   },
   'zh-hant': {
-    title: '先看盤面摘要',
+    title: '盤面摘要',
     reference: '結構參考',
     adjusted: '真太陽時',
     offsetUnit: '分鐘',
     dayMaster: '日主',
     strongest: '較明顯',
     weakest: '偏少',
-    method: '讀法',
+    method: '重點',
   },
 } satisfies Record<LocaleCode, Record<string, string>>;
 
@@ -37,7 +37,7 @@ export function BaziSummary({ result, locale = 'zh-hans' }: { result: BaziResult
   const dayMasterEntry = getGlossaryEntry('dayMaster', locale);
   const summary = localizeBodyCopy(
     locale,
-    `此盘以${dayMaster.heavenlyStem}${dayMaster.element}日主为参照，五行综合信号中${strongest.element}较明显，${weakest.element}偏少；适合先看结构倾向，再结合完整四柱和现实条件理解。`,
+    `日主是${dayMaster.heavenlyStem}${dayMaster.element}，五行里${strongest.element}较明显，${weakest.element}偏少。这个摘要能帮你抓住盘面的主要倾向。`,
   );
 
   return (

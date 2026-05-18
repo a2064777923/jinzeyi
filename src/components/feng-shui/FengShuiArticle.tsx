@@ -16,13 +16,22 @@ export function FengShuiArticle({ article, locale }: { article: FengShuiArticleC
       deck={seo.deck}
       faq={article.faq}
       relatedLinks={article.relatedLinks}
+      locale={locale}
+      shareUrl={`/${locale}${article.path}`}
+      shareLabel={localizeBodyCopy(locale, '分享这篇风水文章')}
       rail={
         <div className="flex flex-col gap-4">
           {category && (
             <div className="rounded-lg border border-border bg-card p-4">
               <div className="flex items-center gap-3">
                 <span className="relative size-11 rounded-lg border border-border bg-background p-2">
-                  <Image src={category.icon} alt="" fill className="object-contain p-2" sizes="44px" />
+                  <Image
+                    src={category.icon}
+                    alt={localizeBodyCopy(locale, `${category.name}風水圖示`)}
+                    fill
+                    className="object-contain p-2"
+                    sizes="44px"
+                  />
                 </span>
                 <div>
                   <p className="font-semibold">{localizeBodyCopy(locale, category.name)}</p>
