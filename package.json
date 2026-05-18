@@ -2,6 +2,12 @@
   "name": "jinzeyi",
   "version": "0.1.0",
   "private": true,
+  "contributors": [
+    {
+      "name": "Codex",
+      "role": "AI coding assistant"
+    }
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",

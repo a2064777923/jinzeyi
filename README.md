@@ -95,6 +95,11 @@ Nginx/宝塔反代到 `http://127.0.0.1:3000`。绑定域名后记得同步更�
 
 继续阶段工作时优先用 `$gsd-progress` 看状态，再用 `$gsd-plan-phase 5` 或 `$gsd-execute-phase 5` 推进部署阶段。普通小修可以用 `$gsd-quick`，但要同步更新相关测试和规划摘要。
 
+## Contributors
+
+- King Hong：项目 owner、产品方向、最终决策与发布。
+- Codex：AI coding assistant，参与代码实现、UI 文案审查、测试验证、规划交接文档整理。
+
 ## 代码结构
 
 ```text
