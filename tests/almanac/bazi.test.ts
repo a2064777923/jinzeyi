@@ -23,6 +23,37 @@ describe('bazi calculation utility', () => {
     expect(result.pillars.hour.value).toBe('甲午');
     expect(result.genderLabel).toBe('女');
     expect(result.elements).toMatchObject({ 木: expect.any(Number), 火: expect.any(Number), 土: expect.any(Number), 金: expect.any(Number), 水: expect.any(Number) });
+    expect(result.professional.dayMaster.heavenlyStem).toBe(result.pillars.day.heavenlyStem);
+    expect(result.professional.pillars.year.value).toBe(result.pillars.year.value);
+    expect(result.professional.elementStrength.visibleCounts).toMatchObject(result.elements);
+  });
+
+  it('returns professional chart fields with ten gods, hidden stems, na-yin, and terrain', () => {
+    const result = calculateBazi({
+      birthDate: '2005-12-23',
+      birthTime: '08:37',
+      cityId: 'hangzhou',
+      gender: 'unspecified',
+    });
+
+    expect(result.professional.dayMaster.heavenlyStem).toBe('辛');
+    expect(result.professional.pillars.year.value).toBe('乙酉');
+    expect(result.professional.pillars.month.value).toBe('戊子');
+    expect(result.professional.pillars.day.value).toBe('辛巳');
+    expect(result.professional.pillars.hour.value).toBe('壬辰');
+    expect(result.professional.pillars.year.tenGod).toBe('偏财');
+    expect(result.professional.pillars.year.naYin).toBe('泉中水');
+    expect(result.professional.pillars.month.terrain).toBe('长生');
+    expect(result.professional.pillars.day.hiddenStems).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ heavenlyStem: '丙', tenGod: '正官', type: 'main', weight: 3 }),
+      ]),
+    );
+    expect(result.professional.pillars.hour.hiddenStems).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ heavenlyStem: '乙', tenGod: '偏财' }),
+      ]),
+    );
   });
 
   it('applies true solar time at 4 minutes per longitude degree from 120E', () => {
@@ -42,6 +73,23 @@ describe('bazi calculation utility', () => {
     expect(result.trueSolarTime.offsetMinutes).toBe(-14);
     expect(result.trueSolarTime.adjusted).toBe('2026-05-17 11:16');
     expect(result.explanation).toContain('文化参考');
+    expect(result.professional.elementStrength.summary).toContain('参考');
+  });
+
+  it('keeps professional element strength bounded to reference language', () => {
+    const result = calculateBazi({
+      birthDate: '2026-05-17',
+      birthTime: '11:30',
+      cityId: 'hangzhou',
+      gender: 'female',
+    });
+    const deterministicClaimPattern = /必定|一定|保证|保證/;
+
+    expect(result.professional.elementStrength.visibleCounts).toMatchObject({ 木: expect.any(Number), 火: expect.any(Number), 土: expect.any(Number), 金: expect.any(Number), 水: expect.any(Number) });
+    expect(result.professional.elementStrength.hiddenStemWeightedCounts).toMatchObject({ 木: expect.any(Number), 火: expect.any(Number), 土: expect.any(Number), 金: expect.any(Number), 水: expect.any(Number) });
+    expect(result.professional.elementStrength.combinedScores).toMatchObject({ 木: expect.any(Number), 火: expect.any(Number), 土: expect.any(Number), 金: expect.any(Number), 水: expect.any(Number) });
+    expect(result.explanation).not.toMatch(deterministicClaimPattern);
+    expect(result.professional.elementStrength.summary).not.toMatch(deterministicClaimPattern);
   });
 
   it('does not remap early common-era years to the 1900s', () => {
