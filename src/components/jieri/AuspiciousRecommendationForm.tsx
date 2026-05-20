@@ -1,7 +1,7 @@
 'use client';
 
 import type { FormEvent, ReactNode } from 'react';
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import { CalendarCheck, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { scoreAuspiciousDateRange } from '@/lib/almanac/auspicious-scoring';
@@ -31,6 +31,8 @@ interface AuspiciousRecommendationFormProps {
 }
 
 export function AuspiciousRecommendationForm({ locale, initialScene }: AuspiciousRecommendationFormProps) {
+  const id = useId();
+  const errorId = `${id}-error`;
   const initialSceneSlug = jieriScenes.some((scene) => scene.slug === initialScene)
     ? initialScene!
     : 'jiehun';
@@ -99,7 +101,8 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
 
   return (
     <section className="grid min-w-0 gap-5 lg:grid-cols-[24rem_minmax(0,1fr)] lg:items-start">
-      <form className="rounded-lg border border-border bg-card p-4 shadow-sm" onSubmit={onSubmit}>
+      <form className="relative overflow-hidden rounded-[1.5rem] border border-border bg-card p-5 shadow-lg shadow-lucky/6" onSubmit={onSubmit}>
+        <span className="absolute -right-10 -top-10 hidden size-28 rounded-full bg-lucky/10 sm:block" aria-hidden="true" />
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
             <h2 className="text-lg font-semibold text-foreground">
@@ -117,9 +120,10 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
         <div className="grid gap-4">
           <Field label={localizeBodyCopy(locale, '事项')}>
             <select
+              name="scene"
               value={sceneSlug}
               onChange={(event) => changeScene(event.target.value)}
-              className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+              className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
             >
               {jieriScenes.map((scene) => (
                 <option key={scene.slug} value={scene.slug}>
@@ -129,7 +133,7 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
             </select>
           </Field>
 
-          <fieldset className="grid gap-3 rounded-md border border-border bg-background/70 p-3">
+          <fieldset className="grid gap-3 rounded-2xl border border-border bg-background/70 p-3">
             <legend className="px-1 text-sm font-semibold">
               {localizeBodyCopy(locale, '关键参与者')}
             </legend>
@@ -144,7 +148,7 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
             ))}
           </fieldset>
 
-          <fieldset className="grid gap-3 rounded-md border border-border bg-background/70 p-3">
+          <fieldset className="grid gap-3 rounded-2xl border border-border bg-background/70 p-3">
             <legend className="px-1 text-sm font-semibold">
               {localizeBodyCopy(locale, '日期范围')}
             </legend>
@@ -152,19 +156,23 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
               <Field label={localizeBodyCopy(locale, '开始日期')}>
                 <input
                   type="text"
+                  name="startDate"
+                  autoComplete="off"
                   value={startDate}
                   inputMode="numeric"
                   onChange={(event) => setStartDate(event.target.value)}
-                  className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+                  className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
                 />
               </Field>
               <Field label={localizeBodyCopy(locale, '结束日期')}>
                 <input
                   type="text"
+                  name="endDate"
+                  autoComplete="off"
                   value={endDate}
                   inputMode="numeric"
                   onChange={(event) => setEndDate(event.target.value)}
-                  className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+                  className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
                 />
               </Field>
             </div>
@@ -175,7 +183,7 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
         </div>
 
         {error ? (
-          <p className="mt-3 rounded-md bg-destructive/10 p-3 text-sm font-medium text-destructive">
+          <p id={errorId} className="mt-3 rounded-md bg-destructive/10 p-3 text-sm font-medium text-destructive" aria-live="polite">
             {localizeBodyCopy(locale, error)}
           </p>
         ) : null}
@@ -186,7 +194,9 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
         </Button>
       </form>
 
-      <AuspiciousRecommendationResult results={results} locale={locale} hasSubmitted={hasSubmitted} />
+      <div className="animate-reveal-up">
+        <AuspiciousRecommendationResult results={results} locale={locale} hasSubmitted={hasSubmitted} />
+      </div>
     </section>
   );
 }
@@ -216,7 +226,7 @@ function PersonRoleFields({
   onChange: (patch: Partial<AuspiciousPersonInput>) => void;
 }) {
   return (
-    <div className="grid gap-2 rounded-md border border-border bg-card p-3">
+    <div className="grid gap-2 rounded-2xl border border-border bg-card p-3">
       <div>
         <p className="text-sm font-semibold">
           {localizeBodyCopy(locale, role.label)}
@@ -230,33 +240,41 @@ function PersonRoleFields({
         <Field label={localizeBodyCopy(locale, '称呼')}>
           <input
             type="text"
+            name={`${role.key}-label`}
+            autoComplete="off"
             value={person.label ?? ''}
             onChange={(event) => onChange({ label: event.target.value })}
-            className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+            className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
           />
         </Field>
         <Field label={localizeBodyCopy(locale, '出生日期')}>
           <input
             type="text"
+            name={`${role.key}-birthDate`}
+            autoComplete="bday"
             value={person.birthDate}
             inputMode="numeric"
             onChange={(event) => onChange({ birthDate: event.target.value })}
-            className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+            className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
           />
         </Field>
         <Field label={localizeBodyCopy(locale, '出生时间')}>
           <input
             type="time"
+            name={`${role.key}-birthTime`}
+            autoComplete="bday-time"
             value={person.birthTime}
             onChange={(event) => onChange({ birthTime: event.target.value })}
-            className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+            className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
           />
         </Field>
         <Field label={localizeBodyCopy(locale, '出生地')}>
           <select
+            name={`${role.key}-cityId`}
+            autoComplete="address-level2"
             value={person.cityId}
             onChange={(event) => onChange({ cityId: event.target.value })}
-            className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+            className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
           >
             {!role.required ? <option value="">{localizeBodyCopy(locale, '不填写')}</option> : null}
             {CHINA_CITIES.map((city) => (
@@ -269,7 +287,7 @@ function PersonRoleFields({
       </div>
       <div className="grid grid-cols-3 gap-2">
         {genderOptions.map((option) => (
-          <label key={option.value} className="flex cursor-pointer items-center justify-center rounded-md border border-border px-2 py-2 text-xs font-semibold has-[:checked]:border-primary has-[:checked]:bg-primary/10">
+          <label key={option.value} className="flex min-h-10 cursor-pointer items-center justify-center rounded-lg border border-border px-2 py-2 text-xs font-semibold transition has-[:checked]:border-primary has-[:checked]:bg-primary/10">
             <input
               type="radio"
               name={`${role.key}-gender`}

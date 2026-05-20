@@ -157,10 +157,10 @@ function articleFaq(animal: ZodiacSeed, topic: 'personality' | 'compatibility'):
 
 function articleBody(animal: ZodiacSeed, topic: 'personality' | 'compatibility'): string {
   if (topic === 'personality') {
-    return `说到属${animal.animal}，先不要急着把人归成一种性格。生肖只是民俗里好记的入口，真正落到日常，仍要看一个人怎样做选择。${animal.animal}对应地支${animal.earthlyBranch}，五行提示为${animal.elementHint}，所以常被写成${animal.traits.join('、')}。这些词不是标签，更像提醒：遇到大事时，属${animal.animal}的人往往会在${animal.tone}。若用在择日上，重点不是判断人好坏，而是看这一天的宜忌、冲煞和事情节奏，是否能让这种行事方式更安稳地展开。`;
+    return `说到属${animal.animal}，先不要急着把人归成一种性格。生肖只是民俗里好记的入口，真正落到日常，仍要看一个人怎样做选择。${animal.animal}对应地支${animal.earthlyBranch}，五行提示为${animal.elementHint}，所以常被写成${animal.traits.join('、')}。这些词更像提醒：遇到大事时，属${animal.animal}的人往往会在${animal.tone}。若用在择日上，重点放在当天宜忌、冲煞和事情节奏，看这种行事方式能不能更安稳地展开。`;
   }
 
-  return `生肖配对最怕被读成一句话的吉凶。属${animal.animal}常见的合拍关系，会从六合、三合和六冲里找线索：较容易互相补位的生肖有${animal.best.join('、')}，日常相处较平稳的有${animal.steady.join('、')}，需要多留意节奏差异的则是${animal.caution.join('、')}。这套关系适合拿来提醒沟通方式，而不是替人下结论。若要安排婚嫁、合作、签约或开业，可以先避开明显冲${animal.animal}的日子，再回到黄历宜忌和时辰里细看。`;
+  return `生肖配对最怕被读成一句话的吉凶。属${animal.animal}常见的合拍关系，会从六合、三合和六冲里找线索：较容易互相补位的生肖有${animal.best.join('、')}，日常相处较平稳的有${animal.steady.join('、')}，需要多留意节奏差异的则是${animal.caution.join('、')}。这套关系适合拿来提醒沟通方式，不适合替人下结论。若要安排婚嫁、合作、签约或开业，可以先避开明显冲${animal.animal}的日子，再回到黄历宜忌和时辰里细看。`;
 }
 
 export const zodiacAnimals: ZodiacProfile[] = zodiacSeeds.map((animal) => ({
@@ -191,7 +191,7 @@ export const zodiacAnimals: ZodiacProfile[] = zodiacSeeds.map((animal) => ({
     deck: `围绕${animal.earthlyBranch}${animal.animal}的年份、性格关键词和择日避冲线索，整理成可继续查询的生肖入口。`,
     keywords: [`属${animal.animal}`, `${animal.animal}年`, '生肖配对', '生肖运势'],
   }),
-  body: `属${animal.animal}对应地支${animal.earthlyBranch}，常见关键词可以从${animal.traits.join('、')}几个角度理解。生肖内容不把性格写成绝对结论，而是把年份、地支、五行提示和择日避冲放在一起。若要安排结婚、搬家、开业等事项，生肖冲煞适合作为筛选条件之一，而不是唯一依据。`,
+  body: `属${animal.animal}对应地支${animal.earthlyBranch}，常见关键词可以从${animal.traits.join('、')}几个角度理解。生肖内容并列整理年份、地支、五行提示和择日避冲，避免把性格写成绝对结论。若要安排结婚、搬家、开业等事项，生肖冲煞适合作为筛选条件之一，不宜当成唯一依据。`,
   faq: profileFaq(animal),
   relatedLinks: linkSet(animal),
   seed: {
@@ -216,7 +216,7 @@ export const zodiacIndexPage: IndexablePage = {
     deck: '从生肖年份、地支五行和性格关键词切入，再连接吉日、合婚和八字工具。',
     keywords: ['十二生肖', '生肖年份', '生肖配对', '生肖性格'],
   }),
-  body: '生肖内容帮助确认生肖、地支和常见年份，也把生肖冲合放回择日场景里使用。生肖不是绝对判断，而是民俗语境中的参考维度；配合黄历宜忌、冲煞、八字排盘与吉日列表，更容易看懂哪些日子适合推进，哪些日子需要多留一层理由。',
+  body: '生肖内容帮助确认生肖、地支和常见年份，也把生肖冲合放回择日场景里使用。它属于民俗语境中的参考维度；配合黄历宜忌、冲煞、八字排盘与吉日列表，更容易看懂哪些日子适合推进，哪些日子需要多留一层理由。',
   faq: [
     {
       id: 'zodiac-year',

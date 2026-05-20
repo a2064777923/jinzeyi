@@ -14,12 +14,6 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ['lifestyle', 'education', 'utilities'],
     icons: [
       {
-        src: '/jinzeyi-icon.svg',
-        sizes: 'any',
-        type: 'image/svg+xml',
-        purpose: 'any',
-      },
-      {
         src: '/apple-touch-icon.png',
         sizes: '180x180',
         type: 'image/png',
@@ -55,13 +49,13 @@ export default function manifest(): MetadataRoute.Manifest {
         name: '今日黃曆',
         short_name: '今日',
         url: '/zh-hant',
-        icons: [{ src: '/jinzeyi-icon.svg', sizes: 'any', type: 'image/svg+xml' }],
+        icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }],
       },
       {
         name: '月曆',
         short_name: '月曆',
         url: '/zh-hant/calendar',
-        icons: [{ src: '/jinzeyi-icon.svg', sizes: 'any', type: 'image/svg+xml' }],
+        icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }],
       },
     ],
   };

@@ -68,7 +68,7 @@ export async function MonthlyCalendar({ year, month, days }: MonthlyCalendarProp
   );
 
   return (
-    <div className="w-full max-w-7xl space-y-6">
+    <div className="w-full max-w-[82rem] space-y-6">
       <section className="animate-reveal-up relative isolate overflow-hidden rounded-lg border border-border/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(255,247,237,0.76)_48%,rgba(244,250,246,0.92))] p-4 shadow-sm sm:p-6">
         <div className="almanac-grid absolute inset-0 opacity-45" aria-hidden="true" />
         <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#B91C1C,#D97706,#047857)]" aria-hidden="true" />
@@ -139,9 +139,9 @@ export async function MonthlyCalendar({ year, month, days }: MonthlyCalendarProp
           </div>
 
           <div className="grid gap-3 sm:grid-cols-[9rem_minmax(0,1fr)] lg:grid-cols-1">
-            <div className="relative hidden min-h-36 overflow-visible rounded-lg border border-accent/25 bg-card/82 p-4 shadow-sm sm:block">
+            <div className="relative min-h-28 overflow-visible rounded-lg border border-accent/25 bg-card/82 p-3 shadow-sm sm:min-h-36 sm:p-4">
               <div className="fortune-pattern fortune-pattern-bleed fortune-pattern-lucky absolute opacity-35" aria-hidden="true" />
-              <div className="relative mx-auto aspect-square w-24 animate-reveal-up sm:w-28" style={{ '--reveal-delay': '80ms' } as CSSProperties}>
+              <div className="relative mx-auto aspect-square w-20 animate-reveal-up sm:w-28" style={{ '--reveal-delay': '80ms' } as CSSProperties}>
                 <Image
                   src="/assets/almanac-icons/calendar.png"
                   alt={localize(`${year}年${month}月月历图示`)}

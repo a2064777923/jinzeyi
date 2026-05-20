@@ -4,12 +4,21 @@ import { BrandMark } from './BrandMark';
 import { LocaleToggle } from './LocaleToggle';
 import { NavigationLinks } from './NavigationLinks';
 
+function formatToday(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 export async function Header() {
   const t = await getTranslations('Layout');
+  const todayHref = `/almanac/${formatToday()}`;
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/80 bg-card/90 backdrop-blur supports-[backdrop-filter]:bg-card/80">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-[82rem] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
           className="group flex min-w-0 items-center gap-3 rounded-md text-primary transition duration-200 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
@@ -23,7 +32,7 @@ export async function Header() {
           </span>
         </Link>
         <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
-          <NavigationLinks />
+          <NavigationLinks todayHref={todayHref} />
           <div className="hidden lg:block">
             <LocaleToggle />
           </div>

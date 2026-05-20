@@ -21,7 +21,7 @@ export const SITE_KEYWORDS = [
   '时辰吉凶',
   '時辰吉凶',
 ];
-export const DEFAULT_OG_IMAGE = '/jinzeyi-icon.svg';
+export const DEFAULT_OG_IMAGE = '/icon-512.png';
 
 type Locale = 'zh-hans' | 'zh-hant';
 

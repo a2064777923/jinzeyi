@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getSolarTerms } from '@/lib/almanac/service';
+import Image from 'next/image';
 import { CalendarDays, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -70,7 +71,7 @@ export default async function SolarTermsPage({ params }: Props) {
           __html: JSON.stringify(buildFaqJsonLd({ locale, faq: termsContent.faq })),
         }}
       />
-      <section className="mx-auto grid max-w-7xl items-center gap-8 overflow-hidden rounded-lg border border-border/80 bg-card/85 p-5 shadow-sm sm:p-7 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="mx-auto grid max-w-[82rem] items-center gap-6 overflow-hidden rounded-[1.5rem] border border-border/80 bg-card/85 p-5 shadow-sm sm:p-7 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="space-y-5">
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="secondary" className="gap-1">
@@ -96,12 +97,33 @@ export default async function SolarTermsPage({ params }: Props) {
             <HeroMetric value="12" label={t('qiCountLabel')} />
           </div>
         </div>
-        <div className="flex justify-center lg:justify-end">
-          <SolarOrbit />
+        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_13rem] lg:grid-cols-[minmax(0,1fr)_12rem]">
+          <div className="relative min-h-[16rem] overflow-hidden rounded-[1.25rem] border border-primary/15 bg-[#fff2d8] shadow-sm">
+            <Image
+              src="/assets/image2/solar-terms/qingming.png"
+              alt="新中式卡通风二十四节气主视觉，踏青、柳枝与春日山水"
+              fill
+              priority
+              loading="eager"
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 470px"
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/70 to-transparent p-4 text-primary-foreground">
+              <p className="text-xs font-semibold tracking-[0.2em]">SOLAR TERMS</p>
+              <p className="mt-1 text-sm leading-6 text-primary-foreground/88">
+                {t('heroVisualCaption')}
+              </p>
+            </div>
+          </div>
+          <SolarOrbit className="hidden max-w-none sm:block" />
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl">
+      <div className="mx-auto w-full max-w-[82rem]">
+        <SolarTermsList terms={terms} />
+      </div>
+
+      <section className="mx-auto w-full max-w-[82rem]">
         <SharePanel
           title={`${currentYear}${t('dateYear')}${t('title')}`}
           text={t('description')}
@@ -116,11 +138,7 @@ export default async function SolarTermsPage({ params }: Props) {
         />
       </section>
 
-      <div className="mx-auto w-full max-w-7xl">
-        <SolarTermsList terms={terms} />
-      </div>
-
-      <section className="mx-auto grid w-full max-w-7xl gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
+      <section className="mx-auto grid w-full max-w-[82rem] gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
         <FaqBlock items={termsContent.faq} locale={locale} />
         <InternalLinkGrid links={termsContent.relatedLinks} locale={locale} />
       </section>

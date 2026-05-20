@@ -5,6 +5,7 @@ import { Check, Copy, Link as LinkIcon, MessageCircle, Send, Share2 } from 'luci
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { SITE_ORIGIN } from '@/lib/seo';
+import type { LocaleCode } from '@/lib/content/types';
 
 interface SharePanelProps {
   title: string;
@@ -19,23 +20,63 @@ interface SharePanelProps {
     nativeShare?: string;
   };
   className?: string;
+  locale?: LocaleCode;
 }
 
 const defaultLabels = {
-  title: '分享這頁',
-  copyLink: '複製連結',
-  copySummary: '複製摘要',
-  copied: '已複製',
-  nativeShare: '系統分享',
-};
+  'zh-hans': {
+    title: '分享这页',
+    copyLink: '复制链接',
+    copySummary: '复制摘要',
+    copied: '已复制',
+    nativeShare: '系统分享',
+  },
+  'zh-hant': {
+    title: '分享這頁',
+    copyLink: '複製連結',
+    copySummary: '複製摘要',
+    copied: '已複製',
+    nativeShare: '系統分享',
+  },
+} as const;
+
+const copyTargetLabels = {
+  'zh-hans': {
+    wechat: '微信',
+    moments: '朋友圈',
+    xiaohongshu: '小红书',
+    douyin: '抖音',
+    duoshan: '多闪',
+    instagram: 'Instagram',
+    copyTo: '复制内容以分享到',
+    shareTo: '分享到',
+  },
+  'zh-hant': {
+    wechat: '微信',
+    moments: '朋友圈',
+    xiaohongshu: '小紅書',
+    douyin: '抖音',
+    duoshan: '多閃',
+    instagram: 'Instagram',
+    copyTo: '複製內容以分享到',
+    shareTo: '分享到',
+  },
+} as const;
 
 function encode(value: string): string {
   return encodeURIComponent(value);
 }
 
-export function SharePanel({ title, text, url, copyText, labels, className }: SharePanelProps) {
+function inferLocale(url: string, locale?: LocaleCode): LocaleCode {
+  if (locale) return locale;
+  return url.includes('/zh-hans') ? 'zh-hans' : 'zh-hant';
+}
+
+export function SharePanel({ title, text, url, copyText, labels, className, locale }: SharePanelProps) {
   const [copied, setCopied] = useState<string | null>(null);
-  const t = { ...defaultLabels, ...labels };
+  const localeKey = inferLocale(url, locale);
+  const t = { ...defaultLabels[localeKey], ...labels };
+  const shareCopy = copyTargetLabels[localeKey];
   const absoluteUrl = /^https?:\/\//.test(url)
     ? url
     : `${SITE_ORIGIN}${url.startsWith('/') ? url : `/${url}`}`;
@@ -100,12 +141,12 @@ export function SharePanel({ title, text, url, copyText, labels, className }: Sh
     },
   ] as const;
   const copyTargets = [
-    { label: '微信', key: 'wechat', icon: MessageCircle },
-    { label: '朋友圈', key: 'moments', icon: MessageCircle },
-    { label: '小紅書', key: 'xiaohongshu', icon: Copy },
-    { label: '抖音', key: 'douyin', icon: Copy },
-    { label: '多閃', key: 'duoshan', icon: Copy },
-    { label: 'Instagram', key: 'instagram', icon: Copy },
+    { label: shareCopy.wechat, key: 'wechat', icon: MessageCircle },
+    { label: shareCopy.moments, key: 'moments', icon: MessageCircle },
+    { label: shareCopy.xiaohongshu, key: 'xiaohongshu', icon: Copy },
+    { label: shareCopy.douyin, key: 'douyin', icon: Copy },
+    { label: shareCopy.duoshan, key: 'duoshan', icon: Copy },
+    { label: shareCopy.instagram, key: 'instagram', icon: Copy },
   ] as const;
 
   return (
@@ -121,7 +162,7 @@ export function SharePanel({ title, text, url, copyText, labels, className }: Sh
         </Button>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-2" aria-live="polite">
         <Button type="button" variant="secondary" onClick={() => copy(absoluteUrl, 'link')}>
           {copied === 'link' ? <Check data-icon="inline-start" /> : <LinkIcon data-icon="inline-start" />}
           {copied === 'link' ? t.copied : t.copyLink}
@@ -138,7 +179,7 @@ export function SharePanel({ title, text, url, copyText, labels, className }: Sh
               type="button"
               variant="outline"
               onClick={() => copy(summary, target.key)}
-              aria-label={`複製內容以分享到 ${target.label}`}
+              aria-label={`${shareCopy.copyTo} ${target.label}`}
             >
               <Icon data-icon="inline-start" />
               {copied === target.key ? t.copied : target.label}
@@ -154,7 +195,7 @@ export function SharePanel({ title, text, url, copyText, labels, className }: Sh
               target="_blank"
               rel="noopener noreferrer"
               className={cn(buttonVariants({ variant: 'outline' }))}
-              aria-label={`分享到 ${target.label}`}
+              aria-label={`${shareCopy.shareTo} ${target.label}`}
             >
               <Icon data-icon="inline-start" />
               {target.label}

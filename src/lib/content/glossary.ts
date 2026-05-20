@@ -51,7 +51,7 @@ const fallbackGlossary: Partial<Record<GlossaryKey, Omit<GlossaryEntry, 'key'>>>
   ganZhi: {
     term: '干支',
     short: '天干與地支配成六十組，用來記年、月、日、時。',
-    detail: '黃曆裡的年柱、月柱、日柱和時柱都會用干支表示。它像一套傳統時間編碼，重點不是單看一個字，而是看它和生肖、五行、值神等資料如何一起描述當日氣象。',
+    detail: '黃曆裡的年柱、月柱、日柱和時柱都會用干支表示。它像一套傳統時間編碼，重點在生肖、五行、值神等資料如何一起描述當日氣象，不宜只盯著單個字。',
     href: '/tools/bazi',
     linkLabel: '用八字排盤看四柱',
   },
@@ -72,7 +72,7 @@ const fallbackGlossary: Partial<Record<GlossaryKey, Omit<GlossaryEntry, 'key'>>>
   shenSha: {
     term: '神煞',
     short: '黃曆中用來描述吉凶傾向的傳統名目。',
-    detail: '神煞不是單獨下結論的按鈕，更像提醒你某些事項要更謹慎。看神煞時應搭配宜忌、沖煞、時辰和具體場景。',
+    detail: '神煞更像謹慎提醒，不適合單獨下結論。看神煞時應搭配宜忌、沖煞、時辰和具體場景。',
     href: '/jieri',
     linkLabel: '按場景看吉日',
   },
@@ -100,7 +100,7 @@ const fallbackGlossary: Partial<Record<GlossaryKey, Omit<GlossaryEntry, 'key'>>>
   luckyHour: {
     term: '吉時',
     short: '一天分成十二個時辰，每個時辰各有吉凶和宜忌。',
-    detail: '吉時是時段參考，不是把整天洗成吉日的公式。若整日為凶但有吉時，可以理解為大事仍需慎重，小事可優先挑吉時處理。',
+    detail: '吉時是時段參考，無法把整天洗成吉日。若整日為凶但有吉時，可以理解為大事仍需慎重，小事可優先挑吉時處理。',
     href: '/calendar',
     linkLabel: '日期與時辰',
   },
@@ -121,7 +121,7 @@ const fallbackGlossary: Partial<Record<GlossaryKey, Omit<GlossaryEntry, 'key'>>>
   mingCaiWei: {
     term: '明財位',
     short: '民間常把入門後對角處視作明財位，重點在乾淨、明亮、穩定。',
-    detail: '明財位不是承諾發財的位置。它更像空間整理提醒：不要堆垃圾、不要長期陰暗潮濕，也不要把動線堵死。',
+    detail: '明財位更像空間整理提醒，不承諾發財：不要堆垃圾、不要長期陰暗潮濕，也不要把動線堵死。',
     href: '/feng-shui/wealth/ming-cai-wei',
     linkLabel: '看明財位整理方法',
   },

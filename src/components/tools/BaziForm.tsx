@@ -52,6 +52,7 @@ const copy = {
 export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
   const t = copy[locale];
   const id = useId();
+  const errorId = `${id}-error`;
   const [values, setValues] = useState<BaziInput>(DEFAULT_VALUES);
   const [result, setResult] = useState<BaziResultData | null>(() => calculateBazi(DEFAULT_VALUES));
   const [error, setError] = useState<string | null>(null);
@@ -78,8 +79,9 @@ export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
   }
 
   return (
-    <section className="grid min-w-0 gap-4 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start">
-      <form className="rounded-lg border border-border bg-card p-4 shadow-sm" onSubmit={onSubmit} noValidate>
+    <section className="grid min-w-0 gap-5 lg:grid-cols-[23rem_minmax(0,1fr)] lg:items-start">
+      <form className="relative overflow-hidden rounded-[1.5rem] border border-border bg-card p-5 shadow-lg shadow-primary/6" onSubmit={onSubmit} noValidate>
+        <span className="absolute -right-10 -top-10 hidden size-28 rounded-full bg-primary/8 sm:block" aria-hidden="true" />
         <div className="mb-4 flex items-center justify-between gap-3">
           <div>
             <h2 className="text-lg font-semibold">{t.heading}</h2>
@@ -94,6 +96,7 @@ export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
           <Field label={t.birthDate} htmlFor={`${id}-date`}>
             <input
               id={`${id}-date`}
+              name="birthDate"
               type="text"
               inputMode="numeric"
               autoComplete="bday"
@@ -102,26 +105,36 @@ export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
               minLength={10}
               maxLength={10}
               value={values.birthDate}
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? errorId : undefined}
               aria-label={`${t.birthDate}，格式 YYYY-MM-DD，范围 ${ALMANAC_DATE_MIN} 至 ${ALMANAC_DATE_MAX}`}
               onChange={(event) => updateValue('birthDate', event.target.value)}
-              className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+              className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
             />
           </Field>
           <Field label={t.birthTime} htmlFor={`${id}-time`}>
             <input
               id={`${id}-time`}
+              name="birthTime"
               type="time"
+              autoComplete="bday-time"
               value={values.birthTime}
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? errorId : undefined}
               onChange={(event) => updateValue('birthTime', event.target.value)}
-              className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+              className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
             />
           </Field>
           <Field label={t.birthPlace} htmlFor={`${id}-city`}>
             <select
               id={`${id}-city`}
+              name="birthPlace"
+              autoComplete="address-level2"
               value={values.cityId}
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? errorId : undefined}
               onChange={(event) => updateValue('cityId', event.target.value)}
-              className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+              className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
             >
               {CHINA_CITIES.map((city) => (
                 <option key={city.id} value={city.id}>
@@ -130,11 +143,11 @@ export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
               ))}
             </select>
           </Field>
-          <fieldset className="rounded-md border border-border bg-background p-3">
+          <fieldset className="rounded-xl border border-border bg-background p-3">
             <legend className="px-1 text-sm font-semibold">{t.gender}</legend>
             <div className="mt-2 grid grid-cols-3 gap-2">
               {GENDER_OPTIONS.map((option) => (
-                <label key={option.value} className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-border px-2 py-2 text-sm has-[:checked]:border-primary has-[:checked]:bg-primary/10">
+                <label key={option.value} className="flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-lg border border-border px-2 py-2 text-sm transition has-[:checked]:border-primary has-[:checked]:bg-primary/10">
                   <input
                     type="radio"
                     name={`${id}-gender`}
@@ -150,7 +163,11 @@ export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
           </fieldset>
         </div>
 
-        {error && <p className="mt-3 text-sm font-medium text-destructive">{error}</p>}
+        {error && (
+          <p id={errorId} className="mt-3 text-sm font-medium text-destructive" aria-live="polite">
+            {error}
+          </p>
+        )}
 
         <Button type="submit" className="mt-4 w-full" size="lg">
           <Calculator data-icon="inline-start" />
@@ -158,7 +175,11 @@ export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
         </Button>
       </form>
 
-      {result ? <BaziResult result={result} locale={locale} /> : null}
+      {result ? (
+        <div className="animate-reveal-up">
+          <BaziResult result={result} locale={locale} />
+        </div>
+      ) : null}
     </section>
   );
 }

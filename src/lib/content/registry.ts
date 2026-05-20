@@ -127,8 +127,8 @@ export const coreIndexablePages: IndexablePage[] = [
       },
       {
         id: 'calendar-ominous-use',
-        question: '凶日是不是完全不能办事？',
-        answer: '不是。凶日更适合把事情拆小、做准备或处理不关键的步骤。若事项正好出现在忌项里，或涉及入宅、开业、动土等大动作，就建议换日。',
+        question: '凶日完全不能办事吗？',
+        answer: '不用一概而论。凶日更适合把事情拆小、做准备或处理不关键的步骤。若事项正好出现在忌项里，或涉及入宅、开业、动土等大动作，就建议换日。',
       },
       {
         id: 'calendar-date-search',

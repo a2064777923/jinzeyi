@@ -15,7 +15,7 @@ export function ScoreBreakdown({ dimensions, locale }: ScoreBreakdownProps) {
         const width = `${Math.max((dimension.score / dimension.maxScore) * 100, 4)}%`;
 
         return (
-          <div key={dimension.key} className="rounded-md border border-border bg-background/75 p-3">
+          <div key={dimension.key} className="rounded-2xl border border-border bg-background/75 p-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm font-semibold text-foreground">
                 {localizeBodyCopy(locale, dimension.label)}

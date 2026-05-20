@@ -5,12 +5,8 @@ import {
   ArrowLeft,
   ArrowRight,
   CalendarDays,
-  Compass,
-  Crosshair,
-  Flame,
   Heart,
   ShieldAlert,
-  Sparkles,
   SunMedium,
   Target,
 } from 'lucide-react';
@@ -38,12 +34,6 @@ interface AlmanacDetailProps {
   activeTab: string;
 }
 
-interface AlmanacIconProps {
-  src: string;
-  alt: string;
-  className?: string;
-}
-
 function formatToday(): string {
   const now = new Date();
   const y = now.getFullYear();
@@ -52,27 +42,33 @@ function formatToday(): string {
   return `${y}-${m}-${d}`;
 }
 
-function AlmanacIcon({ src, alt, className }: AlmanacIconProps) {
-  return (
-    <span className={cn('relative block aspect-square w-full', className)}>
-      <Image
-        src={`/assets/almanac-icons/${src}.png`}
-        alt={alt}
-        fill
-        className="object-contain drop-shadow-[0_14px_24px_rgba(20,37,31,0.18)]"
-        sizes="(min-width: 1024px) 160px, 96px"
-      />
-    </span>
-  );
+function getDirectionPosition(direction: string) {
+  const normalized = direction.replace(/\s+/g, '');
+  const hasEast = normalized.includes('东') || normalized.includes('東');
+  const hasWest = normalized.includes('西');
+  const hasSouth = normalized.includes('南');
+  const hasNorth = normalized.includes('北');
+
+  if (hasEast && hasSouth) return 'right-[7%] bottom-[14%]';
+  if (hasEast && hasNorth) return 'right-[7%] top-[14%]';
+  if (hasWest && hasSouth) return 'left-[7%] bottom-[14%]';
+  if (hasWest && hasNorth) return 'left-[7%] top-[14%]';
+  if (hasEast) return 'right-[10%] top-1/2 -translate-y-1/2';
+  if (hasWest) return 'left-[10%] top-1/2 -translate-y-1/2';
+  if (hasSouth) return 'bottom-[11%] left-1/2 -translate-x-1/2';
+  if (hasNorth) return 'left-1/2 top-[11%] -translate-x-1/2';
+  return 'right-[12%] top-[12%]';
 }
 
-function getDirectionPosition(direction: string) {
-  if (direction.includes('东') || direction.includes('東')) return 'right-[8%] top-1/2 -translate-y-1/2';
-  if (direction.includes('西')) return 'left-[8%] top-1/2 -translate-y-1/2';
-  if (direction.includes('南')) return 'bottom-[8%] left-1/2 -translate-x-1/2';
-  if (direction.includes('北')) return 'left-1/2 top-[8%] -translate-x-1/2';
-  return 'right-[16%] top-[16%]';
-}
+const image2Assets = {
+  yi: '/assets/image2/almanac-yi.png',
+  ji: '/assets/image2/almanac-ji.png',
+  compass: '/assets/image2/direction-compass-cutout.png',
+  wealth: '/assets/image2/direction-wealth.png',
+  joy: '/assets/image2/direction-joy.png',
+  blessing: '/assets/image2/direction-blessing.png',
+  conflict: '/assets/image2/direction-conflict.png',
+} as const;
 
 export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetailProps) {
   const t = await getTranslations('Detail');
@@ -127,7 +123,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
   ] as const;
 
   return (
-    <div className="w-full max-w-7xl space-y-7">
+    <div className="w-full max-w-[82rem] space-y-7">
       <div className="flex flex-wrap items-center gap-3 text-sm">
         <Link
           href="/calendar"
@@ -222,7 +218,6 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
                 tone="lucky"
                 title={t('visual.yiTitle')}
                 count={almanac.yi.length}
-                icon="auspicious-seal"
               >
                 <YiJiBadgeList items={almanac.yi} type="yi" density="comfortable" />
               </VisualPanel>
@@ -230,7 +225,6 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
                 tone="ominous"
                 title={t('visual.jiTitle')}
                 count={almanac.ji.length}
-                icon="warning-talisman"
               >
                 <YiJiBadgeList items={almanac.ji} type="ji" density="comfortable" />
               </VisualPanel>
@@ -239,16 +233,13 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
 
           <div className="grid gap-4 lg:grid-rows-[auto_1fr]">
             <div className="grid grid-cols-3 gap-3">
-              <IconTile icon="compass" label={t('directions.caiShen')} value={localize(almanac.direction.caiShen)} />
-              <IconTile icon="lantern" label={t('directions.xiShen')} value={localize(almanac.direction.xiShen)} />
-              <IconTile icon="lotus" label={t('directions.fuShen')} value={localize(almanac.direction.fuShen)} />
+              <IconTile kind="wealth" label={t('directions.caiShen')} value={localize(almanac.direction.caiShen)} />
+              <IconTile kind="joy" label={t('directions.xiShen')} value={localize(almanac.direction.xiShen)} />
+              <IconTile kind="blessing" label={t('directions.fuShen')} value={localize(almanac.direction.fuShen)} />
             </div>
 
             <div className="relative min-h-[22rem] overflow-visible rounded-lg border border-border/80 bg-card/88 p-5 shadow-sm">
               <div className="almanac-grid absolute inset-0 opacity-35" aria-hidden="true" />
-              <div className="absolute right-4 top-4 w-20 opacity-80 sm:w-24">
-                <AlmanacIcon src="zodiac-ring" alt={`${t('overview.zodiac')}圖示`} />
-              </div>
               <div className="relative">
                 <p className="text-sm font-medium text-muted-foreground">{t('visual.directionMap')}</p>
                 <h2 className="mt-1 font-serif-display text-2xl font-semibold text-foreground">
@@ -259,6 +250,9 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
                 chong={localize(almanac.direction.chong)}
                 sha={localize(almanac.direction.sha)}
                 caiShen={localize(almanac.direction.caiShen)}
+                xiShen={localize(almanac.direction.xiShen)}
+                fuShen={localize(almanac.direction.fuShen)}
+                localize={localize}
                 labels={[
                   t('directions.north'),
                   t('directions.east'),
@@ -283,7 +277,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
         <TabsContent value="overview" className="space-y-4">
           <TabLead
             title={localize('整日基調與細項分開讀')}
-            body={localize('黃曆詳情不是把所有欄位平均相加。整日吉凶主要由值日、神煞與日課決定；時辰吉凶則是在當天內切成十二段。這也是「有吉時但整日仍為凶」會同時出現的原因。')}
+            body={localize('黃曆詳情不能把所有欄位平均相加。整日吉凶主要由值日、神煞與日課決定；時辰吉凶則是在當天內切成十二段。這也是「有吉時但整日仍為凶」會同時出現的原因。')}
           />
           <Card className="border-border/80 shadow-sm">
             <CardContent className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -311,7 +305,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
 
         <TabsContent value="yiJi" className="space-y-4">
           <TabLead
-            title={localize('宜忌不是越多越吉')}
+            title={localize('宜忌要看事情類型和輕重')}
             body={localize('宜忌要對應事情類型。凶日仍可能列出祭祀、出行、交易等宜事，意思是某些事項可參考；婚嫁、搬家、開業這類大事還要核對場景吉日、生肖避沖與時辰。')}
           />
           <div className="grid gap-4 lg:grid-cols-2">
@@ -319,7 +313,6 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
               tone="lucky"
               title={t('visual.yiTitle')}
               count={almanac.yi.length}
-              icon="lucky-knot"
               large
             >
               <YiJiBadgeList items={almanac.yi} type="yi" density="comfortable" />
@@ -328,7 +321,6 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
               tone="ominous"
               title={t('visual.jiTitle')}
               count={almanac.ji.length}
-              icon="warning-talisman"
               large
             >
               <YiJiBadgeList items={almanac.ji} type="ji" density="comfortable" />
@@ -370,7 +362,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
 
         <TabsContent value="directions" className="space-y-4">
           <TabLead
-            title={localize('方位是提醒，不是恐嚇')}
+            title={localize('方位提醒風險，別製造恐慌')}
             body={localize('沖煞方位常用來提醒今天哪個方向或生肖關係要少硬碰。若只是日常小事，不必過度緊張；若涉及搬家、動土、安床、開業，才需要把方位和場景吉日一起核對。')}
           />
           <Card className="border-border/80 shadow-sm">
@@ -379,6 +371,9 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
                 chong={localize(almanac.direction.chong)}
                 sha={localize(almanac.direction.sha)}
                 caiShen={localize(almanac.direction.caiShen)}
+                xiShen={localize(almanac.direction.xiShen)}
+                fuShen={localize(almanac.direction.fuShen)}
+                localize={localize}
                 labels={[
                   t('directions.north'),
                   t('directions.east'),
@@ -399,7 +394,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
 
         <TabsContent value="deities" className="space-y-4">
           <TabLead
-            title={localize('神煞是判斷語境，不是單字斷吉凶')}
+            title={localize('神煞提供判斷語境，別單字斷吉凶')}
             body={localize('神煞、值神、二十八星宿和彭祖百忌都屬於傳統黃曆語彙。它們用來解釋今天的整體基調，以及某些事項為什麼需要保守。')}
           />
           <Card className="border-border/80 shadow-sm">
@@ -461,19 +456,16 @@ function VisualPanel({
   tone,
   title,
   count,
-  icon,
   large = false,
   children,
 }: {
   tone: 'lucky' | 'ominous';
   title: string;
   count: number;
-  icon: string;
   large?: boolean;
   children: ReactNode;
 }) {
   const lucky = tone === 'lucky';
-  const iconAlt = lucky ? '吉 - 紅色印章圖示' : '凶 - 警告符圖示';
   return (
     <div
       className={cn(
@@ -491,8 +483,12 @@ function VisualPanel({
         )}
         aria-hidden="true"
       />
-      <div className="pointer-events-none absolute right-3 top-3 w-16 opacity-85 sm:w-20">
-        <AlmanacIcon src={icon} alt={iconAlt} />
+      <div className="pointer-events-none absolute right-3 top-3 w-16 opacity-95 sm:w-20">
+        <Image2Glyph
+          src={lucky ? image2Assets.yi : image2Assets.ji}
+          alt=""
+          sizes="80px"
+        />
       </div>
       <div className="relative space-y-4 pr-16 sm:pr-20">
         <div className="flex items-center gap-3">
@@ -515,12 +511,59 @@ function VisualPanel({
   );
 }
 
-function IconTile({ icon, label, value }: { icon: string; label: string; value: string }) {
+function Image2Glyph({
+  src,
+  alt,
+  className,
+  sizes = '80px',
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  sizes?: string;
+}) {
   return (
-    <div className="relative overflow-visible rounded-lg border border-border/80 bg-card/88 p-3 text-center shadow-sm">
-      <div className="mx-auto w-12 sm:w-14">
-        <AlmanacIcon src={icon} alt={`${label}圖示`} />
-      </div>
+    <span
+      className={cn(
+        'relative block aspect-square w-full overflow-visible rounded-xl border border-border/70 bg-card/90 shadow-sm',
+        className
+      )}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-contain p-2"
+        sizes={sizes}
+      />
+    </span>
+  );
+}
+
+function IconTile({ kind, label, value }: { kind: 'wealth' | 'joy' | 'blessing'; label: string; value: string }) {
+  const visual = {
+    wealth: {
+      src: image2Assets.wealth,
+      className: 'border-accent/30 bg-accent/10 text-accent',
+    },
+    joy: {
+      src: image2Assets.joy,
+      className: 'border-lucky/30 bg-lucky/10 text-lucky',
+    },
+    blessing: {
+      src: image2Assets.blessing,
+      className: 'border-primary/25 bg-primary/10 text-primary',
+    },
+  }[kind];
+
+  return (
+    <div className="relative overflow-hidden rounded-lg border border-border/80 bg-card/88 p-3 text-center shadow-sm">
+      <Image2Glyph
+        src={visual.src}
+        alt={`${label}新中式卡通圖示`}
+        className={cn('mx-auto size-12 sm:size-14', visual.className)}
+        sizes="56px"
+      />
       <p className="mt-1 text-xs font-medium text-muted-foreground">{label}</p>
       <p className="mt-1 text-sm font-semibold text-foreground">{value}</p>
     </div>
@@ -630,59 +673,190 @@ function DirectionCompass({
   chong,
   sha,
   caiShen,
+  xiShen,
+  fuShen,
+  localize,
   labels,
   compact = false,
 }: {
   chong: string;
   sha: string;
   caiShen: string;
+  xiShen: string;
+  fuShen: string;
+  localize: (value: string) => string;
   labels: string[];
   compact?: boolean;
 }) {
+  const markerItems = [
+    {
+      kind: 'wealth' as const,
+      label: '财',
+      value: caiShen,
+      title: `${localize('财神')} ${caiShen}`,
+      className: getDirectionPosition(caiShen),
+      note: localize('交易、纳财可参考'),
+    },
+    {
+      kind: 'joy' as const,
+      label: '喜',
+      value: xiShen,
+      title: `${localize('喜神')} ${xiShen}`,
+      className: getDirectionPosition(xiShen),
+      note: localize('喜庆、拜访可参考'),
+    },
+    {
+      kind: 'blessing' as const,
+      label: '福',
+      value: fuShen,
+      title: `${localize('福神')} ${fuShen}`,
+      className: getDirectionPosition(fuShen),
+      note: localize('祈福、稳定可参考'),
+    },
+    {
+      kind: 'conflict' as const,
+      label: '煞',
+      value: sha,
+      title: localize(`冲${chong} · 煞${sha}`),
+      className: getDirectionPosition(sha),
+      note: localize(`冲${chong}，大事少硬碰`),
+    },
+  ];
+
   return (
     <div
       className={cn(
-        'relative mx-auto aspect-square w-full max-w-[21rem]',
-        compact && 'max-w-[18rem]'
+        'grid gap-4',
+        compact ? 'lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-center' : 'lg:grid-cols-1'
       )}
     >
-      <div className="absolute inset-[8%] rounded-full border border-primary/20 bg-[conic-gradient(from_45deg,rgba(22,163,74,0.15),rgba(217,119,6,0.17),rgba(220,38,38,0.12),rgba(22,163,74,0.15))]" />
-      <div className="absolute inset-[18%] rounded-full border border-border bg-card/82 shadow-inner" />
-      <div className="absolute inset-[31%] grid place-items-center rounded-full border border-accent/35 bg-background/82">
-        <Compass className="size-10 text-primary" aria-hidden="true" />
-      </div>
-
-      {labels.map((label, index) => (
-        <span
-          key={label}
-          className={cn(
-            'absolute grid size-8 place-items-center rounded-full border border-border bg-card text-xs font-semibold text-muted-foreground shadow-sm',
-            index === 0 && 'left-1/2 top-0 -translate-x-1/2',
-            index === 1 && 'right-0 top-1/2 -translate-y-1/2',
-            index === 2 && 'bottom-0 left-1/2 -translate-x-1/2',
-            index === 3 && 'left-0 top-1/2 -translate-y-1/2'
-          )}
-        >
-          {label}
-        </span>
-      ))}
-
       <div
         className={cn(
-          'absolute flex items-center gap-1 rounded-full border border-lucky/35 bg-lucky px-3 py-1 text-xs font-semibold text-white shadow-lg shadow-lucky/20',
-          getDirectionPosition(caiShen)
+          'direction-compass relative mx-auto aspect-square w-full max-w-[21rem] overflow-visible',
+          compact && 'max-w-[18rem]'
         )}
       >
-        <Sparkles className="size-3" aria-hidden="true" />
-        {caiShen}
+        <div className="direction-compass__halo absolute inset-[5%] rounded-full border border-primary/15 bg-[conic-gradient(from_35deg,rgba(4,120,87,0.14),rgba(217,119,6,0.18),rgba(220,38,38,0.1),rgba(4,120,87,0.14))]" />
+        <div className="absolute inset-[10%] overflow-visible rounded-full bg-[#fff4df]">
+          <Image
+            src={image2Assets.compass}
+            alt="新中式卡通方位羅盤圖"
+            fill
+            className="object-contain p-4 drop-shadow-[0_18px_28px_rgba(20,37,31,0.16)]"
+            sizes={compact ? '288px' : '336px'}
+          />
+        </div>
+        <div className="absolute inset-[35%] grid place-items-center rounded-full border border-accent/25 bg-background/82 text-center shadow-sm">
+          <span className="text-[10px] font-semibold tracking-[0.18em] text-muted-foreground">
+            方位
+          </span>
+          <span className="text-xs font-semibold text-foreground">
+            {sha}
+          </span>
+        </div>
+
+        {labels.map((label, index) => (
+          <span
+            key={label}
+            className={cn(
+              'absolute z-20 grid size-8 place-items-center rounded-full border border-border bg-card text-xs font-semibold text-muted-foreground shadow-sm',
+              index === 0 && 'left-1/2 top-0 -translate-x-1/2',
+              index === 1 && 'right-0 top-1/2 -translate-y-1/2',
+              index === 2 && 'bottom-0 left-1/2 -translate-x-1/2',
+              index === 3 && 'left-0 top-1/2 -translate-y-1/2'
+            )}
+          >
+            {label}
+          </span>
+        ))}
+
+        {markerItems.map((item) => (
+          <DirectionMarker
+            key={`${item.kind}-${item.value}`}
+            kind={item.kind}
+            label={item.label}
+            value={item.value}
+            title={item.title}
+            className={item.className}
+          />
+        ))}
       </div>
 
-      <div className="absolute bottom-[18%] left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full border border-ominous/35 bg-ominous px-3 py-1 text-xs font-semibold text-white shadow-lg shadow-ominous/20">
-        <Crosshair className="size-3" aria-hidden="true" />
-        {chong} · {sha}
+      <div className="grid gap-2 text-sm">
+        {markerItems.map((item) => (
+          <div key={`note-${item.kind}`} className="flex items-center gap-3 rounded-xl border border-border bg-background/75 p-3">
+        <span className={cn('grid size-8 shrink-0 place-items-center rounded-full text-xs font-semibold text-white', markerToneClassName[item.kind])}>
+              {item.label}
+            </span>
+          <span className="min-w-0">
+              <span className="font-semibold text-foreground">{item.title}</span>
+              <span className="ml-0 block text-muted-foreground sm:ml-2 sm:inline">{item.note}</span>
+            </span>
+          </div>
+        ))}
       </div>
+    </div>
+  );
+}
 
-      <Flame className="absolute left-[18%] top-[18%] size-5 text-accent" aria-hidden="true" />
+const markerToneClassName = {
+  wealth: 'bg-accent',
+  joy: 'bg-lucky',
+  blessing: 'bg-primary',
+  conflict: 'bg-ominous',
+} as const;
+
+function DirectionMarker({
+  kind,
+  label,
+  value,
+  title,
+  className,
+}: {
+  kind: 'wealth' | 'joy' | 'blessing' | 'conflict';
+  label: string;
+  value: string;
+  title?: string;
+  className?: string;
+}) {
+  const visual = {
+    wealth: {
+      src: image2Assets.wealth,
+      className: 'border-accent/45 bg-accent text-accent-foreground shadow-accent/20',
+    },
+    joy: {
+      src: image2Assets.joy,
+      className: 'border-lucky/45 bg-lucky text-lucky-foreground shadow-lucky/20',
+    },
+    blessing: {
+      src: image2Assets.blessing,
+      className: 'border-primary/45 bg-primary text-primary-foreground shadow-primary/20',
+    },
+    conflict: {
+      src: image2Assets.conflict,
+      className: 'border-ominous/45 bg-ominous text-white shadow-ominous/20',
+    },
+  }[kind];
+
+  return (
+    <div
+      className={cn(
+        'direction-compass__marker absolute z-10 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold shadow-lg sm:px-3 sm:text-xs',
+        visual.className,
+        className
+      )}
+      title={title ?? `${label}：${value}`}
+    >
+      <span className="relative block size-5 overflow-visible rounded-full bg-white/85">
+        <Image
+          src={visual.src}
+          alt=""
+          fill
+          className="object-contain"
+          sizes="20px"
+        />
+      </span>
+      <span>{label} {value}</span>
     </div>
   );
 }

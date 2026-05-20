@@ -158,10 +158,25 @@
       linear-gradient(90deg, rgba(4, 120, 87, 0.045) 1px, transparent 1px),
       linear-gradient(180deg, rgba(4, 120, 87, 0.045) 1px, transparent 1px);
     background-size: 44px 44px;
+    overflow-x: hidden;
   }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  a,
+  button {
+    touch-action: manipulation;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p,
+  li {
+    text-wrap: pretty;
   }
   ::selection {
     background: #FDE68A;
@@ -170,6 +185,13 @@
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
 }
@@ -306,6 +328,84 @@
     transform: rotate(0deg) translateY(calc(-1 * min(38vw, 8.8rem))) translate(-50%, -50%);
     animation: orbit-bead 14s linear infinite;
   }
+
+  .direction-seal__ring,
+  .direction-compass__halo {
+    transform-origin: center;
+    animation: direction-spin 26s linear infinite;
+  }
+
+  .direction-compass__marker {
+    transition:
+      filter 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      scale 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .direction-compass__marker:hover {
+    filter: drop-shadow(0 12px 14px rgba(20, 37, 31, 0.18));
+    scale: 1.04;
+  }
+
+  .direction-compass__spark {
+    animation: direction-spark 2.8s ease-in-out infinite;
+  }
+
+  .zodiac-animal-icon__figure {
+    transform-origin: 48px 48px;
+    transition:
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .zodiac-animal-icon__seal-char,
+  .zodiac-animal-icon__branch {
+    transform-origin: 48px 48px;
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .zodiac-animal-icon:hover .zodiac-animal-icon__figure,
+  .group:hover .zodiac-animal-icon__figure {
+    filter: drop-shadow(0 8px 10px rgba(20, 37, 31, 0.16));
+    transform: scale(1.07) rotate(-2deg);
+  }
+
+  .zodiac-animal-icon:hover .zodiac-animal-icon__seal-char,
+  .group:hover .zodiac-animal-icon__seal-char {
+    transform: translateY(-1px) scale(1.04);
+  }
+
+  .image2-showcase::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      transparent 42%,
+      rgba(255, 248, 220, 0.45) 50%,
+      transparent 60%,
+      transparent 100%
+    );
+    transform: translateX(-130%) rotate(4deg);
+    animation: image2-showcase-sweep 6.2s ease-in-out infinite;
+  }
+
+  .image2-art-card {
+    transition:
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .image2-art-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 38px rgba(20, 37, 31, 0.11);
+  }
+
+  .solar-term-modal {
+    animation: solar-term-modal-in 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
 }
 
 @keyframes reveal-up {
@@ -364,6 +464,24 @@
   }
 }
 
+@keyframes direction-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes direction-spark {
+  0%,
+  100% {
+    opacity: 0.55;
+    scale: 0.92;
+  }
+  50% {
+    opacity: 1;
+    scale: 1.12;
+  }
+}
+
 @keyframes seal-shine {
   0%,
   55% {
@@ -372,6 +490,28 @@
   78%,
   100% {
     transform: translateX(95%) rotate(8deg);
+  }
+}
+
+@keyframes image2-showcase-sweep {
+  0%,
+  62% {
+    transform: translateX(-130%) rotate(4deg);
+  }
+  82%,
+  100% {
+    transform: translateX(130%) rotate(4deg);
+  }
+}
+
+@keyframes solar-term-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 

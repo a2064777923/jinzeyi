@@ -39,7 +39,7 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-1 rounded-lg border border-border bg-card p-2 shadow-sm">
+      <div className="grid grid-cols-6 gap-1 rounded-lg border border-border bg-card p-2 shadow-sm sm:grid-cols-12">
         {hours.map((hour, index) => (
           <div
             key={`${hour.name}-bar`}
@@ -113,19 +113,19 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
       </div>
 
       {/* Mobile cards */}
-      <div className="max-w-full overflow-hidden md:hidden">
-        <div className="flex max-w-full snap-x gap-3 overflow-x-auto pb-2">
+      <div className="md:hidden">
+        <div className="grid grid-cols-2 gap-3">
         {hours.map((hour) => (
           <div
             key={hour.name}
             className={cn(
-              'min-w-[13.5rem] snap-start rounded-lg border p-3 shadow-sm',
+              'min-w-0 rounded-lg border p-3 shadow-sm',
               hour.fortune === '吉'
                 ? 'border-lucky/25 bg-lucky/6'
                 : 'border-ominous/25 bg-ominous/6'
             )}
           >
-            <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start justify-between gap-2">
               <div>
                 <span className="block font-medium">{localize(hour.name)}</span>
                 <span className="text-sm text-muted-foreground">{localize(hour.ganZhi)}</span>

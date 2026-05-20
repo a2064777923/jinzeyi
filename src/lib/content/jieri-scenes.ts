@@ -60,7 +60,7 @@ export const jieriScenes: JieriSceneRule[] = [
   {
     slug: 'jiehun',
     name: '结婚',
-    icon: '/assets/almanac-icons/lucky-knot.png',
+    icon: '/assets/image2/jieri/jiehun.png',
     yiTerms: ['嫁娶', '纳采', '订盟'],
     cautionTerms: ['破日', '月破', '岁破'],
     summary: '结婚择日关注嫁娶、纳采、订盟等宜项，也要避开与新人生肖明显相冲的日子。',
@@ -69,7 +69,7 @@ export const jieriScenes: JieriSceneRule[] = [
   {
     slug: 'banjia',
     name: '搬家',
-    icon: '/assets/almanac-icons/lantern.png',
+    icon: '/assets/image2/jieri/banjia.png',
     yiTerms: ['入宅', '移徙', '安床'],
     cautionTerms: ['月破', '闭日'],
     summary: '搬家择日重在入宅、移徙与安床，适合把吉日、吉时和家人生肖一起看。',
@@ -78,7 +78,7 @@ export const jieriScenes: JieriSceneRule[] = [
   {
     slug: 'kaiye',
     name: '开业',
-    icon: '/assets/almanac-icons/auspicious-seal.png',
+    icon: '/assets/image2/jieri/kaiye.png',
     yiTerms: ['开市', '交易', '立券'],
     cautionTerms: ['收日', '闭日'],
     summary: '开业择日关注开市、交易、立券等事项，也要避开过重的冲煞和不利财位。',
@@ -87,7 +87,7 @@ export const jieriScenes: JieriSceneRule[] = [
   {
     slug: 'zhuangxiu',
     name: '装修',
-    icon: '/assets/almanac-icons/brush.png',
+    icon: '/assets/image2/jieri/zhuangxiu.png',
     yiTerms: ['修造', '动土', '上梁'],
     cautionTerms: ['土府', '土符'],
     summary: '装修动工要看修造、动土、上梁等宜项，并留意土煞、方位与家宅动线。',
@@ -96,7 +96,7 @@ export const jieriScenes: JieriSceneRule[] = [
   {
     slug: 'qianyue',
     name: '签约',
-    icon: '/assets/almanac-icons/hourglass.png',
+    icon: '/assets/image2/jieri/qianyue.png',
     yiTerms: ['交易', '立券', '纳财'],
     cautionTerms: ['破日', '闭日'],
     summary: '签约择日偏重交易、立券与纳财，适合筛出气势平稳、冲煞较轻的日期。',
@@ -105,7 +105,7 @@ export const jieriScenes: JieriSceneRule[] = [
   {
     slug: 'chuxing',
     name: '出行',
-    icon: '/assets/almanac-icons/sun.png',
+    icon: '/assets/image2/jieri/chuxing.png',
     yiTerms: ['出行', '赴任', '会友'],
     cautionTerms: ['四离', '四绝'],
     summary: '出行择日以出行、赴任、会友为主，同时参考当日冲向与路途安排。',
@@ -114,7 +114,7 @@ export const jieriScenes: JieriSceneRule[] = [
   {
     slug: 'anzang',
     name: '安葬',
-    icon: '/assets/almanac-icons/mountain.png',
+    icon: '/assets/image2/jieri/anzang.png',
     yiTerms: ['安葬', '破土', '启钻'],
     cautionTerms: ['重丧', '复日'],
     summary: '安葬择日更讲究稳妥，宜项、冲煞、方位和家属生肖都需要谨慎交叉核对。',
@@ -123,7 +123,7 @@ export const jieriScenes: JieriSceneRule[] = [
   {
     slug: 'qiming',
     name: '起名',
-    icon: '/assets/almanac-icons/sprout.png',
+    icon: '/assets/image2/jieri/qiming.png',
     yiTerms: ['求嗣', '祈福', '纳采'],
     cautionTerms: ['月厌', '厌对'],
     summary: '起名相关日子可参考祈福、求嗣等宜项，姓名五行适合另行比较。',
@@ -132,7 +132,7 @@ export const jieriScenes: JieriSceneRule[] = [
   {
     slug: 'hehun',
     name: '合婚',
-    icon: '/assets/almanac-icons/yin-yang.png',
+    icon: '/assets/image2/jieri/hehun.png',
     yiTerms: ['嫁娶', '纳采', '合帐'],
     cautionTerms: ['孤辰', '寡宿'],
     summary: '合婚择日关注婚嫁相关宜项，也要把双方生肖冲合与八字基础信息放在一起判断。',
@@ -197,7 +197,7 @@ export const jieriIndexPage: IndexablePage = {
     deck: '常见择日场景按年份整理，宜项命中、冲煞和凶日提醒都在列表里。',
     keywords: ['黄道吉日', '结婚吉日', '搬家吉日', '开业吉日', '择日查询'],
   }),
-  body: '吉日查询不是只挑一个红色日期。结婚、搬家、开业、装修、签约、出行、安葬、起名、合婚各有不同宜项，每日吉凶、冲煞、值神和生肖避冲也会一起呈现。推荐理由会说明这天适合在哪里，哪些日子虽然命中宜项但仍需谨慎。',
+  body: '吉日查询要看场景、宜项、冲煞和避冲，别只挑一个红色日期。结婚、搬家、开业、装修、签约、出行、安葬、起名、合婚各有不同宜项，每日吉凶、冲煞、值神和生肖避冲也会一起呈现。推荐理由会说明这天适合在哪里，哪些日子虽然命中宜项但仍需谨慎。',
   faq: jieriFaq,
   relatedLinks: sharedJieriLinks,
   seed: {

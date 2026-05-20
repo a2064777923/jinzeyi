@@ -35,7 +35,7 @@ export function SeoPageBand({
 }: SeoPageBandProps) {
   return (
     <section className={cn('w-full py-8 sm:py-10 lg:py-12', toneClassName[tone], className)}>
-      <div className={cn('mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8', innerClassName)}>
+      <div className={cn('mx-auto w-full max-w-[82rem] px-4 sm:px-6 lg:px-8', innerClassName)}>
         {children}
       </div>
     </section>

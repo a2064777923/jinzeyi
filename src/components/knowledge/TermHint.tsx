@@ -2,6 +2,7 @@ import { ArrowRight, HelpCircle } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import type { GlossaryEntry } from '@/lib/content/glossary';
+import { cn } from '@/lib/utils';
 
 interface TermHintProps {
   entry: GlossaryEntry;
@@ -13,7 +14,7 @@ export function TermHint({ entry, className }: TermHintProps) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger
-          className={className}
+          className={cn('inline-flex min-h-9 items-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary', className)}
           aria-label={`${entry.term}: ${entry.short}`}
         >
           <span className="inline-flex items-center gap-1 rounded-md text-primary underline decoration-primary/30 underline-offset-4 transition hover:text-primary/80">

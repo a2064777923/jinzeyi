@@ -13,6 +13,7 @@ const DEFAULT_VALUES: NameInput = {
 
 export function NamingForm() {
   const id = useId();
+  const errorId = `${id}-error`;
   const [values, setValues] = useState<NameInput>(DEFAULT_VALUES);
   const [result, setResult] = useState<NameAnalysis | null>(() => analyzeName(DEFAULT_VALUES));
   const [error, setError] = useState<string | null>(null);
@@ -33,8 +34,9 @@ export function NamingForm() {
   }
 
   return (
-    <section className="grid min-w-0 gap-4 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start">
-      <form className="rounded-lg border border-border bg-card p-4 shadow-sm" onSubmit={onSubmit} noValidate>
+    <section className="grid min-w-0 gap-5 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start">
+      <form className="relative overflow-hidden rounded-[1.5rem] border border-border bg-card p-5 shadow-lg shadow-accent/6" onSubmit={onSubmit} noValidate>
+        <span className="absolute -right-10 -top-10 hidden size-28 rounded-full bg-accent/10 sm:block" aria-hidden="true" />
         <div className="mb-4">
           <h2 className="text-lg font-semibold">输入姓名</h2>
           <p className="mt-1 text-sm leading-6 text-muted-foreground">单字五行、收录状态和基础组合一并呈现。</p>
@@ -45,25 +47,37 @@ export function NamingForm() {
             姓氏
             <input
               id={`${id}-surname`}
+              name="surname"
+              autoComplete="off"
               value={values.surname}
               maxLength={2}
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? errorId : undefined}
               onChange={(event) => updateValue('surname', event.target.value)}
-              className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+              className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
             />
           </label>
           <label className="grid gap-1.5 text-sm font-semibold" htmlFor={`${id}-given`}>
             名字
             <input
               id={`${id}-given`}
+              name="givenName"
+              autoComplete="off"
               value={values.givenName}
               maxLength={2}
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? errorId : undefined}
               onChange={(event) => updateValue('givenName', event.target.value)}
-              className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+              className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
             />
           </label>
         </div>
 
-        {error && <p className="mt-3 text-sm font-medium text-destructive">{error}</p>}
+        {error && (
+          <p id={errorId} className="mt-3 text-sm font-medium text-destructive" aria-live="polite">
+            {error}
+          </p>
+        )}
 
         <Button type="submit" className="mt-4 w-full" size="lg">
           <Sparkles data-icon="inline-start" />
@@ -71,7 +85,11 @@ export function NamingForm() {
         </Button>
       </form>
 
-      {result ? <NamingResult result={result} /> : null}
+      {result ? (
+        <div className="animate-reveal-up">
+          <NamingResult result={result} />
+        </div>
+      ) : null}
     </section>
   );
 }

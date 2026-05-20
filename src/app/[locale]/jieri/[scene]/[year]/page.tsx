@@ -94,7 +94,7 @@ export default async function JieriYearPage({ params, searchParams }: Props) {
     {
       id: `${scene.slug}-caution`,
       question: localizeBodyCopy(locale, '为什么有些日子会标为谨慎？'),
-      answer: localizeBodyCopy(locale, '因为这些日子虽命中场景宜项，但可能同时出现凶日、生肖相冲或场景相关忌项，适合作为备选而不是首选。'),
+      answer: localizeBodyCopy(locale, '因为这些日子虽命中场景宜项，但可能同时出现凶日、生肖相冲或场景相关忌项，更适合作为备选。'),
     },
   ];
 

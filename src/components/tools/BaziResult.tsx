@@ -48,7 +48,7 @@ export function BaziResult({ result, locale = 'zh-hans' }: { result: BaziResultD
       <BaziSummary result={result} locale={locale} />
       <BaziProfessionalChart result={result} locale={locale} />
       <BaziElementStrengthPanel result={result} locale={locale} />
-      <p className="rounded-lg border border-border bg-card p-4 text-sm leading-7 text-muted-foreground">
+      <p className="rounded-2xl border border-border bg-card p-4 text-sm leading-7 text-muted-foreground shadow-sm">
         <span className="font-semibold text-foreground">{copy[locale].note}：</span>
         {localizeBodyCopy(locale, result.explanation)}
       </p>
@@ -61,7 +61,7 @@ function LegacyBaziResult({ result, locale }: { result: BaziResultData; locale: 
   const max = Math.max(...ELEMENTS.map((element) => result.elements[element]), 1);
 
   return (
-    <div className="flex min-w-0 flex-col gap-4 rounded-lg border border-border bg-card p-4">
+    <div className="flex min-w-0 flex-col gap-4 rounded-[1.5rem] border border-border bg-card p-4 shadow-lg shadow-primary/6">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 className="text-lg font-semibold">{t.title}</h2>

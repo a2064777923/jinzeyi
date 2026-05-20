@@ -1,5 +1,6 @@
+import Image from 'next/image';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { ChevronDown, Compass, ShieldAlert, Sparkles } from 'lucide-react';
+import { ChevronDown, ShieldAlert, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -89,27 +90,9 @@ export async function TodayAlmanacCard({ almanac }: TodayAlmanacCardProps) {
 
         {/* Directions */}
         <div className="grid gap-3 sm:grid-cols-3">
-          <div>
-            <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-              <Compass className="size-3.5" aria-hidden="true" />
-              {t('direction.caiShen')}
-            </p>
-            <p className="font-medium">{localize(almanac.direction.caiShen)}</p>
-          </div>
-          <div>
-            <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-              <Compass className="size-3.5" aria-hidden="true" />
-              {t('direction.xiShen')}
-            </p>
-            <p className="font-medium">{localize(almanac.direction.xiShen)}</p>
-          </div>
-          <div>
-            <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-              <Compass className="size-3.5" aria-hidden="true" />
-              {t('direction.fuShen')}
-            </p>
-            <p className="font-medium">{localize(almanac.direction.fuShen)}</p>
-          </div>
+          <DirectionMiniTile kind="wealth" label={t('direction.caiShen')} value={localize(almanac.direction.caiShen)} />
+          <DirectionMiniTile kind="joy" label={t('direction.xiShen')} value={localize(almanac.direction.xiShen)} />
+          <DirectionMiniTile kind="blessing" label={t('direction.fuShen')} value={localize(almanac.direction.fuShen)} />
         </div>
 
         {/* Collapsible secondary info */}
@@ -144,6 +127,49 @@ function SecondaryInfo({ label, value }: { label: string; value: string }) {
     <div className="rounded-md border border-border/80 bg-background/72 p-3">
       <p className="text-sm text-muted-foreground">{label}</p>
       <p className="mt-1 text-sm font-medium leading-6 text-foreground">{value}</p>
+    </div>
+  );
+}
+
+function DirectionMiniTile({
+  kind,
+  label,
+  value,
+}: {
+  kind: 'wealth' | 'joy' | 'blessing';
+  label: string;
+  value: string;
+}) {
+  const visual = {
+    wealth: {
+      src: '/assets/image2/direction-wealth.png',
+      className: 'border-accent/30 bg-accent/10 text-accent',
+    },
+    joy: {
+      src: '/assets/image2/direction-joy.png',
+      className: 'border-lucky/30 bg-lucky/10 text-lucky',
+    },
+    blessing: {
+      src: '/assets/image2/direction-blessing.png',
+      className: 'border-primary/25 bg-primary/10 text-primary',
+    },
+  }[kind];
+
+  return (
+    <div className="rounded-md border border-border/80 bg-background/72 p-3">
+      <p className="flex items-center gap-2 text-sm text-muted-foreground">
+        <span className={cn('relative block size-8 overflow-hidden rounded-lg border', visual.className)}>
+          <Image
+            src={visual.src}
+            alt={`${label}新中式卡通圖示`}
+            fill
+            className="object-contain p-0.5"
+            sizes="32px"
+          />
+        </span>
+        {label}
+      </p>
+      <p className="mt-2 text-base font-semibold leading-6 text-foreground">{value}</p>
     </div>
   );
 }

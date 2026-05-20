@@ -147,6 +147,7 @@
     "seasonCountLabel": "四季轮转",
     "jieCountLabel": "节令节点",
     "qiCountLabel": "中气节点",
+    "heroVisualCaption": "新中式卡通图配合口播故事，把节气从词条变成可读场景。",
     "spring": "春季",
     "summer": "夏季",
     "autumn": "秋季",
@@ -159,6 +160,19 @@
     "meaningLabel": "含义",
     "customsLabel": "传统习俗",
     "seasonNavAria": "节气季节快速跳转",
+    "listenStyle": "节气故事",
+    "introTitle": "24 个节气，像 24 个生活镜头",
+    "introBody": "每张图对应一个季节场景，点开能看三候、食俗、农事和黄历里的读法。",
+    "openDetail": "展开故事",
+    "closeDetail": "关闭节气故事",
+    "detail": {
+      "article": "简单讲讲",
+      "phenology": "三候怎么变",
+      "customs": "老传统做什么",
+      "food": "这一口应节",
+      "fieldNote": "田野提示",
+      "almanacNote": "和黄历一起看"
+    },
     "error": {
       "heading": "节气数据加载失败",
       "body": "稍后重试，或返回首页。"

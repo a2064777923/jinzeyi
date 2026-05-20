@@ -1,7 +1,6 @@
 const CACHE_NAME = 'jinzeyi-shell-v1';
 const SHELL_ASSETS = [
   '/manifest.webmanifest',
-  '/jinzeyi-icon.svg',
   '/icon-192.png',
   '/icon-512.png',
   '/apple-touch-icon.png',

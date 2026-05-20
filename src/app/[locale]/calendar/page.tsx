@@ -80,7 +80,7 @@ export default async function CalendarPage({ params, searchParams }: Props) {
         }}
       />
       <MonthlyCalendar year={year} month={monthNum} days={days} />
-      <section className="grid w-full max-w-7xl gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
+      <section className="grid w-full max-w-[82rem] gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
         <FaqBlock items={calendarContent.faq} locale={locale} />
         <InternalLinkGrid links={calendarContent.relatedLinks} locale={locale} />
       </section>

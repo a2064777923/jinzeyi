@@ -73,7 +73,10 @@ export function DateSearchForm({
           <input
             ref={dateInputRef}
             id={id}
+            name="date"
             type="date"
+            autoComplete="off"
+            suppressHydrationWarning
             min={ALMANAC_DATE_MIN}
             max={ALMANAC_DATE_MAX}
             value={date}
@@ -92,18 +95,19 @@ export function DateSearchForm({
             size="icon"
             className="-ml-px h-9 w-9 shrink-0 rounded-l-none"
             aria-label={label}
+            suppressHydrationWarning
             onClick={openDatePicker}
           >
             <CalendarDays className="size-4" aria-hidden="true" />
           </Button>
         </div>
-        <Button type="submit" className="h-9 min-[420px]:shrink-0">
+        <Button type="submit" className="h-9 min-[420px]:shrink-0" suppressHydrationWarning>
           <Search data-icon="inline-start" />
           {buttonLabel}
         </Button>
       </div>
       {error && (
-        <p id={errorId} className="mt-2 text-xs font-medium text-destructive">
+        <p id={errorId} className="mt-2 text-xs font-medium text-destructive" aria-live="polite">
           {error}
         </p>
       )}

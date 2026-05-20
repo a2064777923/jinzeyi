@@ -25,6 +25,7 @@ import { GlossaryPanel } from '@/components/knowledge/GlossaryPanel';
 import { SharePanel } from '@/components/share/SharePanel';
 import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
+import { Image2MethodDiagram } from '@/components/visual/Image2Showcase';
 import { SITE_ORIGIN, buildFaqJsonLd, buildLocalizedMetadata, buildWebsiteJsonLd } from '@/lib/seo';
 import { coreIndexablePages } from '@/lib/content/registry';
 import { getGlossaryEntries } from '@/lib/content/glossary';
@@ -146,7 +147,7 @@ export default async function HomePage({ params }: Props) {
       />
       <section className="relative overflow-hidden border-b border-border/70 bg-[radial-gradient(circle_at_12%_20%,rgba(253,230,138,0.42),transparent_28%),radial-gradient(circle_at_84%_12%,rgba(16,185,129,0.24),transparent_30%),linear-gradient(135deg,rgba(255,255,255,0.88),rgba(230,244,236,0.82))]">
         <div className="almanac-grid absolute inset-0 opacity-60" aria-hidden="true" />
-        <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-12">
+        <div className="relative mx-auto grid max-w-[82rem] gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-12">
           <div className="space-y-6 animate-reveal-up">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="secondary" className="gap-1">
@@ -201,24 +202,24 @@ export default async function HomePage({ params }: Props) {
               </Link>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
               {summaryItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <div
                     key={item.label}
-                    className="shimmer-panel rounded-lg border border-border/80 bg-card/88 p-4 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-md"
+                    className="shimmer-panel rounded-lg border border-border/80 bg-card/88 p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-md sm:p-4"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <p className="text-sm text-muted-foreground">{item.label}</p>
                         <p className="mt-2 text-2xl font-semibold text-foreground">{item.value}</p>
                       </div>
-                      <span className="grid size-9 place-items-center rounded-md bg-primary/10 text-primary">
+                      <span className="grid size-8 place-items-center rounded-md bg-primary/10 text-primary sm:size-9">
                         <Icon className="size-5" aria-hidden="true" />
                       </span>
                     </div>
-                    <p className="mt-3 text-xs text-muted-foreground">{item.hint}</p>
+                    <p className="mt-3 text-xs leading-5 text-muted-foreground">{item.hint}</p>
                   </div>
                 );
               })}
@@ -232,7 +233,7 @@ export default async function HomePage({ params }: Props) {
             />
           </div>
 
-          <Card className="animate-float-slow self-start border-border/80 bg-card/92 shadow-lg shadow-primary/8">
+          <Card className="animate-float-slow self-start overflow-hidden border-border/80 bg-card/92 shadow-lg shadow-primary/8">
             <CardContent className="space-y-4 p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
@@ -246,13 +247,13 @@ export default async function HomePage({ params }: Props) {
                 </Badge>
               </div>
 
-              <div className="relative mx-auto aspect-square w-28 sm:w-32">
+              <div className="relative mx-auto aspect-square w-44 sm:w-52">
                 <Image
-                  src="/assets/almanac-icons/star-chart.png"
-                  alt={localize(locale, '星盤圖示')}
+                  src="/assets/image2/direction-compass-cutout.png"
+                  alt={localize(locale, '今日方位罗盘图示')}
                   fill
-                  className="object-contain drop-shadow-[0_16px_24px_rgba(20,37,31,0.18)]"
-                  sizes="128px"
+                  className="object-contain p-2 drop-shadow-[0_18px_28px_rgba(20,37,31,0.18)]"
+                  sizes="208px"
                   priority
                 />
               </div>
@@ -279,30 +280,44 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[82rem] px-4 sm:px-6 lg:px-8">
         <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
           <TodayAlmanacCard almanac={almanac} />
           <HourlyFortuneTable hours={hours} />
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_24rem] lg:px-8">
-        <div className="rounded-lg border border-border bg-card p-5 shadow-sm">
-          <h2 className="font-serif-display text-2xl font-semibold text-foreground">
-            {localize(locale, '今日黃曆怎麼讀')}
-          </h2>
-          <div className="mt-4 grid gap-4 text-sm leading-7 text-muted-foreground md:grid-cols-3">
-            <p>
-              {localize(locale, '整日吉凶代表今天的總基調。吉日適合把重要事項往前推，凶日則更適合把事情拆小、做準備，或改看近期其他日期。')}
-            </p>
-            <p>
-              {localize(locale, '宜忌重在是否對事，不是只數量多寡。宜項要和你的事情對得上，忌項若直接命中，最好換日或至少避開關鍵動作。')}
-            </p>
-            <p>
-              {localize(locale, '最後看時辰與沖煞。吉時適合安排出門、簽字、拜訪等具體動作；沖煞則提醒生肖與方位上要多留一層餘地。')}
-            </p>
-          </div>
-        </div>
+      <section className="mx-auto grid max-w-[82rem] gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_24rem] lg:px-8">
+        <Image2MethodDiagram
+          title={localize(locale, '今日黃曆怎麼讀')}
+          deck={localize(locale, '不要只盯一个吉凶字。整日基调、事情宜忌、吉时、生肖和方位要放在一起核对。')}
+          steps={[
+            {
+              label: 'DAY',
+              title: localize(locale, '整日基调'),
+              body: localize(locale, '吉日适合推进，凶日更适合拆小、准备或换近期其他日期。'),
+              iconSrc: almanac.fortune === '吉' ? '/assets/image2/almanac-yi.png' : '/assets/image2/almanac-ji.png',
+              iconAlt: localize(locale, '整日基调图示'),
+            },
+            {
+              label: 'MATCH',
+              title: localize(locale, '宜忌对事'),
+              body: localize(locale, '宜项要和事情对上，忌项若直接命中，优先换日或避开关键动作。'),
+            },
+            {
+              label: 'HOUR',
+              title: localize(locale, '时辰细化'),
+              body: localize(locale, '出门、签字、拜访等具体动作，再放到吉时里安排。'),
+            },
+            {
+              label: 'DIRECTION',
+              title: localize(locale, '冲煞方位'),
+              body: localize(locale, '冲煞提醒生肖与方位多留余地，大事才需要重点核对。'),
+              iconSrc: '/assets/image2/direction-compass-cutout.png',
+              iconAlt: localize(locale, '方位罗盘图示'),
+            },
+          ]}
+        />
         <SharePanel
           title={tHome('title')}
           text={shareSummary}
@@ -318,7 +333,7 @@ export default async function HomePage({ params }: Props) {
         />
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[82rem] px-4 sm:px-6 lg:px-8">
         <GlossaryPanel
           title={localize(locale, '常見詞速查')}
           intro={localize(locale, '幾個常見詞弄清楚，月曆和吉日頁會更容易讀。')}
@@ -326,12 +341,12 @@ export default async function HomePage({ params }: Props) {
         />
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_24rem] lg:px-8">
+      <section className="mx-auto grid max-w-[82rem] gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_24rem] lg:px-8">
         <FaqBlock items={homeContent.faq} locale={routeLocale} />
         <InternalLinkGrid links={homeContent.relatedLinks} locale={routeLocale} />
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[82rem] px-4 pb-12 sm:px-6 lg:px-8">
         <div className="grid gap-4 md:grid-cols-2">
           <Link
             href="/calendar"

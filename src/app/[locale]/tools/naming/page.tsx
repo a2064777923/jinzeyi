@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
-import { Sparkles } from 'lucide-react';
 import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
 import { SharePanel } from '@/components/share/SharePanel';
 import { SeoHero } from '@/components/seo/SeoHero';
 import { SeoPageBand, SeoPageShell } from '@/components/seo/SeoPageShell';
+import { Image2HeroScene, Image2MethodDiagram } from '@/components/visual/Image2Showcase';
 import { NamingForm } from '@/components/tools/NamingForm';
 import { getToolPage } from '@/lib/content/tools';
 import { localizeBodyCopy, localizeSeo } from '@/lib/content/localize';
@@ -61,11 +61,49 @@ export default async function NamingToolPage({ params }: Props) {
           title={seo.h1}
           deck={seo.deck}
           kicker={localizeBodyCopy(locale, '单字五行 · 基础评分 · 建议字')}
-          icon={<Sparkles className="size-7" aria-hidden="true" />}
+          imageSrc="/assets/image2/tools/naming.png"
+          imageAlt={localizeBodyCopy(locale, '新中式卡通姓名五行图示')}
           badges={page.inputFields.map((field) => localizeBodyCopy(locale, field))}
+          controls={
+            <Image2HeroScene
+              src="/assets/image2/tools/naming.png"
+              alt={localizeBodyCopy(locale, '新中式卡通姓名五行名帖插画')}
+              caption={localizeBodyCopy(locale, '姓名五行')}
+              priority
+            />
+          }
         />
       </SeoPageBand>
       <SeoPageBand tone="plain" className="pt-0">
+        <Image2MethodDiagram
+          title={localizeBodyCopy(locale, '姓名五行怎么拆')}
+          deck={localizeBodyCopy(locale, '姓名工具先拆单字，再看五行分布和读音提示，最后给出可继续斟酌的建议。')}
+          steps={[
+            {
+              label: 'NAME',
+              title: localizeBodyCopy(locale, '输入姓名'),
+              body: localizeBodyCopy(locale, '先把姓和名拆成单字，避免整段文字混算。'),
+              iconSrc: '/assets/image2/tools/naming.png',
+              iconAlt: localizeBodyCopy(locale, '输入姓名图示'),
+            },
+            {
+              label: 'ELEMENT',
+              title: localizeBodyCopy(locale, '单字五行'),
+              body: localizeBodyCopy(locale, '每个字给出基础五行和可解释的参考理由。'),
+            },
+            {
+              label: 'BALANCE',
+              title: localizeBodyCopy(locale, '结构平衡'),
+              body: localizeBodyCopy(locale, '看名字整体偏向，避免只追一个所谓喜用字。'),
+            },
+            {
+              label: 'SUGGEST',
+              title: localizeBodyCopy(locale, '建议方向'),
+              body: localizeBodyCopy(locale, '输出的是命名参考，不替代家族语境和实际读写感。'),
+            },
+          ]}
+          className="mb-5"
+        />
         <NamingForm />
       </SeoPageBand>
       <SeoPageBand tone="muted">

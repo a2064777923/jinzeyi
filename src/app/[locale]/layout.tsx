@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { DocumentLocale } from '@/components/layout/DocumentLocale';
 import { ServiceWorkerRegister } from '@/components/pwa/ServiceWorkerRegister';
 import type { Metadata, Viewport } from 'next';
 import { DEFAULT_OG_IMAGE, SITE_KEYWORDS, SITE_NAME, SITE_ORIGIN } from '@/lib/seo';
@@ -21,16 +22,13 @@ export const metadata: Metadata = {
   keywords: SITE_KEYWORDS,
   icons: {
     icon: [
-      { url: '/jinzeyi-icon.svg', type: 'image/svg+xml' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
     apple: [
       { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
-    other: [
-      { rel: 'icon', url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { rel: 'icon', url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
-    ],
+    other: [],
   },
   manifest: '/manifest.webmanifest',
   appleWebApp: {
@@ -83,17 +81,14 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} data-scroll-behavior="smooth">
-      <body className="min-h-screen bg-background text-foreground font-sans antialiased flex flex-col">
-        <NextIntlClientProvider messages={messages}>
-          <ServiceWorkerRegister />
-          <Header />
-          <main className="w-full flex-1">
-            {children}
-          </main>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <DocumentLocale locale={locale} />
+      <ServiceWorkerRegister />
+      <Header />
+      <main className="w-full flex-1">
+        {children}
+      </main>
+      <Footer />
+    </NextIntlClientProvider>
   );
 }

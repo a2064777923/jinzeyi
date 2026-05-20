@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
-import { Calculator } from 'lucide-react';
 import { BaziForm } from '@/components/tools/BaziForm';
 import { GlossaryPanel } from '@/components/knowledge/GlossaryPanel';
 import { FaqBlock } from '@/components/seo/FaqBlock';
@@ -8,6 +7,7 @@ import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
 import { SharePanel } from '@/components/share/SharePanel';
 import { SeoHero } from '@/components/seo/SeoHero';
 import { SeoPageBand, SeoPageShell } from '@/components/seo/SeoPageShell';
+import { Image2HeroScene, Image2MethodDiagram } from '@/components/visual/Image2Showcase';
 import { getToolPage } from '@/lib/content/tools';
 import { getGlossaryEntries } from '@/lib/content/glossary';
 import { localizeBodyCopy, localizeSeo } from '@/lib/content/localize';
@@ -63,15 +63,53 @@ export default async function BaziToolPage({ params }: Props) {
           title={seo.h1}
           deck={seo.deck}
           kicker={localizeBodyCopy(locale, '四柱 · 日主 · 十神 · 藏干')}
-          icon={<Calculator className="size-7" aria-hidden="true" />}
+          imageSrc="/assets/image2/tools/bazi.png"
+          imageAlt={localizeBodyCopy(locale, '新中式卡通八字排盘图示')}
           badges={[
             localizeBodyCopy(locale, '真太阳时'),
             localizeBodyCopy(locale, '纳音'),
             localizeBodyCopy(locale, '五行强弱'),
           ]}
+          controls={
+            <Image2HeroScene
+              src="/assets/image2/tools/bazi.png"
+              alt={localizeBodyCopy(locale, '新中式卡通四柱命盘插画')}
+              caption={localizeBodyCopy(locale, '四柱命盘')}
+              priority
+            />
+          }
         />
       </SeoPageBand>
       <SeoPageBand tone="plain" className="pt-0">
+        <Image2MethodDiagram
+          title={localizeBodyCopy(locale, '八字排盘怎么读')}
+          deck={localizeBodyCopy(locale, '先校正出生资料，再排出四柱，最后看日主、十神和五行强弱。')}
+          steps={[
+            {
+              label: 'INPUT',
+              title: localizeBodyCopy(locale, '出生资料'),
+              body: localizeBodyCopy(locale, '日期、时间、城市和性别用于建立基础盘面。'),
+              iconSrc: '/assets/image2/tools/bazi.png',
+              iconAlt: localizeBodyCopy(locale, '出生资料图示'),
+            },
+            {
+              label: 'TIME',
+              title: localizeBodyCopy(locale, '真太阳时'),
+              body: localizeBodyCopy(locale, '先按城市经度校正时间，再进入干支推算。'),
+            },
+            {
+              label: 'CHART',
+              title: localizeBodyCopy(locale, '四柱命盘'),
+              body: localizeBodyCopy(locale, '年、月、日、时四柱同时展示天干、地支和藏干。'),
+            },
+            {
+              label: 'READ',
+              title: localizeBodyCopy(locale, '结果解释'),
+              body: localizeBodyCopy(locale, '用日主、十神、纳音和五行强弱辅助阅读，不直接断事。'),
+            },
+          ]}
+          className="mb-5"
+        />
         <BaziForm locale={locale} />
       </SeoPageBand>
       <SeoPageBand tone="plain" className="pt-0">
