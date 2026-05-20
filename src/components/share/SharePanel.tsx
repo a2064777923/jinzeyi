@@ -1,5 +1,6 @@
 'use client';
 
+import { createPortal } from 'react-dom';
 import { useEffect, useId, useState } from 'react';
 import {
   Check,
@@ -160,6 +161,7 @@ function isMobileUserAgent(): boolean {
 export function SharePanel({ title, text, url, copyText, labels, className, locale }: SharePanelProps) {
   const [copied, setCopied] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [mounted] = useState(() => typeof window !== 'undefined');
   const titleId = useId();
   const localeKey = inferLocale(url, locale);
   const t = { ...defaultLabels[localeKey], ...labels };
@@ -336,8 +338,8 @@ export function SharePanel({ title, text, url, copyText, labels, className, loca
         </div>
       </div>
 
-      {open ? (
-        <div className="fixed inset-0 z-50 print:hidden">
+      {mounted && open ? createPortal(
+        <div className="fixed inset-0 z-[60] print:hidden">
           <button
             type="button"
             className="absolute inset-0 cursor-default bg-foreground/28 backdrop-blur-[2px]"
@@ -431,7 +433,8 @@ export function SharePanel({ title, text, url, copyText, labels, className, loca
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       ) : null}
     </section>
   );
