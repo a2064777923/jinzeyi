@@ -198,10 +198,10 @@ export default async function ToolsIndexPage({ params }: Props) {
               url={`/${locale}/tools`}
               labels={{
                 title: localizeBodyCopy(locale, '分享工具入口'),
-                copyLink: localizeBodyCopy(locale, '複製連結'),
-                copySummary: localizeBodyCopy(locale, '複製摘要'),
-                copied: localizeBodyCopy(locale, '已複製'),
-                nativeShare: localizeBodyCopy(locale, '系統分享'),
+                copyLink: localizeBodyCopy(locale, '复制链接'),
+                copySummary: localizeBodyCopy(locale, '复制摘要'),
+                copied: localizeBodyCopy(locale, '已复制'),
+                nativeShare: localizeBodyCopy(locale, '系统分享'),
               }}
             />
             <InternalLinkGrid links={page.relatedLinks} locale={locale} />

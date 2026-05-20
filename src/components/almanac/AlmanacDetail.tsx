@@ -435,11 +435,11 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
           url={localizedDatePath}
           copyText={`${SITE_NAME}\n${summaryText}\n${SITE_ORIGIN}${localizedDatePath}`}
           labels={{
-            title: localize('分享或保存這日黃曆'),
-            copyLink: localize('複製連結'),
-            copySummary: localize('複製黃曆摘要'),
-            copied: localize('已複製'),
-            nativeShare: localize('系統分享'),
+            title: localize('分享或保存这日黄历'),
+            copyLink: localize('复制链接'),
+            copySummary: localize('复制黄历摘要'),
+            copied: localize('已复制'),
+            nativeShare: localize('系统分享'),
           }}
         />
       </section>
@@ -621,6 +621,19 @@ function NextStepLink({ href, title, body }: { href: string; title: string; body
   );
 }
 
+const HOUR_WHEEL_RADIUS_REM = 4.95;
+
+function getHourWheelPointStyle(index: number) {
+  const angle = (index / 12) * Math.PI * 2;
+  const x = Math.sin(angle) * HOUR_WHEEL_RADIUS_REM;
+  const y = -Math.cos(angle) * HOUR_WHEEL_RADIUS_REM;
+
+  return {
+    left: `calc(50% + ${x.toFixed(3)}rem)`,
+    top: `calc(50% + ${y.toFixed(3)}rem)`,
+  };
+}
+
 function HourlyWheel({ hours, localize }: { hours: HourlyFortune[]; localize: (value: string) => string }) {
   return (
     <section className="rounded-lg border border-border bg-card p-4 shadow-sm">
@@ -632,19 +645,16 @@ function HourlyWheel({ hours, localize }: { hours: HourlyFortune[]; localize: (v
             <span className="text-sm font-semibold text-foreground">時辰</span>
           </div>
           {hours.map((hour, index) => {
-            const angle = index * 30;
             return (
               <span
                 key={hour.name}
                 className={cn(
-                  'absolute left-1/2 top-1/2 grid size-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border text-xs font-semibold shadow-sm',
+                  'absolute grid size-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border text-xs font-semibold shadow-sm',
                   hour.fortune === '吉'
                     ? 'border-lucky/40 bg-lucky text-lucky-foreground'
                     : 'border-ominous/40 bg-background text-ominous'
                 )}
-                style={{
-                  transform: `rotate(${angle}deg) translateY(-5.2rem) rotate(-${angle}deg) translate(-50%, -50%)`,
-                }}
+                style={getHourWheelPointStyle(index)}
                 title={`${localize(hour.name)} ${getModernHourRange(hour.name)} ${hour.fortune} ${localize(hour.star)}`}
               >
                 {hour.fortune}

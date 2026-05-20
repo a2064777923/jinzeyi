@@ -326,11 +326,11 @@ export default async function HomePage({ params }: Props) {
           url={`/${routeLocale}`}
           copyText={`今擇易\n${shareSummary}\n${SITE_ORIGIN}/${routeLocale}`}
           labels={{
-            title: localize(locale, '分享今日黃曆'),
-            copyLink: localize(locale, '複製連結'),
-            copySummary: localize(locale, '複製摘要'),
-            copied: localize(locale, '已複製'),
-            nativeShare: localize(locale, '系統分享'),
+            title: localize(locale, '分享今日黄历'),
+            copyLink: localize(locale, '复制链接'),
+            copySummary: localize(locale, '复制摘要'),
+            copied: localize(locale, '已复制'),
+            nativeShare: localize(locale, '系统分享'),
           }}
         />
       </section>

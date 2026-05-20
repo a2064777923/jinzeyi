@@ -101,28 +101,15 @@ export function SeoHero({
       {shareUrl && shareMode !== 'hidden' ? (
         <div className="relative mt-5 flex" data-anime-item>
           {shareMode === 'compact' ? (
-            <details className="group w-full rounded-lg border border-border/80 bg-background/72 p-3 shadow-sm sm:w-auto sm:min-w-72 sm:max-w-md">
-              <summary className="cursor-pointer list-none text-sm font-semibold text-primary outline-none transition hover:text-primary/80 focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
-                {shareLabel ?? title}
-                <span className="ml-2 text-xs font-medium text-muted-foreground group-open:hidden">
-                  +
-                </span>
-                <span className="ml-2 hidden text-xs font-medium text-muted-foreground group-open:inline">
-                  -
-                </span>
-              </summary>
-              <div className="mt-3">
-                <SharePanel
-                  title={title}
-                  text={deck}
-                  url={shareUrl}
-                  labels={{
-                    ...(shareLabel ? { title: shareLabel } : {}),
-                  }}
-                  className="bg-background/82"
-                />
-              </div>
-            </details>
+            <SharePanel
+              title={title}
+              text={deck}
+              url={shareUrl}
+              labels={{
+                ...(shareLabel ? { title: shareLabel } : {}),
+              }}
+              className="w-full bg-background/82 sm:w-auto sm:min-w-72 sm:max-w-md"
+            />
           ) : (
             <SharePanel
               title={title}
