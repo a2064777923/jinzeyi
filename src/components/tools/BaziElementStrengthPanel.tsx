@@ -51,7 +51,7 @@ export function BaziElementStrengthPanel({ result, locale = 'zh-hans' }: { resul
   const maxScore = Math.max(...ELEMENTS.map((element) => combinedScores[element]), 1);
 
   return (
-    <section className="rounded-lg border border-border bg-card p-4 shadow-sm sm:p-5">
+    <section className="rounded-lg border border-border bg-card p-4 shadow-sm sm:p-5" data-anime="result">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-lg font-semibold text-foreground">
@@ -71,7 +71,7 @@ export function BaziElementStrengthPanel({ result, locale = 'zh-hans' }: { resul
           const width = `${Math.max((score / maxScore) * 100, score > 0 ? 12 : 4)}%`;
 
           return (
-            <div key={element} className="rounded-md border border-border bg-background/75 p-3">
+            <div key={element} data-anime-result-card data-anime-hover className="rounded-md border border-border bg-background/75 p-3">
               <div className="grid gap-2 sm:grid-cols-[2rem_minmax(0,1fr)_13rem] sm:items-center">
                 <span className="font-serif-display text-2xl font-semibold leading-none text-foreground">{element}</span>
                 <span className="h-2.5 overflow-hidden rounded-full bg-muted">

@@ -10,6 +10,7 @@ import {
 import { FortuneMarker } from './FortuneMarker';
 import { cn } from '@/lib/utils';
 import { convertToTraditional } from '@/lib/opencc';
+import { getModernHourRange } from '@/lib/almanac/hour-ranges';
 import type { HourlyFortune } from '@/lib/almanac/types';
 
 interface HourlyFortuneTableProps {
@@ -24,7 +25,7 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
   const luckyCount = hours.filter((hour) => hour.fortune === '吉').length;
 
   return (
-    <div className="w-full min-w-0 space-y-5">
+    <div className="w-full min-w-0 space-y-5" data-anime="hours">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-medium text-muted-foreground">{t('fortune')}</p>
@@ -43,17 +44,20 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
         {hours.map((hour, index) => (
           <div
             key={`${hour.name}-bar`}
+            data-anime-hour-card
+            data-anime-hover
             className={cn(
               'group relative h-14 overflow-hidden rounded-md border transition duration-200 hover:-translate-y-0.5',
               hour.fortune === '吉'
                 ? 'border-lucky/35 bg-lucky/14 shadow-lucky/10'
                 : 'border-ominous/40 bg-ominous/14 shadow-ominous/10'
             )}
-            title={`${localize(hour.name)} ${hour.fortune}`}
+            title={`${localize(hour.name)} ${getModernHourRange(hour.name)} ${hour.fortune}`}
           >
             <div
+              data-anime-hour-fill
               className={cn(
-                'absolute inset-x-0 bottom-0',
+                'absolute inset-x-0 bottom-0 origin-bottom',
                 hour.fortune === '吉' ? 'bg-lucky' : 'bg-ominous'
               )}
               style={{ height: hour.fortune === '吉' ? '82%' : '42%' }}
@@ -83,6 +87,7 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
             {hours.map((hour) => (
               <TableRow
                 key={hour.name}
+                data-anime-hour-card
                 className={cn(
                   'transition duration-200',
                   hour.fortune === '吉'
@@ -90,7 +95,12 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
                     : 'bg-ominous/5 hover:bg-ominous/10'
                 )}
               >
-                <TableCell className="font-medium">{localize(hour.name)}</TableCell>
+                <TableCell className="font-medium">
+                  <span className="block">{localize(hour.name)}</span>
+                  <span className="mt-1 block text-xs font-normal tabular-nums text-muted-foreground">
+                    {getModernHourRange(hour.name)}
+                  </span>
+                </TableCell>
                 <TableCell>{localize(hour.ganZhi)}</TableCell>
                 <TableCell>
                   <FortuneMarker fortune={hour.fortune} size="sm" variant="pill" />
@@ -118,6 +128,8 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
         {hours.map((hour) => (
           <div
             key={hour.name}
+            data-anime-hour-card
+            data-anime-hover
             className={cn(
               'min-w-0 rounded-lg border p-3 shadow-sm',
               hour.fortune === '吉'
@@ -125,12 +137,20 @@ export async function HourlyFortuneTable({ hours }: HourlyFortuneTableProps) {
                 : 'border-ominous/25 bg-ominous/6'
             )}
           >
-            <div className="flex items-start justify-between gap-2">
-              <div>
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
                 <span className="block font-medium">{localize(hour.name)}</span>
-                <span className="text-sm text-muted-foreground">{localize(hour.ganZhi)}</span>
+                <span className="mt-0.5 block text-xs tabular-nums text-primary">
+                  {getModernHourRange(hour.name)}
+                </span>
+                <span className="mt-1 block text-sm text-muted-foreground">{localize(hour.ganZhi)}</span>
               </div>
-              <FortuneMarker fortune={hour.fortune} size="sm" />
+              <FortuneMarker
+                fortune={hour.fortune}
+                size="xs"
+                variant="pill"
+                className="mt-0.5"
+              />
             </div>
             <div className="mt-2 text-sm font-medium text-muted-foreground">{localize(hour.star)}</div>
             <div className="mt-3 grid gap-1 text-sm leading-5">

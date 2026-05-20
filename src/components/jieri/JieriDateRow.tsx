@@ -20,6 +20,8 @@ export function JieriDateRow({ result, locale }: JieriDateRowProps) {
 
   return (
     <article
+      data-anime-result-card
+      data-anime-hover
       className={cn(
         'grid min-w-0 gap-3 rounded-2xl border p-3 shadow-sm transition-[background-color,border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-md sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:items-center',
         toneClassName

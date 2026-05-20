@@ -61,7 +61,7 @@ function LegacyBaziResult({ result, locale }: { result: BaziResultData; locale: 
   const max = Math.max(...ELEMENTS.map((element) => result.elements[element]), 1);
 
   return (
-    <div className="flex min-w-0 flex-col gap-4 rounded-[1.5rem] border border-border bg-card p-4 shadow-lg shadow-primary/6">
+    <div className="flex min-w-0 flex-col gap-4 rounded-[1.5rem] border border-border bg-card p-4 shadow-lg shadow-primary/6" data-anime="result">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 className="text-lg font-semibold">{t.title}</h2>
@@ -76,7 +76,7 @@ function LegacyBaziResult({ result, locale }: { result: BaziResultData; locale: 
         {PILLAR_ORDER.map((key) => {
           const pillar = result.pillars[key];
           return (
-            <div key={key} className="min-h-28 rounded-lg border border-border bg-background p-3 text-center">
+            <div key={key} data-anime-result-card data-anime-hover className="min-h-28 rounded-lg border border-border bg-background p-3 text-center">
               <p className="text-xs font-semibold text-muted-foreground">{localizeBodyCopy(locale, pillar.label)}</p>
               <p className="mt-2 font-serif-display text-3xl font-semibold leading-none text-foreground">{pillar.value}</p>
               <p className="mt-3 text-xs leading-5 text-muted-foreground">

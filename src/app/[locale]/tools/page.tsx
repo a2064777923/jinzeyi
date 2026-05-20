@@ -133,7 +133,7 @@ export default async function ToolsIndexPage({ params }: Props) {
           }))}
           className="mb-5"
         />
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-3" data-anime="tiles">
           {tools.map((tool) => {
             const toolSeo = localizeSeo(locale, tool.seo);
             const art = toolArt[tool.toolKey as keyof typeof toolArt];
@@ -142,6 +142,8 @@ export default async function ToolsIndexPage({ params }: Props) {
               <Link
                 key={tool.path}
                 href={tool.path}
+                data-anime-tile
+                data-anime-hover
                 className="image2-art-card group flex min-w-0 flex-col gap-4 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm"
               >
                 <span className="flex items-start gap-3">

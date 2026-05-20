@@ -25,6 +25,7 @@ import { PrintSummaryCard } from '@/components/share/PrintSummaryCard';
 import { cn } from '@/lib/utils';
 import { convertToTraditional } from '@/lib/opencc';
 import { getGlossaryEntries, getGlossaryEntry } from '@/lib/content/glossary';
+import { getModernHourRange } from '@/lib/almanac/hour-ranges';
 import { SITE_NAME, SITE_ORIGIN } from '@/lib/seo';
 import type { DailyAlmanac, HourlyFortune } from '@/lib/almanac/types';
 
@@ -644,18 +645,19 @@ function HourlyWheel({ hours, localize }: { hours: HourlyFortune[]; localize: (v
                 style={{
                   transform: `rotate(${angle}deg) translateY(-5.2rem) rotate(-${angle}deg) translate(-50%, -50%)`,
                 }}
-                title={`${localize(hour.name)} ${hour.fortune} ${localize(hour.star)}`}
+                title={`${localize(hour.name)} ${getModernHourRange(hour.name)} ${hour.fortune} ${localize(hour.star)}`}
               >
                 {hour.fortune}
               </span>
             );
           })}
         </div>
-        <div className="grid flex-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid flex-1 gap-2 sm:grid-cols-2 lg:grid-cols-3" data-anime="hours">
           {hours.map((hour) => (
-            <div key={hour.name} className="flex items-center justify-between gap-3 rounded-md border border-border bg-background/70 px-3 py-2 text-sm">
-              <span>
+            <div key={hour.name} data-anime-hour-card data-anime-hover className="flex items-center justify-between gap-3 rounded-md border border-border bg-background/70 px-3 py-2 text-sm">
+              <span className="min-w-0">
                 <span className="font-semibold text-foreground">{localize(hour.name)}</span>
+                <span className="ml-2 tabular-nums text-primary">{getModernHourRange(hour.name)}</span>
                 <span className="ml-2 text-muted-foreground">{localize(hour.star)}</span>
               </span>
               <span className={hour.fortune === '吉' ? 'font-semibold text-lucky' : 'font-semibold text-ominous'}>

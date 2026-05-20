@@ -9,6 +9,21 @@ type AnimeStagger = AnimeRuntime['stagger'];
 const MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
 function getTargets(scope: HTMLElement): HTMLElement[] {
+  const hourTargets = Array.from(scope.querySelectorAll<HTMLElement>('[data-anime-hour-card]'));
+  if (hourTargets.length > 0) return hourTargets;
+
+  const resultTargets = Array.from(scope.querySelectorAll<HTMLElement>('[data-anime-result-card]'));
+  if (resultTargets.length > 0) return resultTargets;
+
+  const calendarTargets = Array.from(scope.querySelectorAll<HTMLElement>('[data-anime-calendar-cell]'));
+  if (calendarTargets.length > 0) return calendarTargets;
+
+  const orbitTargets = Array.from(scope.querySelectorAll<HTMLElement>('[data-anime-orbit-item]'));
+  if (orbitTargets.length > 0) return orbitTargets;
+
+  const tileTargets = Array.from(scope.querySelectorAll<HTMLElement>('[data-anime-tile]'));
+  if (tileTargets.length > 0) return tileTargets;
+
   const itemTargets = Array.from(scope.querySelectorAll<HTMLElement>('[data-anime-item]'));
   if (itemTargets.length > 0) return itemTargets;
 
@@ -29,6 +44,105 @@ function runEntranceAnimation(
 
   for (const target of targets) {
     target.style.willChange = 'transform, opacity, filter';
+  }
+
+  if (preset === 'hours') {
+    const fills = Array.from(scope.querySelectorAll<HTMLElement>('[data-anime-hour-fill]'));
+    for (const fill of fills) {
+      fill.style.transformOrigin = 'bottom';
+      fill.style.willChange = 'transform';
+    }
+    animate(fills, {
+      scaleY: [0.18, 1],
+      duration: 720,
+      delay: stagger(42, { start: startDelay + 90 }),
+      ease: 'outExpo',
+      onComplete: () => {
+        for (const fill of fills) {
+          fill.style.willChange = '';
+        }
+      },
+    });
+
+    return animate(targets, {
+      opacity: [0, 1],
+      y: [14, 0],
+      scale: [0.98, 1],
+      duration: 520,
+      delay: stagger(36, { start: startDelay }),
+      ease: 'outExpo',
+      onComplete: () => {
+        for (const target of targets) {
+          target.style.willChange = '';
+        }
+      },
+    });
+  }
+
+  if (preset === 'calendar') {
+    return animate(targets, {
+      opacity: [0, 1],
+      y: [10, 0],
+      scale: [0.96, 1],
+      duration: 420,
+      delay: stagger(18, { start: startDelay, grid: [7, Math.ceil(targets.length / 7)] }),
+      ease: 'outExpo',
+      onComplete: () => {
+        for (const target of targets) {
+          target.style.willChange = '';
+        }
+      },
+    });
+  }
+
+  if (preset === 'zodiac-orbit') {
+    return animate(targets, {
+      opacity: [0, 1],
+      scale: [0.72, 1],
+      filter: ['blur(5px)', 'blur(0px)'],
+      duration: 560,
+      delay: stagger(42, { start: startDelay }),
+      ease: 'outExpo',
+      onComplete: () => {
+        for (const target of targets) {
+          target.style.willChange = '';
+        }
+      },
+    });
+  }
+
+  if (preset === 'tiles') {
+    return animate(targets, {
+      opacity: [0, 1],
+      y: [16, 0],
+      scale: [0.985, 1],
+      filter: ['blur(5px)', 'blur(0px)'],
+      duration: 500,
+      delay: stagger(48, { start: startDelay }),
+      ease: 'outExpo',
+      onComplete: () => {
+        for (const target of targets) {
+          target.style.willChange = '';
+        }
+      },
+    });
+  }
+
+  if (preset === 'result') {
+    return animate(targets, {
+      opacity: [0, 1],
+      y: [18, 0],
+      scale: [0.985, 1],
+      filter: ['blur(6px)', 'blur(0px)'],
+      duration: 560,
+      delay: stagger(64, { start: startDelay }),
+      ease: 'outExpo',
+      onComplete: () => {
+        for (const target of targets) {
+          target.style.willChange = '';
+        }
+      },
+    });
   }
 
   if (preset === 'method') {

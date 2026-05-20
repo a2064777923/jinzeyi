@@ -220,7 +220,7 @@ export async function MonthlyCalendar({ year, month, days }: MonthlyCalendarProp
             />
           </div>
 
-          <div className="grid grid-cols-7 gap-1 sm:gap-2">
+          <div className="grid grid-cols-7 gap-1 sm:gap-2" data-anime="calendar">
             {weekdays.map((day) => (
               <div
                 key={day}

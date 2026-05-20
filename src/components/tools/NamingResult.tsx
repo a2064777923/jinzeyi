@@ -3,7 +3,7 @@ import type { NameAnalysis } from '@/lib/tools/naming';
 
 export function NamingResult({ result }: { result: NameAnalysis }) {
   return (
-    <div className="relative flex min-w-0 flex-col gap-4 overflow-hidden rounded-[1.5rem] border border-border bg-card p-4 shadow-lg shadow-accent/6">
+    <div className="relative flex min-w-0 flex-col gap-4 overflow-hidden rounded-[1.5rem] border border-border bg-card p-4 shadow-lg shadow-accent/6" data-anime="result">
       <span className="absolute -right-10 -top-10 hidden size-28 rounded-full bg-accent/10 sm:block" aria-hidden="true" />
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -18,7 +18,7 @@ export function NamingResult({ result }: { result: NameAnalysis }) {
 
       <div className="grid gap-3 sm:grid-cols-2">
         {result.characters.map((item, index) => (
-          <div key={`${item.char}-${index}`} className="rounded-2xl border border-border bg-background p-3 transition duration-300 hover:-translate-y-0.5 hover:shadow-md">
+          <div key={`${item.char}-${index}`} data-anime-result-card data-anime-hover className="rounded-2xl border border-border bg-background p-3 transition duration-300 hover:-translate-y-0.5 hover:shadow-md">
             <div className="flex items-center justify-between gap-2">
               <span className="font-serif-display text-3xl font-semibold">{item.char}</span>
               <Badge variant={item.known ? 'secondary' : 'outline'}>{item.element}</Badge>

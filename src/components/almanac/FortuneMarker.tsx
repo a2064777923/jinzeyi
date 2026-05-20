@@ -36,10 +36,10 @@ export function FortuneMarker({
     return (
       <span
         className={cn(
-          'inline-flex shrink-0 items-center gap-1 rounded-full border font-semibold shadow-sm',
-          size === 'lg' && 'px-3 py-1.5 text-base',
-          size === 'sm' && 'px-2.5 py-1 text-sm',
-          size === 'xs' && 'px-2 py-0.5 text-xs',
+          'inline-flex shrink-0 items-center justify-center gap-1 rounded-full border font-semibold leading-none shadow-sm',
+          size === 'lg' && 'min-h-8 px-3 text-base',
+          size === 'sm' && 'min-h-7 px-2.5 text-sm',
+          size === 'xs' && 'min-h-5 min-w-10 px-2 text-xs',
           isLucky
             ? 'border-lucky/35 bg-lucky/12 text-lucky shadow-lucky/10'
             : 'border-ominous/35 bg-ominous/12 text-ominous shadow-ominous/10',

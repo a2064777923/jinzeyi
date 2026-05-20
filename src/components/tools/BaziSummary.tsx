@@ -41,7 +41,7 @@ export function BaziSummary({ result, locale = 'zh-hans' }: { result: BaziResult
   );
 
   return (
-    <section className="relative overflow-hidden rounded-[1.5rem] border border-border bg-card p-4 shadow-lg shadow-primary/6 sm:p-5">
+    <section className="relative overflow-hidden rounded-[1.5rem] border border-border bg-card p-4 shadow-lg shadow-primary/6 sm:p-5" data-anime="result">
       <span className="absolute -right-10 -top-10 hidden size-28 rounded-full bg-primary/8 sm:block" aria-hidden="true" />
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
@@ -60,7 +60,7 @@ export function BaziSummary({ result, locale = 'zh-hans' }: { result: BaziResult
       </div>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-2xl border border-border bg-background/75 p-3">
+        <div data-anime-result-card data-anime-hover className="rounded-2xl border border-border bg-background/75 p-3">
           <p className="text-xs font-semibold text-muted-foreground">
             <TermHint entry={dayMasterEntry} />
           </p>
@@ -88,7 +88,7 @@ export function BaziSummary({ result, locale = 'zh-hans' }: { result: BaziResult
 
 function MetricCard({ label, value, locale }: { label: string; value: string; locale: LocaleCode }) {
   return (
-    <div className="rounded-2xl border border-border bg-background/75 p-3">
+    <div data-anime-result-card data-anime-hover className="rounded-2xl border border-border bg-background/75 p-3">
       <p className="text-xs font-semibold text-muted-foreground">{label}</p>
       <p className="mt-2 text-2xl font-semibold leading-none text-foreground">
         {localizeBodyCopy(locale, value)}

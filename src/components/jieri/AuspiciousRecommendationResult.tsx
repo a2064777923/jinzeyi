@@ -22,7 +22,7 @@ interface AuspiciousRecommendationResultProps {
 export function AuspiciousRecommendationResult({ results, locale, hasSubmitted = false }: AuspiciousRecommendationResultProps) {
   if (results.length === 0) {
     return (
-      <section className="rounded-[1.5rem] border border-border bg-card p-5 text-sm leading-7 text-muted-foreground shadow-lg shadow-lucky/6">
+      <section className="rounded-[1.5rem] border border-border bg-card p-5 text-sm leading-7 text-muted-foreground shadow-lg shadow-lucky/6" data-anime="result">
         <h2 className="text-lg font-semibold text-foreground">
           {localizeBodyCopy(locale, hasSubmitted ? '这段时间没有明显优选' : '候选日会出现在这里')}
         </h2>
@@ -34,7 +34,7 @@ export function AuspiciousRecommendationResult({ results, locale, hasSubmitted =
   }
 
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4" data-anime="result">
       <div>
         <h2 className="text-lg font-semibold text-foreground">
           {localizeBodyCopy(locale, '推荐结果')}
@@ -45,7 +45,7 @@ export function AuspiciousRecommendationResult({ results, locale, hasSubmitted =
       </div>
 
       {results.map((result, index) => (
-        <article key={result.date} className="relative overflow-hidden rounded-[1.5rem] border border-border bg-card p-4 shadow-lg shadow-lucky/6">
+        <article key={result.date} data-anime-result-card data-anime-hover className="relative overflow-hidden rounded-[1.5rem] border border-border bg-card p-4 shadow-lg shadow-lucky/6">
           <span className="absolute -right-10 -top-10 hidden size-28 rounded-full bg-lucky/10 sm:block" aria-hidden="true" />
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>

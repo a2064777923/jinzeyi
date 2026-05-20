@@ -124,7 +124,7 @@ export function ZodiacHub({ locale, profile, articles }: ZodiacHubProps) {
                 </div>
               </div>
             </section>
-            <section className="grid gap-4 rounded-lg border border-border bg-card p-4 sm:grid-cols-3">
+            <section className="grid gap-4 rounded-lg border border-border bg-card p-4 sm:grid-cols-3" data-anime="tiles">
               <VisualFact
                 label={localizeBodyCopy(locale, '年份速读')}
                 value={profile.years.slice(-3).join(' / ')}
@@ -170,7 +170,7 @@ export function ZodiacHub({ locale, profile, articles }: ZodiacHubProps) {
 
 function VisualFact({ label, value, body }: { label: string; value: string; body: string }) {
   return (
-    <article className="rounded-2xl border border-border bg-background/75 p-4">
+    <article data-anime-tile data-anime-hover className="rounded-2xl border border-border bg-background/75 p-4">
       <p className="text-xs font-semibold tracking-[0.18em] text-accent">{label}</p>
       <p className="mt-2 text-lg font-semibold leading-7 text-foreground">{value}</p>
       <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>

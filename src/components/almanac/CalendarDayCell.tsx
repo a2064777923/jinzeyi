@@ -22,6 +22,8 @@ export async function CalendarDayCell({ day, todayLabel }: CalendarDayCellProps)
   return (
     <Link
       href={`/almanac/${day.dateStr}`}
+      data-anime-calendar-cell
+      data-anime-hover
       aria-label={`${day.dateStr} ${localize(day.lunarDay)} ${day.fortune}${day.solarTerm ? ` ${localize(day.solarTerm)}` : ''}${day.isToday ? ` ${todayLabel}` : ''}`}
       className={cn(
         'group relative flex h-[5.4rem] min-w-0 cursor-pointer flex-col overflow-hidden rounded-md border p-1.5 text-left transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:aspect-square sm:h-auto sm:min-h-[7.9rem] sm:p-2',

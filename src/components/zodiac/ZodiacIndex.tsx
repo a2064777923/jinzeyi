@@ -49,13 +49,13 @@ export function ZodiacIndex({ locale }: { locale: LocaleCode }) {
               {localizeBodyCopy(locale, '生肖先从年份边界进入，再看地支五行，最后把六合、三合和六冲放回择日。')}
             </p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-3" data-anime="tiles">
             {[
               ['01', '年份边界', '春节与立春附近先核对岁次。'],
               ['02', '地支五行', '生肖对应子丑寅卯等地支。'],
               ['03', '合冲择日', '重要事项避开关键生肖相冲。'],
             ].map(([label, title, body]) => (
-              <div key={label} className="rounded-xl border border-border bg-background/75 p-4">
+              <div key={label} data-anime-tile data-anime-hover className="rounded-xl border border-border bg-background/75 p-4">
                 <span className="text-xs font-semibold tracking-[0.2em] text-accent">{label}</span>
                 <h3 className="mt-2 font-semibold text-foreground">{localizeBodyCopy(locale, title)}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{localizeBodyCopy(locale, body)}</p>
@@ -63,11 +63,13 @@ export function ZodiacIndex({ locale }: { locale: LocaleCode }) {
             ))}
           </div>
         </section>
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3" data-anime="tiles">
           {zodiacAnimals.map((animal) => (
             <Link
               key={animal.slug}
               href={`/zodiac/${animal.slug}`}
+              data-anime-tile
+              data-anime-hover
               className="group grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] gap-3 rounded-xl border border-border bg-card p-4 transition hover:-translate-y-0.5 hover:border-primary/40 hover:bg-secondary/70 hover:shadow-md sm:grid-cols-[5rem_minmax(0,1fr)_auto]"
             >
               <ZodiacAnimalImage
@@ -123,7 +125,7 @@ export function ZodiacIndex({ locale }: { locale: LocaleCode }) {
 
 function ZodiacBranchWheel({ locale }: { locale: LocaleCode }) {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[19.5rem] overflow-visible rounded-full border border-primary/15 bg-background/82 p-[clamp(0.75rem,4vw,1rem)] shadow-sm">
+    <div data-anime="zodiac-orbit" className="relative mx-auto aspect-square w-full max-w-[19.5rem] overflow-visible rounded-full border border-primary/15 bg-background/82 p-[clamp(0.75rem,4vw,1rem)] shadow-sm">
       <div className="absolute inset-[5%] rounded-full border border-dashed border-primary/20" aria-hidden="true" />
       <div className="absolute inset-[32%] grid place-items-center rounded-full border border-accent/20 bg-card text-center shadow-sm">
         <span className="text-xs font-semibold tracking-[0.18em] text-accent">
@@ -145,13 +147,15 @@ function ZodiacBranchWheel({ locale }: { locale: LocaleCode }) {
             }}
             aria-label={localizeBodyCopy(locale, `查看属${animal.animal}`)}
           >
-            <ZodiacAnimalImage
-              slug={animal.slug}
-              label={localizeBodyCopy(locale, `属${animal.animal}生肖新中式卡通图示`)}
-              className="size-[calc(100%-0.25rem)] overflow-hidden rounded-full border-0 shadow-none"
-              imageClassName="scale-[1.18] p-0"
-              sizes="40px"
-            />
+            <span data-anime-orbit-item className="grid size-full place-items-center rounded-full">
+              <ZodiacAnimalImage
+                slug={animal.slug}
+                label={localizeBodyCopy(locale, `属${animal.animal}生肖新中式卡通图示`)}
+                className="size-[calc(100%-0.25rem)] overflow-hidden rounded-full border-0 shadow-none"
+                imageClassName="scale-[1.18] p-0"
+                sizes="40px"
+              />
+            </span>
           </Link>
         );
       })}

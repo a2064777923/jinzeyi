@@ -76,11 +76,11 @@ export function FengShuiIndex({ locale }: { locale: LocaleCode }) {
           }))}
           className="mb-5"
         />
-        <div className="grid gap-5">
+        <div className="grid gap-5" data-anime="tiles">
           {fengShuiCategories.map((category) => {
             const articles = getFengShuiArticlesByCategory(category.slug);
             return (
-              <section key={category.slug} id={category.slug} className="image2-art-card overflow-hidden rounded-xl border border-border bg-card p-4">
+              <section key={category.slug} id={category.slug} data-anime-tile data-anime-hover className="image2-art-card overflow-hidden rounded-xl border border-border bg-card p-4">
                 <div className="grid gap-4 sm:grid-cols-[5rem_minmax(0,1fr)]">
                   <Image2IconTile
                     src={category.icon}

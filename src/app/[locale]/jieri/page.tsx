@@ -123,11 +123,13 @@ export default async function JieriIndexPage({ params }: Props) {
           }))}
           className="mb-5"
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-anime="tiles">
           {jieriScenes.map((scene) => (
             <Link
               key={scene.slug}
               href={`/jieri/${scene.slug}/${currentYear}`}
+              data-anime-tile
+              data-anime-hover
               className="image2-art-card group flex min-w-0 flex-col gap-4 overflow-hidden rounded-xl border border-border bg-card p-4 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               <div className="flex items-start gap-3">

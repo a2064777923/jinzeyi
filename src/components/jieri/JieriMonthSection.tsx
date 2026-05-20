@@ -30,7 +30,7 @@ export function JieriMonthSection({ month, results, locale }: JieriMonthSectionP
           </span>
         </CollapsibleTrigger>
         <CollapsibleContent>
-          <div className="flex flex-col gap-3 border-t border-border p-3">
+          <div className="flex flex-col gap-3 border-t border-border p-3" data-anime="result">
             {results.length > 0 ? (
               results.map((result) => (
                 <JieriDateRow key={result.date} result={result} locale={locale} />
