@@ -145,10 +145,10 @@ export default async function HomePage({ params }: Props) {
           __html: JSON.stringify(buildFaqJsonLd({ locale: routeLocale, faq: homeContent.faq })),
         }}
       />
-      <section className="relative overflow-hidden border-b border-border/70 bg-[radial-gradient(circle_at_12%_20%,rgba(253,230,138,0.42),transparent_28%),radial-gradient(circle_at_84%_12%,rgba(16,185,129,0.24),transparent_30%),linear-gradient(135deg,rgba(255,255,255,0.88),rgba(230,244,236,0.82))]">
+      <section data-anime="home-hero" className="relative overflow-hidden border-b border-border/70 bg-[radial-gradient(circle_at_12%_20%,rgba(253,230,138,0.42),transparent_28%),radial-gradient(circle_at_84%_12%,rgba(16,185,129,0.24),transparent_30%),linear-gradient(135deg,rgba(255,255,255,0.88),rgba(230,244,236,0.82))]">
         <div className="almanac-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-[82rem] gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-12">
-          <div className="space-y-6 animate-reveal-up">
+          <div className="space-y-6 animate-reveal-up" data-anime-item>
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="secondary" className="gap-1">
                 <Sparkles className="size-3" aria-hidden="true" />
@@ -208,6 +208,8 @@ export default async function HomePage({ params }: Props) {
                 return (
                   <div
                     key={item.label}
+                    data-anime-item
+                    data-anime-hover
                     className="shimmer-panel rounded-lg border border-border/80 bg-card/88 p-3 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-md sm:p-4"
                   >
                     <div className="flex items-start justify-between gap-3">
@@ -233,7 +235,7 @@ export default async function HomePage({ params }: Props) {
             />
           </div>
 
-          <Card className="animate-float-slow self-start overflow-hidden border-border/80 bg-card/92 shadow-lg shadow-primary/8">
+          <Card data-anime-item data-anime-hover className="animate-float-slow self-start overflow-hidden border-border/80 bg-card/92 shadow-lg shadow-primary/8">
             <CardContent className="space-y-4 p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>

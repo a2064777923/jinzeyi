@@ -122,7 +122,7 @@ export function FengShuiIndex({ locale }: { locale: LocaleCode }) {
       </SeoPageBand>
 
       <SeoPageBand tone="muted">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
           <p className="rounded-lg border border-border bg-card p-5 text-sm leading-7 text-muted-foreground">
             {localizeBodyCopy(locale, fengShuiIndexPage.body)}
           </p>

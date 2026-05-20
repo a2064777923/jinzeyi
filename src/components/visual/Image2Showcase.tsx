@@ -50,6 +50,7 @@ export function Image2HeroScene({
 }: Image2HeroSceneProps) {
   return (
     <div
+      data-anime-hover
       className={cn(
         'image2-showcase group relative overflow-hidden rounded-[1.35rem] border border-primary/15 bg-[linear-gradient(135deg,#fff8e9,#effaf2)] p-2 shadow-sm shadow-primary/10 sm:p-2.5',
         className
@@ -91,6 +92,7 @@ export function Image2IconTile({
 }: Image2IconTileProps) {
   return (
     <span
+      data-anime-hover
       className={cn(
         'relative inline-grid aspect-square shrink-0 place-items-center overflow-visible rounded-2xl border border-primary/15 bg-[#fff2d8] shadow-sm shadow-primary/8',
         className
@@ -119,6 +121,7 @@ export function Image2IconTile({
 export function Image2MethodDiagram({ title, deck, steps, className }: Image2MethodDiagramProps) {
   return (
     <section
+      data-anime="method"
       className={cn(
         'relative overflow-hidden rounded-[1.25rem] border border-border bg-card p-5 shadow-sm sm:p-6',
         className
@@ -134,6 +137,8 @@ export function Image2MethodDiagram({ title, deck, steps, className }: Image2Met
           {steps.map((step, index) => (
             <article
               key={`${step.label}-${step.title}`}
+              data-anime-step
+              data-anime-hover
               className="group relative min-w-0 rounded-xl border border-border bg-background/82 p-4 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-md"
             >
               {index < steps.length - 1 ? (

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jinzeyi-shell-v1';
+const CACHE_NAME = 'jinzeyi-shell-v2';
 const SHELL_ASSETS = [
   '/manifest.webmanifest',
   '/icon-192.png',
@@ -42,7 +42,12 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (url.pathname.startsWith('/_next/static/') || SHELL_ASSETS.includes(url.pathname)) {
+  if (url.pathname.startsWith('/_next/')) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  if (SHELL_ASSETS.includes(url.pathname)) {
     event.respondWith(
       caches.match(request).then((cached) => (
         cached || fetch(request).then((response) => {

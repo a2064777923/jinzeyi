@@ -71,8 +71,8 @@ export default async function SolarTermsPage({ params }: Props) {
           __html: JSON.stringify(buildFaqJsonLd({ locale, faq: termsContent.faq })),
         }}
       />
-      <section className="mx-auto grid max-w-[82rem] items-center gap-6 overflow-hidden rounded-[1.5rem] border border-border/80 bg-card/85 p-5 shadow-sm sm:p-7 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="space-y-5">
+      <section data-anime="hero" className="mx-auto grid max-w-[82rem] items-center gap-6 overflow-hidden rounded-[1.5rem] border border-border/80 bg-card/85 p-5 shadow-sm sm:p-7 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="space-y-5" data-anime-item>
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="secondary" className="gap-1">
               <CalendarDays className="size-3" aria-hidden="true" />
@@ -97,7 +97,7 @@ export default async function SolarTermsPage({ params }: Props) {
             <HeroMetric value="12" label={t('qiCountLabel')} />
           </div>
         </div>
-        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_13rem] lg:grid-cols-[minmax(0,1fr)_12rem]">
+        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_13rem] lg:grid-cols-[minmax(0,1fr)_12rem]" data-anime-item>
           <div className="relative min-h-[16rem] overflow-hidden rounded-[1.25rem] border border-primary/15 bg-[#fff2d8] shadow-sm">
             <Image
               src="/assets/image2/solar-terms/qingming.png"
@@ -107,6 +107,7 @@ export default async function SolarTermsPage({ params }: Props) {
               loading="eager"
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 470px"
+              fetchPriority="high"
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/70 to-transparent p-4 text-primary-foreground">
               <p className="text-xs font-semibold tracking-[0.2em]">SOLAR TERMS</p>

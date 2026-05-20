@@ -178,7 +178,7 @@ export default async function ToolsIndexPage({ params }: Props) {
         </div>
       </SeoPageBand>
       <SeoPageBand tone="muted">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="rounded-lg border border-border bg-card p-5 text-sm leading-7 text-muted-foreground">
             <h2 className="mb-3 text-lg font-semibold text-foreground">
               {localizeBodyCopy(locale, '工具用來整理下一步資料')}

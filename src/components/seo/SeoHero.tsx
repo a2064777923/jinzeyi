@@ -37,6 +37,7 @@ export function SeoHero({
 
   return (
     <div
+      data-anime="hero"
       className={cn(
         'relative isolate overflow-hidden rounded-xl border border-border/80 bg-[radial-gradient(circle_at_12%_18%,rgba(253,230,138,0.38),transparent_28%),radial-gradient(circle_at_88%_12%,rgba(4,120,87,0.16),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.96),rgba(244,250,246,0.88))] p-5 shadow-sm shadow-primary/5 sm:p-6 lg:p-7',
         className
@@ -49,10 +50,10 @@ export function SeoHero({
         JinZeYi
       </div>
       <div className="relative grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-        <div className="flex min-w-0 flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-4" data-anime-item>
           <div className="flex flex-wrap items-center gap-3">
             {imageSrc ? (
-              <span className="relative flex size-16 shrink-0 items-center justify-center rounded-xl border border-border bg-background/88 p-2 shadow-sm shadow-primary/5">
+              <span className="relative flex size-16 shrink-0 items-center justify-center rounded-xl border border-border bg-background/88 p-2 shadow-sm shadow-primary/5" data-anime-hover>
                 <Image
                   src={imageSrc}
                   alt={resolvedImageAlt}
@@ -63,7 +64,7 @@ export function SeoHero({
                 />
               </span>
             ) : icon ? (
-              <span className="flex size-16 shrink-0 items-center justify-center rounded-xl border border-border bg-background/88 text-primary shadow-sm shadow-primary/5">
+              <span className="flex size-16 shrink-0 items-center justify-center rounded-xl border border-border bg-background/88 text-primary shadow-sm shadow-primary/5" data-anime-hover>
                 {icon}
               </span>
             ) : null}
@@ -92,13 +93,13 @@ export function SeoHero({
           )}
         </div>
         {controls && (
-          <div className="min-w-0 lg:w-[20rem]">
+          <div className="min-w-0 lg:w-[20rem]" data-anime-item>
             {controls}
           </div>
         )}
       </div>
       {shareUrl && shareMode !== 'hidden' ? (
-        <div className="relative mt-5 flex">
+        <div className="relative mt-5 flex" data-anime-item>
           {shareMode === 'compact' ? (
             <details className="group w-full rounded-lg border border-border/80 bg-background/72 p-3 shadow-sm sm:w-auto sm:min-w-72 sm:max-w-md">
               <summary className="cursor-pointer list-none text-sm font-semibold text-primary outline-none transition hover:text-primary/80 focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">

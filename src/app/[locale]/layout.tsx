@@ -5,6 +5,7 @@ import { routing } from '@/i18n/routing';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { DocumentLocale } from '@/components/layout/DocumentLocale';
+import { AnimeMotionLayer } from '@/components/motion/AnimeMotionLayer';
 import { ServiceWorkerRegister } from '@/components/pwa/ServiceWorkerRegister';
 import type { Metadata, Viewport } from 'next';
 import { DEFAULT_OG_IMAGE, SITE_KEYWORDS, SITE_NAME, SITE_ORIGIN } from '@/lib/seo';
@@ -84,6 +85,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <DocumentLocale locale={locale} />
       <ServiceWorkerRegister />
+      <AnimeMotionLayer />
       <Header />
       <main className="w-full flex-1">
         {children}

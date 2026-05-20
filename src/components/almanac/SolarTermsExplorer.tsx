@@ -145,7 +145,7 @@ export function SolarTermsExplorer({ seasons, labels }: SolarTermsExplorerProps)
         </div>
       </nav>
 
-      <section className="relative overflow-hidden rounded-[1.5rem] border border-border bg-card p-4 shadow-sm sm:p-5">
+      <section data-anime="method" className="relative overflow-hidden rounded-[1.5rem] border border-border bg-card p-4 shadow-sm sm:p-5">
         <div className="almanac-grid pointer-events-none absolute inset-0 opacity-35" aria-hidden="true" />
         <div className="relative flex flex-col gap-4 lg:flex-row lg:items-center">
           <div className="min-w-0 lg:w-72">
@@ -163,6 +163,8 @@ export function SolarTermsExplorer({ seasons, labels }: SolarTermsExplorerProps)
                 key={`rail-${term.name}`}
                 type="button"
                 onClick={() => setActiveTerm(term)}
+                data-anime-step
+                data-anime-hover
                 className="group relative aspect-square overflow-hidden rounded-lg border border-border bg-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 aria-label={`${labels.open}${term.name}`}
               >
@@ -172,6 +174,8 @@ export function SolarTermsExplorer({ seasons, labels }: SolarTermsExplorerProps)
                   fill
                   className="object-cover transition duration-300 group-hover:scale-105"
                   sizes="72px"
+                  loading={term.originalName === '清明' ? 'eager' : 'lazy'}
+                  fetchPriority={term.originalName === '清明' ? 'high' : 'auto'}
                 />
                 <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/72 to-transparent px-1.5 pb-1 pt-5 text-center text-[0.68rem] font-semibold leading-none text-primary-foreground">
                   {term.name}
@@ -190,6 +194,7 @@ export function SolarTermsExplorer({ seasons, labels }: SolarTermsExplorerProps)
           <section
             key={season.key}
             id={`solar-season-${season.key}`}
+            data-anime="method"
             className={cn(
               'animate-reveal-up relative overflow-hidden rounded-[1.5rem] border border-border bg-gradient-to-r p-4 shadow-sm sm:p-5',
               style.panel,
@@ -216,6 +221,8 @@ export function SolarTermsExplorer({ seasons, labels }: SolarTermsExplorerProps)
                   key={`${term.name}-${term.dateLabel}`}
                   type="button"
                   onClick={() => setActiveTerm(term)}
+                  data-anime-step
+                  data-anime-hover
                   className="image2-art-card group grid min-h-48 grid-cols-[7.5rem_minmax(0,1fr)] overflow-hidden rounded-2xl border border-border bg-background/86 p-2 text-left shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:grid-cols-[8.5rem_minmax(0,1fr)]"
                 >
                   <span className="relative min-h-40 overflow-hidden rounded-xl bg-[#fff2d8]">

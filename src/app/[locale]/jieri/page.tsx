@@ -160,7 +160,7 @@ export default async function JieriIndexPage({ params }: Props) {
       </SeoPageBand>
 
       <SeoPageBand tone="muted">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="rounded-lg border border-border bg-card p-5">
             <div className="mb-3 flex items-center gap-2">
               <CalendarDays className="size-4 text-primary" aria-hidden="true" />
