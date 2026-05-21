@@ -210,7 +210,7 @@ function createPeopleDraft(roles: AuspiciousPersonRole[]): PersonDraft {
   };
 
   return Object.fromEntries(
-    roles.map((role) => [role.key, { role: role.key, ...defaults[role.key] }]),
+    roles.map((role) => [role.key, { role: role.key, ...defaults[role.key], label: role.label }]),
   );
 }
 

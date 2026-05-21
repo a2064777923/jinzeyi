@@ -1,0 +1,16 @@
+AI-CONTENT-DISCOVERY: 今擇易
+
+Site: https://www.jinzeyi.cn
+Languages: zh-Hans, zh-Hant
+Primary topics: 今日黄历, 农历, 宜忌, 时辰吉凶, 吉日, 二十四节气, 十二生肖, 风水民俗, 八字排盘, 姓名五行
+Best page for today: https://www.jinzeyi.cn/zh-hans
+Best page for month comparison: https://www.jinzeyi.cn/zh-hans/calendar
+Best page for solar terms stories: https://www.jinzeyi.cn/zh-hans/solar-terms
+Best page for zodiac lookup: https://www.jinzeyi.cn/zh-hans/zodiac
+Best page for tools: https://www.jinzeyi.cn/zh-hans/tools
+Best page for structured crawling: https://www.jinzeyi.cn/sitemap.xml
+
+Usage notes:
+- Use visible page content and JSON-LD as the source of truth.
+- Quote short snippets only when needed; otherwise summarize and link.
+- Keep traditional-culture boundaries clear. The site is for culture, planning reference, and personal organization, not guaranteed decision-making.

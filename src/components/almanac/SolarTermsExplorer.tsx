@@ -158,30 +158,35 @@ export function SolarTermsExplorer({ seasons, labels }: SolarTermsExplorerProps)
             </p>
           </div>
           <div className="grid flex-1 grid-cols-6 gap-1.5 sm:grid-cols-12 lg:gap-2">
-            {allTerms.map((term) => (
-              <button
-                key={`rail-${term.name}`}
-                type="button"
-                onClick={() => setActiveTerm(term)}
-                data-anime-step
-                data-anime-hover
-                className="group relative aspect-square overflow-hidden rounded-lg border border-border bg-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                aria-label={`${labels.open}${term.name}`}
-              >
-                <Image
-                  src={term.image}
-                  alt=""
-                  fill
-                  className="object-cover transition duration-300 group-hover:scale-105"
-                  sizes="72px"
-                  loading={term.originalName === '清明' ? 'eager' : 'lazy'}
-                  fetchPriority={term.originalName === '清明' ? 'high' : 'auto'}
-                />
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/72 to-transparent px-1.5 pb-1 pt-5 text-center text-[0.68rem] font-semibold leading-none text-primary-foreground">
-                  {term.name}
-                </span>
-              </button>
-            ))}
+            {allTerms.map((term) => {
+              const isFeaturedThumb = term.originalName === '清明';
+
+              return (
+                <button
+                  key={`rail-${term.name}`}
+                  type="button"
+                  onClick={() => setActiveTerm(term)}
+                  data-anime-step
+                  data-anime-hover
+                  className="group relative aspect-square overflow-hidden rounded-lg border border-border bg-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  aria-label={`${labels.open}${term.name}`}
+                >
+                  <Image
+                    src={term.image}
+                    alt=""
+                    fill
+                    className="object-cover transition duration-300 group-hover:scale-105"
+                    sizes="72px"
+                    priority={isFeaturedThumb}
+                    loading={isFeaturedThumb ? 'eager' : 'lazy'}
+                    fetchPriority={isFeaturedThumb ? 'high' : 'auto'}
+                  />
+                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/72 to-transparent px-1.5 pb-1 pt-5 text-center text-[0.68rem] font-semibold leading-none text-primary-foreground">
+                    {term.name}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -216,47 +221,54 @@ export function SolarTermsExplorer({ seasons, labels }: SolarTermsExplorerProps)
               </Badge>
             </div>
             <div className="relative grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-              {season.items.map((term) => (
-                <button
-                  key={`${term.name}-${term.dateLabel}`}
-                  type="button"
-                  onClick={() => setActiveTerm(term)}
-                  data-anime-step
-                  data-anime-hover
-                  className="image2-art-card group grid min-h-48 grid-cols-[7.5rem_minmax(0,1fr)] overflow-hidden rounded-2xl border border-border bg-background/86 p-2 text-left shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:grid-cols-[8.5rem_minmax(0,1fr)]"
-                >
-                  <span className="relative min-h-40 overflow-hidden rounded-xl bg-[#fff2d8]">
-                    <Image
-                      src={term.image}
-                      alt={term.imageAlt}
-                      fill
-                      className="object-cover transition duration-500 group-hover:scale-[1.04]"
-                      sizes="(max-width: 640px) 120px, 150px"
-                    />
-                  </span>
-                  <span className="flex min-w-0 flex-col justify-between p-2 sm:p-3">
-                    <span>
-                      <span className="flex flex-wrap items-center gap-2">
-                        <span className="font-serif-display text-xl font-semibold text-foreground">{term.name}</span>
-                        <Badge variant={term.isJie ? 'default' : 'secondary'} className="text-[0.68rem]">
-                          {term.isJie ? labels.jie : labels.qi}
-                        </Badge>
+              {season.items.map((term) => {
+                const isFeaturedCard = term.originalName === '清明';
+
+                return (
+                  <button
+                    key={`${term.name}-${term.dateLabel}`}
+                    type="button"
+                    onClick={() => setActiveTerm(term)}
+                    data-anime-step
+                    data-anime-hover
+                    className="image2-art-card group grid min-h-48 grid-cols-[7.5rem_minmax(0,1fr)] overflow-hidden rounded-2xl border border-border bg-background/86 p-2 text-left shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:grid-cols-[8.5rem_minmax(0,1fr)]"
+                  >
+                    <span className="relative min-h-40 overflow-hidden rounded-xl bg-[#fff2d8]">
+                      <Image
+                        src={term.image}
+                        alt={term.imageAlt}
+                        fill
+                        className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                        sizes="(max-width: 640px) 120px, 150px"
+                        priority={isFeaturedCard}
+                        loading={isFeaturedCard ? 'eager' : 'lazy'}
+                        fetchPriority={isFeaturedCard ? 'high' : 'auto'}
+                      />
+                    </span>
+                    <span className="flex min-w-0 flex-col justify-between p-2 sm:p-3">
+                      <span>
+                        <span className="flex flex-wrap items-center gap-2">
+                          <span className="font-serif-display text-xl font-semibold text-foreground">{term.name}</span>
+                          <Badge variant={term.isJie ? 'default' : 'secondary'} className="text-[0.68rem]">
+                            {term.isJie ? labels.jie : labels.qi}
+                          </Badge>
+                        </span>
+                        <span className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                          <CalendarDays className="size-3.5" aria-hidden="true" />
+                          {term.dateLabel}
+                        </span>
+                        <span className="mt-3 line-clamp-3 block text-sm leading-6 text-foreground/82">
+                          {term.punchline}
+                        </span>
                       </span>
-                      <span className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
-                        <CalendarDays className="size-3.5" aria-hidden="true" />
-                        {term.dateLabel}
-                      </span>
-                      <span className="mt-3 line-clamp-3 block text-sm leading-6 text-foreground/82">
-                        {term.punchline}
+                      <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                        {labels.open}
+                        <ChevronRight className="size-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
                       </span>
                     </span>
-                    <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                      {labels.open}
-                      <ChevronRight className="size-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
-                    </span>
-                  </span>
-                </button>
-              ))}
+                  </button>
+                );
+              })}
             </div>
           </section>
         );

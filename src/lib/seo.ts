@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { localizeBodyCopy } from '@/lib/content/localize';
 import type { BreadcrumbItem, FaqItem, LocaleCode } from '@/lib/content/types';
 
-export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || 'http://43.139.84.61:3000';
+export const SITE_ORIGIN = (process.env.NEXT_PUBLIC_SITE_ORIGIN || 'https://www.jinzeyi.cn').replace(/\/$/, '');
 export const SITE_NAME = '今擇易';
 export const SITE_KEYWORDS = [
   '黄历',
@@ -32,6 +32,20 @@ interface JsonLdPageInput {
   path: string;
   title: string;
   description: string;
+}
+
+interface JsonLdListItem {
+  name: string;
+  description?: string;
+  path?: string;
+  url?: string;
+}
+
+interface JsonLdTermItem {
+  name: string;
+  description?: string;
+  alternateName?: string[];
+  path?: string;
 }
 
 function normalizedLocalePath(path: string): string {
@@ -156,6 +170,77 @@ export function buildWebsiteJsonLd(locale: Locale) {
       target: `${SITE_ORIGIN}${localePrefix}/almanac/{date}`,
       'query-input': 'required name=date',
     },
+  };
+}
+
+export function buildOrganizationJsonLd(locale: LocaleCode = 'zh-hant'): JsonLdObject {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE_NAME,
+    alternateName: ['今择易', 'Jin Zeyi'],
+    url: SITE_ORIGIN,
+    logo: `${SITE_ORIGIN}${DEFAULT_OG_IMAGE}`,
+    description: locale === 'zh-hans'
+      ? '今择易整理今日黄历、农历、宜忌、时辰吉凶、二十四节气、十二生肖、风水知识与择日工具。'
+      : '今擇易整理今日黃曆、農曆、宜忌、時辰吉凶、二十四節氣、十二生肖、風水知識與擇日工具。',
+    knowsAbout: locale === 'zh-hans'
+      ? ['黄历', '择日', '农历', '二十四节气', '十二生肖', '八字排盘', '姓名五行', '风水民俗']
+      : ['黃曆', '擇日', '農曆', '二十四節氣', '十二生肖', '八字排盤', '姓名五行', '風水民俗'],
+  };
+}
+
+export function buildItemListJsonLd({
+  locale,
+  path,
+  title,
+  description,
+  listName,
+  items,
+}: JsonLdPageInput & {
+  listName?: string;
+  items: JsonLdListItem[];
+}): JsonLdObject {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: listName ?? title,
+    description,
+    url: absoluteUrl(locale, path),
+    inLanguage: languageTag(locale),
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: localizeBodyCopy(locale, item.name),
+      description: item.description ? localizeBodyCopy(locale, item.description) : undefined,
+      url: item.url ?? (item.path ? absoluteUrl(locale, item.path) : undefined),
+    })),
+  };
+}
+
+export function buildDefinedTermSetJsonLd({
+  locale,
+  path,
+  title,
+  description,
+  terms,
+}: JsonLdPageInput & {
+  terms: JsonLdTermItem[];
+}): JsonLdObject {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTermSet',
+    name: title,
+    description,
+    url: absoluteUrl(locale, path),
+    inLanguage: languageTag(locale),
+    hasDefinedTerm: terms.map((term) => ({
+      '@type': 'DefinedTerm',
+      name: localizeBodyCopy(locale, term.name),
+      description: term.description ? localizeBodyCopy(locale, term.description) : undefined,
+      alternateName: term.alternateName?.map((name) => localizeBodyCopy(locale, name)),
+      url: term.path ? absoluteUrl(locale, term.path) : undefined,
+    })),
   };
 }
 

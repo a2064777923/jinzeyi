@@ -1,9 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
   SITE_ORIGIN,
+  buildDefinedTermSetJsonLd,
   buildArticleJsonLd,
   buildBreadcrumbJsonLd,
   buildFaqJsonLd,
+  buildItemListJsonLd,
+  buildOrganizationJsonLd,
   buildPageJsonLd,
   buildSeoPageMetadata,
   buildWebApplicationJsonLd,
@@ -110,6 +113,33 @@ describe('Phase 3 SEO helpers', () => {
     expect(article).toMatchObject({ '@type': 'Article', headline: '属鼠性格' });
     expect(app).toMatchObject({ '@type': 'WebApplication', operatingSystem: 'Web' });
     expect(page).toMatchObject({ '@type': 'WebPage', name: '十二生肖查询' });
+  });
+
+  it('builds Organization, ItemList, and DefinedTermSet JSON-LD shapes', () => {
+    const organization = buildOrganizationJsonLd('zh-hans');
+    const itemList = buildItemListJsonLd({
+      locale: 'zh-hans',
+      path: '/tools',
+      title: '命理工具',
+      description: '工具入口',
+      items: [
+        { name: '八字排盘', description: '四柱查询', path: '/tools/bazi' },
+        { name: '姓名五行', description: '名字五行查询', path: '/tools/naming' },
+      ],
+    });
+    const termSet = buildDefinedTermSetJsonLd({
+      locale: 'zh-hans',
+      path: '/zodiac',
+      title: '十二生肖',
+      description: '生肖条目',
+      terms: [
+        { name: '鼠', alternateName: ['子鼠'], description: '十二生肖鼠', path: '/zodiac/rat' },
+      ],
+    });
+
+    expect(organization).toMatchObject({ '@type': 'Organization', url: SITE_ORIGIN });
+    expect(itemList).toMatchObject({ '@type': 'ItemList', itemListElement: expect.arrayContaining([expect.objectContaining({ position: 1 })]) });
+    expect(termSet).toMatchObject({ '@type': 'DefinedTermSet', hasDefinedTerm: expect.arrayContaining([expect.objectContaining({ '@type': 'DefinedTerm' })]) });
   });
 
   it('returns page-family JSON-LD arrays without duplicating assembly in routes', () => {

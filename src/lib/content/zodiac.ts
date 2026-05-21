@@ -160,7 +160,7 @@ function articleBody(animal: ZodiacSeed, topic: 'personality' | 'compatibility')
     return `说到属${animal.animal}，先不要急着把人归成一种性格。生肖只是民俗里好记的入口，真正落到日常，仍要看一个人怎样做选择。${animal.animal}对应地支${animal.earthlyBranch}，五行提示为${animal.elementHint}，所以常被写成${animal.traits.join('、')}。这些词更像提醒：遇到大事时，属${animal.animal}的人往往会在${animal.tone}。若用在择日上，重点放在当天宜忌、冲煞和事情节奏，看这种行事方式能不能更安稳地展开。`;
   }
 
-  return `生肖配对最怕被读成一句话的吉凶。属${animal.animal}常见的合拍关系，会从六合、三合和六冲里找线索：较容易互相补位的生肖有${animal.best.join('、')}，日常相处较平稳的有${animal.steady.join('、')}，需要多留意节奏差异的则是${animal.caution.join('、')}。这套关系适合拿来提醒沟通方式，不适合替人下结论。若要安排婚嫁、合作、签约或开业，可以先避开明显冲${animal.animal}的日子，再回到黄历宜忌和时辰里细看。`;
+  return `生肖配对最怕被读成粗糙断语。属${animal.animal}常见的合拍关系，会从六合、三合和六冲里找线索：较容易互相补位的生肖有${animal.best.join('、')}，日常相处较平稳的有${animal.steady.join('、')}，需要多留意节奏差异的则是${animal.caution.join('、')}。这套关系适合拿来提醒沟通方式，不适合替人下结论。若要安排婚嫁、合作、签约或开业，可以避开明显冲${animal.animal}的日子，再回到黄历宜忌和时辰里细看。`;
 }
 
 export const zodiacAnimals: ZodiacProfile[] = zodiacSeeds.map((animal) => ({

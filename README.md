@@ -40,10 +40,11 @@ npm run verify        # lint + typecheck + tests + build
 ```bash
 DATABASE_URL="postgresql://user:password@localhost:5432/jinzeyi?schema=public"
 REDIS_URL="redis://localhost:6379"
-NEXT_PUBLIC_SITE_ORIGIN="https://your-domain.com"
+NEXT_PUBLIC_SITE_ORIGIN="https://www.jinzeyi.cn"
 ```
 
 `NEXT_PUBLIC_SITE_ORIGIN` 会进入 canonical、Open Graph、sitemap、robots 和分享链接。绑域名上线前设置成正式域名，然后重新 `npm run build`。
+未设置时，代码默认使用 `https://www.jinzeyi.cn`。
 
 ## 生产部署提示
 

@@ -12,7 +12,7 @@ import { Link } from '@/i18n/navigation';
 import { getToolPage, toolPages } from '@/lib/content/tools';
 import { localizeBodyCopy, localizeSeo } from '@/lib/content/localize';
 import { getGlossaryEntries } from '@/lib/content/glossary';
-import { buildPageJsonLd, buildSeoPageMetadata } from '@/lib/seo';
+import { buildItemListJsonLd, buildPageJsonLd, buildSeoPageMetadata } from '@/lib/seo';
 
 interface Props {
   params: Promise<{ locale: 'zh-hant' | 'zh-hans' }>;
@@ -97,12 +97,28 @@ export default async function ToolsIndexPage({ params }: Props) {
       { name: seo.h1, href: page.path },
     ],
   });
+  const toolListJsonLd = buildItemListJsonLd({
+    locale,
+    path: page.path,
+    title: seo.title,
+    description: seo.description,
+    listName: locale === 'zh-hant' ? '命理工具入口清單' : '命理工具入口清单',
+    items: tools.map((tool) => {
+      const toolSeo = localizeSeo(locale, tool.seo);
+      return {
+        name: toolSeo.h1,
+        description: toolSeo.deck,
+        path: tool.path,
+      };
+    }),
+  });
 
   return (
     <SeoPageShell>
       {jsonLd.map((item, index) => (
         <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }} />
       ))}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(toolListJsonLd) }} />
       <SeoPageBand>
         <SeoHero
           title={seo.h1}
@@ -133,6 +149,31 @@ export default async function ToolsIndexPage({ params }: Props) {
           }))}
           className="mb-5"
         />
+        <section className="mb-5 grid gap-3 rounded-2xl border border-border bg-[linear-gradient(135deg,hsl(var(--card)),hsl(var(--secondary)/0.58))] p-4 shadow-sm md:grid-cols-[1.05fr_0.95fr]">
+          <div className="rounded-xl border border-primary/15 bg-background/76 p-4">
+            <p className="text-xs font-semibold tracking-[0.2em] text-accent">
+              {localizeBodyCopy(locale, '工具选择台')}
+            </p>
+            <h2 className="mt-2 font-serif-display text-2xl font-semibold text-foreground">
+              {localizeBodyCopy(locale, '不同问题走不同入口')}
+            </h2>
+            <p className="mt-2 text-sm leading-7 text-muted-foreground">
+              {localizeBodyCopy(locale, '生日资料适合排盘，名字适合拆字，已经有事项和日期范围时适合打开推荐日期。结果区会保留理由、提醒和继续核对的链接。')}
+            </p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3 md:grid-cols-1">
+            {[
+              ['我有出生时间', '八字排盘整理年、月、日、时四柱盘面。'],
+              ['我在斟酌名字', '姓名五行会拆单字、读音和基础寓意。'],
+              ['我在定大事日期', '推荐日期整合场景、生肖和吉时，放进候选日里比较。'],
+            ].map(([title, body]) => (
+              <div key={title} data-anime-hover className="rounded-xl border border-border bg-card/82 p-3">
+                <h3 className="text-sm font-semibold text-foreground">{localizeBodyCopy(locale, title)}</h3>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">{localizeBodyCopy(locale, body)}</p>
+              </div>
+            ))}
+          </div>
+        </section>
         <div className="grid gap-4 md:grid-cols-3" data-anime="tiles">
           {tools.map((tool) => {
             const toolSeo = localizeSeo(locale, tool.seo);

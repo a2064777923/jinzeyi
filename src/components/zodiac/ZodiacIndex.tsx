@@ -40,13 +40,46 @@ export function ZodiacIndex({ locale }: { locale: LocaleCode }) {
         />
       </SeoPageBand>
       <SeoPageBand tone="plain" className="pt-0">
+        <section className="mb-5 grid gap-4 overflow-hidden rounded-2xl border border-border bg-[radial-gradient(circle_at_10%_10%,rgba(251,191,36,0.16),transparent_32%),linear-gradient(135deg,hsl(var(--card)),hsl(var(--secondary)/0.55))] p-5 shadow-sm lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+          <div className="flex min-w-0 flex-col justify-between gap-5">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.2em] text-accent">
+                {localizeBodyCopy(locale, '生肖关系现场')}
+              </p>
+              <h2 className="mt-2 font-serif-display text-2xl font-semibold text-foreground">
+                {localizeBodyCopy(locale, '生肖、节日和场景')}
+              </h2>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                {localizeBodyCopy(locale, '看看生肖、节日和具体场景会怎样互相影响，再决定要不要进一步核对年份、地支和合冲关系。')}
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-2 rounded-2xl border border-border/70 bg-background/72 p-2 text-center text-xs text-muted-foreground">
+              <span className="rounded-xl bg-card px-2 py-2">{localizeBodyCopy(locale, '年份')}</span>
+              <span className="rounded-xl bg-card px-2 py-2">{localizeBodyCopy(locale, '地支')}</span>
+              <span className="rounded-xl bg-card px-2 py-2">{localizeBodyCopy(locale, '合冲')}</span>
+            </div>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3" data-anime="tiles">
+            {[
+              ['边界', '春节前后', '生日靠近岁首时，把农历岁次和立春提醒一起核对。'],
+              ['关系', '六合三合', '适合用来理解互动节奏，别把人简单贴成好坏标签。'],
+              ['择日', '冲煞入口', '婚嫁、入宅、开业这类大事，需要把关键生肖放进候选日里筛。'],
+            ].map(([label, title, body]) => (
+              <div key={label} data-anime-tile data-anime-hover className="rounded-xl border border-border bg-background/78 p-4 shadow-sm">
+                <span className="text-xs font-semibold tracking-[0.2em] text-accent">{localizeBodyCopy(locale, label)}</span>
+                <h3 className="mt-2 font-serif-display text-lg font-semibold text-foreground">{localizeBodyCopy(locale, title)}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{localizeBodyCopy(locale, body)}</p>
+              </div>
+            ))}
+          </div>
+        </section>
         <section className="mb-5 grid gap-4 rounded-xl border border-border bg-card p-5 shadow-sm lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
             <h2 className="font-serif-display text-2xl font-semibold text-foreground">
-              {localizeBodyCopy(locale, '生肖先看三层关系')}
+              {localizeBodyCopy(locale, '三条线索读生肖')}
             </h2>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">
-              {localizeBodyCopy(locale, '生肖先从年份边界进入，再看地支五行，最后把六合、三合和六冲放回择日。')}
+              {localizeBodyCopy(locale, '年份解决身份，地支解决黄历术语，合冲关系负责提醒择日时哪里要多留意。')}
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-3" data-anime="tiles">
@@ -109,8 +142,8 @@ export function ZodiacIndex({ locale }: { locale: LocaleCode }) {
         </div>
       </SeoPageBand>
       <SeoPageBand tone="muted">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
-          <p className="rounded-lg border border-border bg-card p-5 text-sm leading-7 text-muted-foreground">
+        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <p className="self-start rounded-lg border border-border bg-card p-5 text-sm leading-7 text-muted-foreground">
             {localizeBodyCopy(locale, zodiacIndexPage.body)}
           </p>
           <div className="flex flex-col gap-4">
@@ -145,7 +178,7 @@ function ZodiacBranchWheel({ locale }: { locale: LocaleCode }) {
             style={{
               transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(calc(-1 * clamp(5.55rem, 29vw, 6.85rem))) rotate(-${angle}deg)`,
             }}
-            aria-label={localizeBodyCopy(locale, `查看属${animal.animal}`)}
+            aria-label={localizeBodyCopy(locale, `打开属${animal.animal}`)}
           >
             <span data-anime-orbit-item className="grid size-full place-items-center rounded-full">
               <ZodiacAnimalImage

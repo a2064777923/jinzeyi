@@ -26,7 +26,7 @@ import { SharePanel } from '@/components/share/SharePanel';
 import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
 import { Image2MethodDiagram } from '@/components/visual/Image2Showcase';
-import { SITE_ORIGIN, buildFaqJsonLd, buildLocalizedMetadata, buildWebsiteJsonLd } from '@/lib/seo';
+import { SITE_ORIGIN, buildFaqJsonLd, buildLocalizedMetadata, buildOrganizationJsonLd, buildWebsiteJsonLd } from '@/lib/seo';
 import { coreIndexablePages } from '@/lib/content/registry';
 import { getGlossaryEntries } from '@/lib/content/glossary';
 
@@ -137,6 +137,12 @@ export default async function HomePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(buildWebsiteJsonLd(routeLocale)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildOrganizationJsonLd(routeLocale)),
         }}
       />
       <script

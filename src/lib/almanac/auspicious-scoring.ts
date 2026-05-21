@@ -53,8 +53,15 @@ export function scoreAuspiciousDateRange(input: AuspiciousRecommendationInput): 
 
   return dates
     .map((date) => scoreAuspiciousDate({ scene, date, people: input.people }))
-    .sort((a, b) => b.score - a.score || a.date.localeCompare(b.date))
+    .sort((a, b) =>
+      Number(hasSceneMatch(b)) - Number(hasSceneMatch(a))
+      || b.score - a.score
+      || a.date.localeCompare(b.date))
     .slice(0, limit);
+}
+
+function hasSceneMatch(result: AuspiciousRecommendationResult): boolean {
+  return result.dimensions.scene.reasons.length > 0;
 }
 
 export function scoreAuspiciousDate(input: AuspiciousDateScoreInput): AuspiciousRecommendationResult {

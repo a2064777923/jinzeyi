@@ -9,6 +9,8 @@ interface Props {
   params: Promise<{ locale: Locale }>;
 }
 
+const SITEMAP_LAST_MODIFIED = new Date('2026-05-21T00:00:00.000Z');
+
 function normalizePath(path: string): string {
   if (path === '/') return '';
   return path.startsWith('/') ? path : `/${path}`;
@@ -31,7 +33,7 @@ function alternatesFor(path: string) {
 function sitemapEntry(locale: Locale, path: string, priority = 0.7): MetadataRoute.Sitemap[number] {
   return {
     url: absoluteUrl(locale, path),
-    lastModified: new Date('2026-05-17T00:00:00.000Z'),
+    lastModified: SITEMAP_LAST_MODIFIED,
     changeFrequency: 'weekly',
     priority,
     alternates: alternatesFor(path),

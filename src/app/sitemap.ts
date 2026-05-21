@@ -6,6 +6,7 @@ import { SITE_ORIGIN } from '@/lib/seo';
 type Locale = 'zh-hant' | 'zh-hans';
 
 const locales: Locale[] = ['zh-hant', 'zh-hans'];
+const SITEMAP_LAST_MODIFIED = new Date('2026-05-21T00:00:00.000Z');
 
 function normalizePath(path: string): string {
   if (path === '/') return '';
@@ -29,7 +30,7 @@ function alternatesFor(path: string) {
 function sitemapEntry(locale: Locale, path: string, priority = 0.7): MetadataRoute.Sitemap[number] {
   return {
     url: absoluteUrl(locale, path),
-    lastModified: new Date('2026-05-18T00:00:00.000Z'),
+    lastModified: SITEMAP_LAST_MODIFIED,
     changeFrequency: path === '/' ? 'daily' : 'weekly',
     priority,
     alternates: alternatesFor(path),

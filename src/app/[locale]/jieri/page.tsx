@@ -34,9 +34,9 @@ const jieriMethodSteps = [
     iconSrc: '/assets/image2/almanac-yi.png',
   },
   {
-    label: 'DOWNGRADE',
-    title: '冲煞降级',
-    body: '遇到凶日、冲关键生肖或场景忌项时，不删除，改为提醒和降级。',
+    label: 'CAUTION',
+    title: '冲煞提醒',
+    body: '遇到凶日、冲关键生肖或场景忌项时，提醒多小心、多留意。',
     iconSrc: '/assets/image2/direction-conflict.png',
   },
   {

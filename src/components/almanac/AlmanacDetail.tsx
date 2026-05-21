@@ -405,7 +405,7 @@ export async function AlmanacDetail({ almanac, hours, activeTab }: AlmanacDetail
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <InfoBlock label={t('deities.duty')} value={localize(almanac.duty)} note={glossary.zhiShen.short} />
                 <InfoBlock label={t('deities.twentyEightStar')} value={localize(almanac.twentyEightStar)} note={localize('二十八星宿用來補充當日星宿語境，適合當作參考層。')} />
-                <InfoBlock label={t('deities.pengZu')} value={localize(almanac.pengZu)} note={localize('彭祖百忌常用一句話提醒當日不宜觸碰的事項。')} />
+                <InfoBlock label={t('deities.pengZu')} value={localize(almanac.pengZu)} note={localize('彭祖百忌用短句提醒當日不宜觸碰的事項。')} />
                 <InfoBlock label={t('deities.sound')} value={localize(almanac.sound)} note={localize('納音把干支組合放入五行聲律語境，是傳統分類方法之一。')} />
                 <InfoBlock label={t('deities.fetusDay')} value={localize(almanac.fetusDay)} note={localize('胎神多見於家宅、孕產相關避忌，普通日常可作文化參考。')} />
               </div>

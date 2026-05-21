@@ -48,6 +48,15 @@ const responsiblePersonRoles: JieriSceneRule['personRoles'] = [
   },
 ];
 
+const studentRoles: JieriSceneRule['personRoles'] = [
+  {
+    key: 'primary',
+    label: '学生',
+    required: true,
+    description: '准备入学、开学或拜师学艺的孩子/本人。',
+  },
+];
+
 const optionalPrimaryRoles: JieriSceneRule['personRoles'] = [primaryRole];
 
 const sharedJieriLinks: InternalLink[] = [
@@ -110,6 +119,15 @@ export const jieriScenes: JieriSceneRule[] = [
     cautionTerms: ['四离', '四绝'],
     summary: '出行择日以出行、赴任、会友为主，同时参考当日冲向与路途安排。',
     personRoles: optionalPrimaryRoles,
+  },
+  {
+    slug: 'shangxue',
+    name: '上学',
+    icon: '/assets/image2/jieri/shangxue.png',
+    yiTerms: ['入学', '习艺'],
+    cautionTerms: ['破日', '闭日', '月破'],
+    summary: '上学择日重点看入学、习艺等宜项，同时比较学生生肖避冲、可用吉时和现实开学安排。',
+    personRoles: studentRoles,
   },
   {
     slug: 'anzang',
@@ -192,12 +210,12 @@ export const jieriIndexPage: IndexablePage = {
   sitemap: true,
   seo: createLocalizedSeo({
     title: '黄道吉日查询｜结婚搬家开业装修吉日｜今择易',
-    description: '按结婚、搬家、开业、装修、签约、出行、安葬、起名、合婚等场景查询黄道吉日，呈现宜忌、冲煞和推荐理由。',
+    description: '按结婚、搬家、开业、装修、签约、出行、上学、安葬、起名、合婚等场景查询黄道吉日，呈现宜忌、冲煞和推荐理由。',
     h1: '黄道吉日查询',
     deck: '常见择日场景按年份整理，宜项命中、冲煞和凶日提醒都在列表里。',
     keywords: ['黄道吉日', '结婚吉日', '搬家吉日', '开业吉日', '择日查询'],
   }),
-  body: '吉日查询要看场景、宜项、冲煞和避冲，别只挑一个红色日期。结婚、搬家、开业、装修、签约、出行、安葬、起名、合婚各有不同宜项，每日吉凶、冲煞、值神和生肖避冲也会一起呈现。推荐理由会说明这天适合在哪里，哪些日子虽然命中宜项但仍需谨慎。',
+  body: '吉日查询要看场景、宜项、冲煞和避冲，别只挑一个红色日期。结婚、搬家、开业、装修、签约、出行、上学、安葬、起名、合婚各有不同宜项，每日吉凶、冲煞、值神和生肖避冲也会一起呈现。推荐理由会说明这天适合在哪里，哪些日子虽然命中宜项但仍需谨慎。',
   faq: jieriFaq,
   relatedLinks: sharedJieriLinks,
   seed: {

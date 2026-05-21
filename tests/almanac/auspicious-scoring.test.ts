@@ -39,6 +39,7 @@ describe('auspicious recommendation scoring', () => {
     const banjia = jieriScenes.find((scene) => scene.slug === 'banjia')!;
     const kaiye = jieriScenes.find((scene) => scene.slug === 'kaiye')!;
     const qianyue = jieriScenes.find((scene) => scene.slug === 'qianyue')!;
+    const shangxue = jieriScenes.find((scene) => scene.slug === 'shangxue')!;
 
     expect(jiehun.personRoles.filter((role) => role.required).map((role) => role.key)).toEqual(['primary', 'partner']);
     expect(banjia.personRoles).toEqual(
@@ -52,6 +53,10 @@ describe('auspicious recommendation scoring', () => {
     ]);
     expect(qianyue.personRoles).toEqual([
       expect.objectContaining({ key: 'responsiblePerson', required: true }),
+    ]);
+    expect(shangxue.yiTerms).toEqual(['入学', '习艺']);
+    expect(shangxue.personRoles).toEqual([
+      expect.objectContaining({ key: 'primary', label: '学生', required: true }),
     ]);
   });
 
@@ -91,6 +96,20 @@ describe('auspicious recommendation scoring', () => {
     expect(results.every((result) => ['excellent', 'good', 'usable', 'caution'].includes(result.grade))).toBe(true);
   });
 
+  it('supports school enrollment recommendations with student data', () => {
+    const results = scoreAuspiciousDateRange({
+      scene: 'shangxue',
+      startDate: '2026-07-20',
+      endDate: '2026-08-05',
+      people: [{ ...primary, label: '学生' }],
+      limit: 5,
+    });
+
+    expect(results.length).toBeGreaterThan(0);
+    expect(results[0].scene.slug).toBe('shangxue');
+    expect(results.some((result) => result.almanac.yi.some((term) => ['入学', '习艺'].includes(term)))).toBe(true);
+  });
+
   it('validates required roles and date ranges', () => {
     expect(() => scoreAuspiciousDateRange({
       scene: 'jiehun',
@@ -106,6 +125,14 @@ describe('auspicious recommendation scoring', () => {
       people: [responsiblePerson],
       limit: 3,
     })).not.toThrow();
+
+    expect(() => scoreAuspiciousDateRange({
+      scene: 'shangxue',
+      startDate: '2026-07-20',
+      endDate: '2026-07-25',
+      people: [],
+      limit: 3,
+    })).toThrow(/学生/);
 
     expect(() => scoreAuspiciousDateRange({
       scene: 'kaiye',

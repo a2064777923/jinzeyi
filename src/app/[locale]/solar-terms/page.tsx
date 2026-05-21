@@ -9,8 +9,10 @@ import { SolarOrbit } from '@/components/almanac/SolarOrbit';
 import { SharePanel } from '@/components/share/SharePanel';
 import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
-import { buildFaqJsonLd, buildLocalizedMetadata } from '@/lib/seo';
+import { buildDefinedTermSetJsonLd, buildFaqJsonLd, buildItemListJsonLd, buildLocalizedMetadata } from '@/lib/seo';
 import { coreIndexablePages } from '@/lib/content/registry';
+import { solarTermArticles } from '@/lib/content/solar-terms';
+import { localizeBodyCopy } from '@/lib/content/localize';
 
 interface Props {
   params: Promise<{ locale: 'zh-hant' | 'zh-hans' }>;
@@ -62,6 +64,31 @@ export default async function SolarTermsPage({ params }: Props) {
       </div>
     );
   }
+  const heroVisualCaption = t('heroVisualCaption');
+  const termListJsonLd = buildItemListJsonLd({
+    locale,
+    path: '/solar-terms',
+    title: t('title'),
+    description: t('description'),
+    listName: locale === 'zh-hant' ? '二十四節氣日期清單' : '二十四节气日期清单',
+    items: terms.map((term) => ({
+      name: term.name,
+      description: `${term.date} ${term.name}，${term.isJie ? t('jieLabel') : t('qiLabel')}。`,
+      path: '/solar-terms',
+    })),
+  });
+  const termSetJsonLd = buildDefinedTermSetJsonLd({
+    locale,
+    path: '/solar-terms',
+    title: t('title'),
+    description: t('description'),
+    terms: solarTermArticles.map((term) => ({
+      name: term.name,
+      alternateName: term.tags,
+      description: term.punchline,
+      path: '/solar-terms',
+    })),
+  });
 
   return (
     <div className="space-y-8 px-4 py-8 sm:px-6 lg:px-8">
@@ -71,6 +98,8 @@ export default async function SolarTermsPage({ params }: Props) {
           __html: JSON.stringify(buildFaqJsonLd({ locale, faq: termsContent.faq })),
         }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(termListJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(termSetJsonLd) }} />
       <section data-anime="hero" className="mx-auto grid max-w-[82rem] items-center gap-6 overflow-hidden rounded-[1.5rem] border border-border/80 bg-card/85 p-5 shadow-sm sm:p-7 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="space-y-5" data-anime-item>
           <div className="flex flex-wrap items-center gap-2">
@@ -111,9 +140,11 @@ export default async function SolarTermsPage({ params }: Props) {
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/70 to-transparent p-4 text-primary-foreground">
               <p className="text-xs font-semibold tracking-[0.2em]">SOLAR TERMS</p>
-              <p className="mt-1 text-sm leading-6 text-primary-foreground/88">
-                {t('heroVisualCaption')}
-              </p>
+              {heroVisualCaption ? (
+                <p className="mt-1 text-sm leading-6 text-primary-foreground/88">
+                  {localizeBodyCopy(locale, heroVisualCaption)}
+                </p>
+              ) : null}
             </div>
           </div>
           <SolarOrbit className="hidden max-w-none sm:block" />
