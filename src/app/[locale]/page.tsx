@@ -30,6 +30,8 @@ import { SITE_ORIGIN, buildFaqJsonLd, buildLocalizedMetadata, buildOrganizationJ
 import { coreIndexablePages } from '@/lib/content/registry';
 import { getGlossaryEntries } from '@/lib/content/glossary';
 
+export const dynamic = 'force-dynamic';
+
 function formatToday(): string {
   const now = new Date();
   const year = now.getFullYear();

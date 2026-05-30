@@ -37,11 +37,7 @@ export const metadata: Metadata = {
     title: SITE_NAME,
     statusBarStyle: 'default',
   },
-  other: {
-    'apple-mobile-web-app-capable': 'yes',
-    'mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-title': SITE_NAME,
-  },
+other: {    'mobile-web-app-capable': 'yes',  },
   openGraph: {
     type: 'website',
     siteName: SITE_NAME,
