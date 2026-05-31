@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { ArrowRight, BookOpenText, Compass, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpenText, Compass, Lightbulb, Sparkles, AlertTriangle, Info } from 'lucide-react';
+import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { FaqBlock } from '@/components/seo/FaqBlock';
 import { InternalLinkGrid } from '@/components/seo/InternalLinkGrid';
@@ -89,6 +90,18 @@ export default async function KnowledgeEntryPage({ params }: Props) {
               </span>
               <Badge variant="secondary">{localizeBodyCopy(locale, entry.categoryLabel)}</Badge>
             </div>
+            {entry.image ? (
+              <div className="mt-5 overflow-hidden rounded-lg border border-border">
+                <Image
+                  src={entry.image.src}
+                  alt={localizeBodyCopy(locale, entry.image.alt)}
+                  width={800}
+                  height={450}
+                  className="w-full object-cover"
+                  priority
+                />
+              </div>
+            ) : null}
             <h1 className="mt-5 font-serif-display text-3xl font-semibold leading-tight tracking-normal text-foreground sm:text-4xl">
               {seo.h1}
             </h1>
@@ -132,6 +145,26 @@ export default async function KnowledgeEntryPage({ params }: Props) {
                 ))}
               </div>
             </div>
+            {entry.keyConcepts.length > 0 ? (
+              <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
+                <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <Lightbulb className="size-4 text-primary" aria-hidden="true" />
+                  {localizeBodyCopy(locale, '核心概念')}
+                </p>
+                <div className="mt-3 grid gap-2">
+                  {entry.keyConcepts.map((concept) => (
+                    <div key={concept.term} className="rounded-md border border-border bg-background/75 p-3">
+                      <p className="text-sm font-semibold text-foreground">
+                        {localizeBodyCopy(locale, concept.term)}
+                      </p>
+                      <p className="mt-1 text-xs leading-6 text-muted-foreground">
+                        {localizeBodyCopy(locale, concept.explanation)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             <FaqBlock items={entry.faq} locale={locale} />
           </aside>
         </article>
@@ -147,9 +180,29 @@ export default async function KnowledgeEntryPage({ params }: Props) {
             <p className="mt-3 text-base leading-8 text-muted-foreground">
               {localizeBodyCopy(locale, entry.detail)}
             </p>
-            <p className="mt-4 rounded-lg bg-secondary/70 p-4 text-sm leading-7 text-secondary-foreground">
-              {localizeBodyCopy(locale, entry.practicalUse)}
-            </p>
+            {entry.paragraphs.map((para, i) => (
+              <p key={i} className="mt-3 text-base leading-8 text-muted-foreground">
+                {localizeBodyCopy(locale, para)}
+              </p>
+            ))}
+            <div className="mt-4 rounded-lg bg-secondary/70 p-4">
+              <p className="text-sm font-semibold text-secondary-foreground">
+                {localizeBodyCopy(locale, '实际应用')}
+              </p>
+              <p className="mt-2 text-sm leading-7 text-secondary-foreground">
+                {localizeBodyCopy(locale, entry.practicalUse)}
+              </p>
+              {entry.practicalTips.length > 0 ? (
+                <ul className="mt-3 grid gap-2">
+                  {entry.practicalTips.map((tip, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm leading-7 text-secondary-foreground">
+                      <Info className="mt-1 size-3.5 shrink-0 text-primary" aria-hidden="true" />
+                      <span>{localizeBodyCopy(locale, tip)}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
           </section>
           <section className="rounded-lg border border-border bg-card p-5">
             <h2 className="flex items-center gap-2 text-xl font-semibold text-foreground">
@@ -159,6 +212,11 @@ export default async function KnowledgeEntryPage({ params }: Props) {
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
               {localizeBodyCopy(locale, entry.mythologyStory)}
             </p>
+            {entry.mythologyExtended ? (
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                {localizeBodyCopy(locale, entry.mythologyExtended)}
+              </p>
+            ) : null}
           </section>
         </div>
       </SeoPageBand>
@@ -166,7 +224,8 @@ export default async function KnowledgeEntryPage({ params }: Props) {
       <SeoPageBand tone="muted">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
           <section className="rounded-lg border border-border bg-card p-5">
-            <h2 className="text-xl font-semibold text-foreground">
+            <h2 className="flex items-center gap-2 text-xl font-semibold text-foreground">
+              <AlertTriangle className="size-5 text-primary" aria-hidden="true" />
               {localizeBodyCopy(locale, '常见误读')}
             </h2>
             <ul className="mt-4 grid gap-3">

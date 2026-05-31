@@ -101,6 +101,11 @@ export type MetaphysicsCategory =
   | 'zi-wei'
   | 'cosmology';
 
+export interface KeyConcept {
+  term: string;
+  explanation: string;
+}
+
 export interface MetaphysicsEntry extends IndexablePage {
   family: 'knowledge';
   pageType: 'Article';
@@ -109,13 +114,18 @@ export interface MetaphysicsEntry extends IndexablePage {
   name: string;
   short: string;
   detail: string;
+  paragraphs: string[];
   practicalUse: string;
+  practicalTips: string[];
+  keyConcepts: KeyConcept[];
   relatedTerms: string[];
   toolAppearances: string[];
   mythologyStory: string;
+  mythologyExtended?: string;
   commonMisunderstandings: string[];
   sourceNotes: string[];
   chartHint?: string;
   starPersonalityMetaphor?: string;
+  image?: { src: string; alt: string };
   linkLabel: string;
 }
