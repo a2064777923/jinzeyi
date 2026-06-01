@@ -16,9 +16,9 @@ describe('feng shui content registry', () => {
     ]);
   });
 
-  it('contains roughly two articles per category', () => {
-    expect(fengShuiArticles.length).toBeGreaterThanOrEqual(8);
-    expect(fengShuiArticles.length).toBeLessThanOrEqual(12);
+  it('contains roughly three articles per category', () => {
+    expect(fengShuiArticles.length).toBeGreaterThanOrEqual(10);
+    expect(fengShuiArticles.length).toBeLessThanOrEqual(16);
 
     for (const category of fengShuiCategories) {
       expect(getFengShuiArticlesByCategory(category.slug).length, category.slug).toBeGreaterThanOrEqual(2);

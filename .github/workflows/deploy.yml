@@ -22,6 +22,5 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
-          script_stop: true
           script: |
-            bash /www/wwwroot/jinzeyi/scripts/deploy.sh
+            bash -e /www/wwwroot/jinzeyi/scripts/deploy.sh

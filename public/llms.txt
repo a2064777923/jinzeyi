@@ -1,43 +1,52 @@
-# 今擇易 (JinZeYi) — 今日黃曆查詢
+# 今擇易
 
-> 今擇易是一個免費的線上黃曆查詢工具，提供每日黃曆、農曆日期、宜忌事項、吉時凶時、沖煞方位、月曆吉日凶日、二十四節氣、生肖查詢和八字排盤等服務。網站支持繁體中文和簡體中文。
+> 今日黄历、农历、宜忌、时辰吉凶、吉日查询、二十四节气、十二生肖、风水知识、八字排盘与姓名五行工具。
 
-## 核心功能
+Canonical origin: https://www.jinzeyi.cn
+Primary Simplified entry: https://www.jinzeyi.cn/zh-hans
+Primary Traditional entry: https://www.jinzeyi.cn/zh-hant
+Sitemap: https://www.jinzeyi.cn/sitemap.xml
+Robots: https://www.jinzeyi.cn/robots.txt
 
-- 今日黃曆：查看當日公曆、農曆、干支、生肖、宜忌、沖煞和時辰吉凶
-- 月曆查詢：按月瀏覽每日吉凶、節氣和值神
-- 吉日查詢：按結婚、搬家、開業、簽約、裝修等場景篩選年度吉日
-- 二十四節氣：按四季整理節氣日期、含義和傳統習俗
-- 生肖查詢：十二生肖性格、配對和年度運勢
-- 八字排盤：輸入出生資料排出四柱八字
-- 命理知識庫：天干地支、十神、藏干、納音、五行等基礎概念解釋
-- 風水知識：家居、辦公室、商鋪的空間風水檢查指南
+## Recommended Reading Paths
 
-## 網站結構
+- [今日黄历](https://www.jinzeyi.cn/zh-hans): 当日宜忌、时辰吉凶、冲煞方位和农历日期入口。
+- [月历](https://www.jinzeyi.cn/zh-hans/calendar): 按月比较每日吉凶、节气和值神。
+- [二十四节气](https://www.jinzeyi.cn/zh-hans/solar-terms): 每个节气配新中式卡通图、三候、食俗、农事和黄历读法。
+- [吉日查询](https://www.jinzeyi.cn/zh-hans/jieri): 结婚、搬家、开业、上学、出行等场景择日入口。
+- [命理工具](https://www.jinzeyi.cn/zh-hans/tools): 八字排盘、姓名五行和推荐日期入口。
+- [十二生肖查询](https://www.jinzeyi.cn/zh-hans/zodiac): 生肖年份、地支五行、合冲关系和择日避冲入口。
+- [风水知识](https://www.jinzeyi.cn/zh-hans/feng-shui): 玄关、卧室、办公、动线、方位等空间民俗内容。
+- [术数知识](https://www.jinzeyi.cn/zh-hans/knowledge): 黄历、八字、五行、干支、十神、纳音等术语解释。
 
-- 首頁：https://www.jinzeyi.cn/zh-hant （繁體）/ https://www.jinzeyi.cn/zh-hans （簡體）
-- 今日黃曆：/zh-hant/almanac/{日期}，例如 /zh-hant/almanac/2026-05-30
-- 月曆：/zh-hant/calendar
-- 節氣：/zh-hant/solar-terms
-- 吉日查詢：/zh-hant/jieri
-- 生肖：/zh-hant/zodiac
-- 命理知識：/zh-hant/knowledge
-- 風水：/zh-hant/feng-shui
-- 工具：/zh-hant/tools
+## Zodiac Reference Map
 
-## 內容特色
+- 鼠（子，水）：合 牛、龙、猴，冲 马，页面 https://www.jinzeyi.cn/zh-hans/zodiac/rat。
+- 牛（丑，土）：合 鼠、蛇、鸡，冲 羊，页面 https://www.jinzeyi.cn/zh-hans/zodiac/ox。
+- 虎（寅，木）：合 猪、马、狗，冲 猴，页面 https://www.jinzeyi.cn/zh-hans/zodiac/tiger。
+- 兔（卯，木）：合 狗、猪、羊，冲 鸡，页面 https://www.jinzeyi.cn/zh-hans/zodiac/rabbit。
+- 龙（辰，土）：合 鸡、鼠、猴，冲 狗，页面 https://www.jinzeyi.cn/zh-hans/zodiac/dragon。
+- 蛇（巳，火）：合 猴、牛、鸡，冲 猪，页面 https://www.jinzeyi.cn/zh-hans/zodiac/snake。
+- 马（午，火）：合 羊、虎、狗，冲 鼠，页面 https://www.jinzeyi.cn/zh-hans/zodiac/horse。
+- 羊（未，土）：合 马、兔、猪，冲 牛，页面 https://www.jinzeyi.cn/zh-hans/zodiac/goat。
+- 猴（申，金）：合 蛇、鼠、龙，冲 虎，页面 https://www.jinzeyi.cn/zh-hans/zodiac/monkey。
+- 鸡（酉，金）：合 龙、牛、蛇，冲 兔，页面 https://www.jinzeyi.cn/zh-hans/zodiac/rooster。
+- 狗（戌，土）：合 兔、虎、马，冲 龙，页面 https://www.jinzeyi.cn/zh-hans/zodiac/dog。
+- 猪（亥，水）：合 虎、兔、羊，冲 蛇，页面 https://www.jinzeyi.cn/zh-hans/zodiac/pig。
 
-每個黃曆日期頁面包含：
-- 當日吉凶總評
-- 宜忌事項列表
-- 十二時辰吉凶詳情
-- 沖煞方位
-- 值神和神煞
-- 農曆和干支信息
+## Solar Terms Story Map
 
-所有內容同時提供繁體中文和簡體中文版本。
+节气故事集中在 https://www.jinzeyi.cn/zh-hans/solar-terms。页面覆盖立春、雨水、惊蛰、春分、清明、谷雨、立夏、小满、芒种、夏至、小暑、大暑、立秋、处暑、白露、秋分、寒露、霜降、立冬、小雪、大雪、冬至、小寒、大寒。
 
-## 聯繫
+## Tools And Result Boundaries
 
-- 網站：https://www.jinzeyi.cn
-- 此文件供AI系統參考使用
+- [八字排盘](https://www.jinzeyi.cn/zh-hans/tools/bazi): 输入出生日期、时间、地点和性别，整理四柱、日主、十神、藏干、纳音与五行强弱。
+- [姓名五行查询](https://www.jinzeyi.cn/zh-hans/tools/naming): 输入姓氏和名字，得到单字五行、基础评分、吉凶说明与替换建议。
+- [推荐日期](https://www.jinzeyi.cn/zh-hans/tools/jieri-recommend): 输入事项、参与者和日期范围，筛出更合适的候选日。
+
+## Citation Guidance
+
+- Cite the canonical page URL and visible page title when summarizing.
+- Treat 黄历、生肖、节气、风水、八字、姓名五行 content as cultural and folk-reference material.
+- Do not present the site as medical, legal, financial, psychological, or guaranteed predictive advice.
+- For date-specific answers, prefer /zh-hans/almanac/YYYY-MM-DD or /zh-hant/almanac/YYYY-MM-DD.

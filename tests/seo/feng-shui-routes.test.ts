@@ -29,10 +29,10 @@ describe('feng shui route contracts', () => {
     expect(indexSource).toContain('FengShuiIndex');
   });
 
-  it('generates static params for roughly ten articles', () => {
+  it('generates static params for expanded article set', () => {
     const params = articleModule.generateStaticParams();
-    expect(params.length).toBeGreaterThanOrEqual(8);
-    expect(params.length).toBeLessThanOrEqual(12);
+    expect(params.length).toBeGreaterThanOrEqual(10);
+    expect(params.length).toBeLessThanOrEqual(16);
   });
 
   it('uses registry lookup and notFound on missing article', () => {
