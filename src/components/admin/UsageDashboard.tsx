@@ -1,26 +1,33 @@
+import Link from 'next/link';
 import type { UsageSummary, UsageTopItem } from '@/lib/usage/summary';
 import { jieriScenes } from '@/lib/content/jieri-scenes';
 import { CHINA_CITIES } from '@/lib/tools/china-cities';
+import { areaLabel, routeLabel } from '@/lib/admin/operations';
 
-export function UsageDashboard({ summary, title, deck }: { summary: UsageSummary; title: string; deck: string }) {
+export function UsageDashboard({ summary, title, deck, compact = false }: { summary: UsageSummary; title: string; deck: string; compact?: boolean }) {
+  const maxDayCount = Math.max(1, ...summary.byDay.map((item) => item.count));
+  const latestEvents = compact ? summary.latestToolEvents.slice(0, 8) : summary.latestToolEvents;
+
   return (
     <div className="grid gap-6">
-      <header className="overflow-hidden rounded-[2rem] border border-emerald-900/10 bg-[#fffaf0] p-6 shadow-sm">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700">Usage</p>
-            <h1 className="mt-3 text-3xl font-black tracking-tight text-emerald-950 md:text-4xl">{title}</h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-stone-600">{deck}</p>
+      {!compact ? (
+        <header className="overflow-hidden rounded-[2rem] border border-emerald-900/10 bg-[#fffaf0] p-6 shadow-sm">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700">Usage</p>
+              <h1 className="mt-3 text-3xl font-black tracking-tight text-emerald-950 md:text-4xl">{title}</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-stone-600">{deck}</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[7, 30, 90].map((days) => (
+                <Link key={days} href={`/admin/usage?days=${days}`} className="rounded-full border border-emerald-900/10 bg-white px-4 py-2 text-sm font-semibold text-emerald-900 transition hover:border-emerald-700 hover:bg-emerald-50">
+                  {days} 天
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {[7, 30, 90].map((days) => (
-              <a key={days} href={`/admin/usage?days=${days}`} className="rounded-full border border-emerald-900/10 bg-white px-4 py-2 text-sm font-semibold text-emerald-900 transition hover:border-emerald-700 hover:bg-emerald-50">
-                {days} 天
-              </a>
-            ))}
-          </div>
-        </div>
-      </header>
+        </header>
+      ) : null}
 
       <section className="grid gap-3 md:grid-cols-5">
         <Metric label="事件总数" value={summary.totalEvents} />
@@ -30,9 +37,30 @@ export function UsageDashboard({ summary, title, deck }: { summary: UsageSummary
         <Metric label="匿名访客" value={summary.uniqueVisitors ?? '-'} />
       </section>
 
+      <section className="rounded-2xl border border-emerald-900/10 bg-white p-4 shadow-xs">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="text-base font-bold text-emerald-950">每日走势</h2>
+            <p className="text-sm text-stone-500">最近 {summary.days} 天事件分布。</p>
+          </div>
+        </div>
+        {summary.byDay.length > 0 ? (
+          <div className="mt-4 flex h-28 items-end gap-1 overflow-x-auto rounded-2xl bg-stone-50 px-3 py-3">
+            {summary.byDay.map((day) => (
+              <div key={day.key} className="flex w-7 shrink-0 flex-col items-center justify-end gap-2">
+                <div className="w-full rounded-t-full bg-emerald-800/85" style={{ height: `${Math.max(8, (day.count / maxDayCount) * 84)}px` }} title={`${day.key}：${day.count}`} />
+                {!compact ? <span className="hidden text-[10px] font-bold text-stone-400 xl:inline">{day.key.slice(5)}</span> : null}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-4 text-sm text-stone-500">暂无走势数据。</p>
+        )}
+      </section>
+
       <section className="grid gap-4 lg:grid-cols-3">
-        <RankCard title="入口热度" items={summary.topPaths} empty="暂无页面访问" />
-        <RankCard title="功能热度" items={summary.byArea} empty="暂无事件" />
+        <RankCard title="入口热度" items={summary.topPaths.map((item) => ({ ...item, key: routeLabel(item.key) }))} empty="暂无页面访问" />
+        <RankCard title="功能热度" items={summary.byArea.map((item) => ({ ...item, key: areaLabel(item.key) }))} empty="暂无事件" />
         <RankCard title="语言分布" items={summary.byLocale} empty="暂无语言数据" />
       </section>
 
@@ -43,7 +71,7 @@ export function UsageDashboard({ summary, title, deck }: { summary: UsageSummary
         <RankCard title="黄历日期" items={summary.topAlmanacDates} empty="暂无日期查询" />
       </section>
 
-      <RecentEvents summary={summary} />
+      <RecentEvents events={latestEvents} />
     </div>
   );
 }
@@ -79,13 +107,13 @@ function RankCard({ title, items, empty }: { title: string; items: UsageTopItem[
   );
 }
 
-function RecentEvents({ summary }: { summary: UsageSummary }) {
+function RecentEvents({ events }: { events: UsageSummary['latestToolEvents'] }) {
   return (
     <section className="overflow-hidden rounded-2xl border border-emerald-900/10 bg-white shadow-xs">
       <div className="border-b border-emerald-900/10 p-4">
         <h2 className="text-base font-bold text-emerald-950">最近工具事件</h2>
       </div>
-      {summary.latestToolEvents.length > 0 ? (
+      {events.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[780px] text-left text-sm">
             <thead className="bg-stone-50 text-xs uppercase tracking-[0.12em] text-stone-500">
@@ -98,7 +126,7 @@ function RecentEvents({ summary }: { summary: UsageSummary }) {
               </tr>
             </thead>
             <tbody>
-              {summary.latestToolEvents.map((event, index) => {
+              {events.map((event, index) => {
                 const item = describeUsageEvent(event);
                 return (
                   <tr key={`${event.createdAt}-${index}`} className="border-t border-emerald-900/10 align-top">
