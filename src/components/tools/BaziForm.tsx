@@ -7,6 +7,7 @@ import { calculateBazi, type BaziInput, type BaziResult as BaziResultData, type 
 import { ALMANAC_DATE_MAX, ALMANAC_DATE_MIN } from '@/lib/almanac/date-range';
 import type { LocaleCode } from '@/lib/content/types';
 import { CHINA_CITIES } from '@/lib/tools/china-cities';
+import { recordToolUsage } from '@/lib/usage/client';
 import { BaziResult } from './BaziResult';
 
 const DEFAULT_VALUES: BaziInput = {
@@ -65,10 +66,25 @@ export function BaziForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
-      setResult(calculateBazi(values));
+      const nextResult = calculateBazi(values);
+      setResult(nextResult);
       setError(null);
+      recordToolUsage({
+        tool: 'bazi',
+        locale,
+        status: 'success',
+        payload: summarizeBaziInput(values),
+        result: summarizeBaziResult(nextResult),
+      });
     } catch {
       setError(t.error);
+      recordToolUsage({
+        tool: 'bazi',
+        locale,
+        status: 'error',
+        payload: summarizeBaziInput(values),
+        result: { reason: 'invalid-input' },
+      });
     }
   }
 
@@ -191,4 +207,30 @@ function Field({ label, htmlFor, children }: { label: string; htmlFor: string; c
       {children}
     </label>
   );
+}
+
+function summarizeBaziInput(values: BaziInput): Record<string, unknown> {
+  return {
+    birthDate: values.birthDate,
+    birthTime: values.birthTime,
+    birthYear: Number(values.birthDate.slice(0, 4)),
+    cityId: values.cityId,
+    gender: values.gender,
+  };
+}
+
+function summarizeBaziResult(result: BaziResultData): Record<string, unknown> {
+  return {
+    pillars: {
+      year: result.pillars.year.value,
+      month: result.pillars.month.value,
+      day: result.pillars.day.value,
+      hour: result.pillars.hour.value,
+    },
+    dayMaster: result.professional.dayMaster.heavenlyStem,
+    dayMasterElement: result.professional.dayMaster.element,
+    strongestElement: result.professional.elementStrength.strongest.element,
+    weakestElement: result.professional.elementStrength.weakest.element,
+    trueSolarOffsetMinutes: result.trueSolarTime.offsetMinutes,
+  };
 }

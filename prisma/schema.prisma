@@ -32,6 +32,26 @@ model AlmanacQuery {
   createdAt     DateTime @default(now())
 }
 
+// Anonymous usage events for product, SEO, and future AI planning.
+model UsageEvent {
+  id          String   @id @default(cuid())
+  eventName   String
+  area        String
+  status      String?
+  locale      String?
+  path        String?
+  referrer    String?
+  visitorHash String?
+  payload     Json?
+  result      Json?
+  createdAt   DateTime @default(now())
+
+  @@index([eventName, createdAt])
+  @@index([area, createdAt])
+  @@index([locale, createdAt])
+  @@index([visitorHash, createdAt])
+}
+
 // Zodiac profiles for Phase 3 SEO
 model ZodiacProfile {
   id       String @id @default(cuid())

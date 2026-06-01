@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { ALMANAC_DATE_MAX, ALMANAC_DATE_MIN, isValidAlmanacDateString } from '@/lib/almanac/date-range';
+import { recordUsageEvent } from '@/lib/usage/client';
 
 interface DateSearchFormProps {
   label: string;
@@ -39,6 +40,12 @@ export function DateSearchForm({
     }
 
     setError(null);
+    recordUsageEvent({
+      eventName: 'almanac_search',
+      area: 'almanac',
+      status: 'success',
+      payload: { date },
+    });
     router.push(`/almanac/${date}`);
   }
 

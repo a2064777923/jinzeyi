@@ -4,6 +4,8 @@ import { FormEvent, useId, useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { analyzeName, type NameAnalysis, type NameInput } from '@/lib/tools/naming';
+import type { LocaleCode } from '@/lib/content/types';
+import { recordToolUsage } from '@/lib/usage/client';
 import { NamingResult } from './NamingResult';
 
 const DEFAULT_VALUES: NameInput = {
@@ -11,7 +13,7 @@ const DEFAULT_VALUES: NameInput = {
   givenName: '明泽',
 };
 
-export function NamingForm() {
+export function NamingForm({ locale = 'zh-hans' }: { locale?: LocaleCode }) {
   const id = useId();
   const errorId = `${id}-error`;
   const [values, setValues] = useState<NameInput>(DEFAULT_VALUES);
@@ -26,10 +28,25 @@ export function NamingForm() {
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
-      setResult(analyzeName(values));
+      const nextResult = analyzeName(values);
+      setResult(nextResult);
       setError(null);
+      recordToolUsage({
+        tool: 'naming',
+        locale,
+        status: 'success',
+        payload: summarizeNameInput(values),
+        result: summarizeNameResult(nextResult),
+      });
     } catch {
       setError('输入 1-2 个中文姓氏字和 1-2 个中文名字字，不支持数字或符号。');
+      recordToolUsage({
+        tool: 'naming',
+        locale,
+        status: 'error',
+        payload: summarizeNameInput(values),
+        result: { reason: 'invalid-input' },
+      });
     }
   }
 
@@ -92,4 +109,30 @@ export function NamingForm() {
       ) : null}
     </section>
   );
+}
+
+function summarizeNameInput(values: NameInput): Record<string, unknown> {
+  const surname = values.surname.trim();
+  const givenName = values.givenName.trim();
+  return {
+    surnameLength: Array.from(surname).length,
+    givenNameLength: Array.from(givenName).length,
+    totalLength: Array.from(`${surname}${givenName}`).length,
+  };
+}
+
+function summarizeNameResult(result: NameAnalysis): Record<string, unknown> {
+  const elementCounts = result.characters.reduce<Record<string, number>>((counts, item) => {
+    counts[item.element] = (counts[item.element] ?? 0) + 1;
+    return counts;
+  }, {});
+
+  return {
+    score: result.score,
+    auspicious: result.auspicious,
+    knownCharacters: result.characters.filter((item) => item.known).length,
+    unknownCharacters: result.characters.filter((item) => !item.known).length,
+    elementCounts,
+    suggestionCount: result.suggestions.length,
+  };
 }

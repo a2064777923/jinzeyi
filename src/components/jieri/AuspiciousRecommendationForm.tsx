@@ -15,6 +15,7 @@ import { localizeBodyCopy } from '@/lib/content/localize';
 import { jieriScenes } from '@/lib/content/jieri-scenes';
 import type { LocaleCode } from '@/lib/content/types';
 import { CHINA_CITIES } from '@/lib/tools/china-cities';
+import { recordToolUsage } from '@/lib/usage/client';
 import { AuspiciousRecommendationResult } from './AuspiciousRecommendationResult';
 
 type PersonDraft = Record<string, AuspiciousPersonInput>;
@@ -79,23 +80,39 @@ export function AuspiciousRecommendationForm({ locale, initialScene }: Auspiciou
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const activePeople = selectedScene.personRoles
+      .map((role) => people[role.key])
+      .filter((person) => person && person.birthDate && person.birthTime && person.cityId);
+
     try {
       const scored = scoreAuspiciousDateRange({
         scene: selectedScene.slug,
         startDate,
         endDate,
-        people: selectedScene.personRoles
-          .map((role) => people[role.key])
-          .filter((person) => person && person.birthDate && person.birthTime && person.cityId),
+        people: activePeople,
         limit: 8,
       });
       setResults(scored);
       setHasSubmitted(true);
       setError(null);
+      recordToolUsage({
+        tool: 'jieri-recommend',
+        locale,
+        status: 'success',
+        payload: summarizeRecommendationInput(selectedScene.slug, startDate, endDate, activePeople),
+        result: summarizeRecommendationResult(scored),
+      });
     } catch (caught) {
       setResults([]);
       setHasSubmitted(true);
       setError(caught instanceof Error ? caught.message : localizeBodyCopy(locale, '资料不完整，补齐后重试。'));
+      recordToolUsage({
+        tool: 'jieri-recommend',
+        locale,
+        status: 'error',
+        payload: summarizeRecommendationInput(selectedScene.slug, startDate, endDate, activePeople),
+        result: { reason: 'invalid-input' },
+      });
     }
   }
 
@@ -311,4 +328,36 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
       {children}
     </label>
   );
+}
+
+function summarizeRecommendationInput(
+  scene: string,
+  startDate: string,
+  endDate: string,
+  people: AuspiciousPersonInput[],
+): Record<string, unknown> {
+  return {
+    scene,
+    startDate,
+    endDate,
+    peopleCount: people.length,
+    roles: people.map((person) => person.role),
+    birthYears: people.map((person) => Number(person.birthDate.slice(0, 4))).filter(Number.isFinite),
+    birthHours: people.map((person) => person.birthTime.slice(0, 2)).filter(Boolean),
+    cityIds: people.map((person) => person.cityId).filter(Boolean),
+    genders: people.map((person) => person.gender),
+  };
+}
+
+function summarizeRecommendationResult(results: RecommendationResult[]): Record<string, unknown> {
+  return {
+    resultCount: results.length,
+    topDates: results.slice(0, 3).map((item) => ({
+      date: item.date,
+      score: item.score,
+      grade: item.grade,
+      cautionCount: item.cautions.length,
+      usableLuckyHoursCount: item.usableLuckyHours.length,
+    })),
+  };
 }

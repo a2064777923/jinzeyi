@@ -36,7 +36,7 @@ log "Generating Prisma client..."
 npx prisma generate 2>&1 | tail -1
 
 log "Syncing database schema..."
-npx prisma db push --skip-generate 2>&1 | tail -1
+npx prisma db push 2>&1 | tail -1
 
 # Build
 log "Building..."

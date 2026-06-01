@@ -210,7 +210,7 @@ export const toolPages: ToolContent[] = [
       {
         id: 'jieri-recommend-privacy',
         question: '出生资料会被保存吗？',
-        answer: '不会。出生资料只在本次查询中参与计算，不新增账号、数据库记录或 AI API 请求。',
+        answer: '会保留匿名使用摘要，用来统计功能热度和候选日期分布；姓名不存明文，八字和择日只记录必要的输入摘要与结果摘要，不会拿去做自动解读。',
       },
       {
         id: 'jieri-recommend-score',

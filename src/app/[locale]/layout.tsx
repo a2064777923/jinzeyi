@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer';
 import { DocumentLocale } from '@/components/layout/DocumentLocale';
 import { AnimeMotionLayer } from '@/components/motion/AnimeMotionLayer';
 import { ServiceWorkerRegister } from '@/components/pwa/ServiceWorkerRegister';
+import { UsageTracker } from '@/components/usage/UsageTracker';
 import type { Metadata, Viewport } from 'next';
 import { DEFAULT_OG_IMAGE, SITE_KEYWORDS, SITE_NAME, SITE_ORIGIN } from '@/lib/seo';
 
@@ -86,6 +87,7 @@ export default async function LocaleLayout({
       <DocumentLocale locale={locale} />
       <ServiceWorkerRegister />
       <AnimeMotionLayer />
+      <UsageTracker locale={locale} />
       <Header />
       <main className="w-full flex-1">
         {children}

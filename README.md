@@ -41,10 +41,15 @@ npm run verify        # lint + typecheck + tests + build
 DATABASE_URL="postgresql://user:password@localhost:5432/jinzeyi?schema=public"
 REDIS_URL="redis://localhost:6379"
 NEXT_PUBLIC_SITE_ORIGIN="https://www.jinzeyi.cn"
+USAGE_HASH_SALT="replace-with-long-random-secret"
+ADMIN_USERNAME="admin"
+ADMIN_PASSWORD="replace-with-strong-password"
+ADMIN_SESSION_SECRET="replace-with-long-random-secret"
 ```
 
 `NEXT_PUBLIC_SITE_ORIGIN` 会进入 canonical、Open Graph、sitemap、robots 和分享链接。绑域名上线前设置成正式域名，然后重新 `npm run build`。
 未设置时，代码默认使用 `https://www.jinzeyi.cn`。
+`USAGE_HASH_SALT` 用于把浏览器匿名会话转成不可逆摘要；`ADMIN_USERNAME`、`ADMIN_PASSWORD`、`ADMIN_SESSION_SECRET` 用于后台登录和会话签名。
 
 ## 生产部署提示
 

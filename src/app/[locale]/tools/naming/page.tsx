@@ -104,7 +104,7 @@ export default async function NamingToolPage({ params }: Props) {
           ]}
           className="mb-5"
         />
-        <NamingForm />
+        <NamingForm locale={locale} />
       </SeoPageBand>
       <SeoPageBand tone="muted">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
