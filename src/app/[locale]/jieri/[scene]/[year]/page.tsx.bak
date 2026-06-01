@@ -79,12 +79,7 @@ export default async function JieriYearPage({ params, searchParams }: Props) {
     notFound();
   }
 
-  let results;
-  try {
-    results = await getAuspiciousDaysForScene({ scene, year, zodiac });
-  } catch {
-    notFound();
-  }
+  const results = await getAuspiciousDaysForScene({ scene, year, zodiac });
   const title = buildSceneTitle(scene.name, year, locale);
   const description = localizeBodyCopy(
     locale,
