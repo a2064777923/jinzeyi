@@ -17,12 +17,12 @@ export default async function AdminLoginPage() {
         <div className="hidden rounded-[2rem] border border-emerald-900/10 bg-emerald-950 p-8 text-amber-50 shadow-2xl shadow-emerald-950/20 lg:block">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-amber-200/80">Admin</p>
           <h2 className="mt-6 text-5xl font-black leading-tight tracking-tight">
-            把访问、工具和内容放在同一张桌上。
+            今择易网站运营后台。
           </h2>
           <div className="mt-8 grid gap-3 text-sm leading-6 text-emerald-50/82">
           <p className="rounded-2xl border border-amber-100/15 bg-white/7 p-4">看清热门工具和热门日期，安排下一批内容。</p>
           <p className="rounded-2xl border border-amber-100/15 bg-white/7 p-4">盯住错误和空结果，优先修影响使用的位置。</p>
-          <p className="rounded-2xl border border-amber-100/15 bg-white/7 p-4">把文章、素材和 AI 解读放进同一个工作台。</p>
+          <p className="rounded-2xl border border-amber-100/15 bg-white/7 p-4">管理文章计划、图片素材和 AI 解读任务。</p>
           </div>
         </div>
         <LoginForm />

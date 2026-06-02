@@ -20,9 +20,9 @@ export default async function AdminHomePage() {
     <AdminShell>
       <div className="grid gap-6">
         <AdminHero
-          eyebrow="Control Room"
-          title="把访问、内容、素材和 AI 放进同一张工作台。"
-          deck="每天先看真实使用，再决定写什么、补什么图、把哪类结果做成更好的解读。"
+          eyebrow="网站运营台"
+          title="管理网站使用情况、内容计划和素材状态。"
+          deck="这里集中展示访问趋势、工具提交、内容机会、AI 解读任务和图片素材覆盖情况。"
           actions={[
             { href: '/admin/usage', label: '使用情况' },
             { href: '/admin/content', label: '内容计划' },
@@ -37,7 +37,7 @@ export default async function AdminHomePage() {
           <AdminMetric label="待关注错误" value={summary.toolErrors} note="表单或结果异常优先排查" tone={summary.toolErrors > 0 ? 'rose' : 'jade'} />
         </section>
 
-        <OpportunityGrid title="今天值得推进" deck="从最近 30 天的行为里挑出最适合写、补、优化的位置。" items={opportunities} />
+        <OpportunityGrid title="近期重点" deck="根据最近 30 天的访问和提交记录，列出适合写内容、补素材和优化功能的位置。" items={opportunities} />
 
         <AdminActionBoard
           title="运营动线"

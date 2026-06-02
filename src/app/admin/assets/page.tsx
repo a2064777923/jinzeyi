@@ -17,7 +17,7 @@ export default function AdminAssetsPage() {
     <AdminShell>
       <div className="grid gap-6">
         <AdminHero
-          eyebrow="Assets"
+          eyebrow="图片素材"
           title="素材库要保证含义准确，画风统一。"
           deck="站点图标、生肖、节气、吉日场景、风水空间和黄历方位都在这里盘点，避免缺角、错位和语义对不上。"
           actions={[

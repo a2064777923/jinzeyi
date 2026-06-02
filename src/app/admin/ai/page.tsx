@@ -19,7 +19,7 @@ export default async function AdminAiPage() {
     <AdminShell>
       <div className="grid gap-6">
         <AdminHero
-          eyebrow="AI Desk"
+          eyebrow="AI 解读"
           title="AI 解读先服务真实工具结果。"
           deck="把八字、姓名、推荐日期的提交整理成可扩写的任务，后续接模型时直接围绕真实场景出答案。"
           actions={[

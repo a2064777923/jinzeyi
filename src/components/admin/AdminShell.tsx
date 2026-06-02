@@ -22,7 +22,7 @@ export async function AdminShell({ children }: { children: React.ReactNode }) {
         <div className="rounded-3xl border border-amber-100/15 bg-white/7 p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-200/80">Jin Ze Yi</p>
           <h1 className="mt-3 text-2xl font-black tracking-tight">今择易管理台</h1>
-          <p className="mt-2 text-xs leading-5 text-emerald-50/70">访问、工具、内容和 AI 工作台。</p>
+          <p className="mt-2 text-xs leading-5 text-emerald-50/70">管理访问统计、工具提交、内容计划和 AI 解读。</p>
         </div>
         <nav className="mt-6 grid gap-2">
           {navItems.map((item) => {

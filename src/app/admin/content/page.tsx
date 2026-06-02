@@ -18,7 +18,7 @@ export default async function AdminContentPage() {
     <AdminShell>
       <div className="grid gap-6">
         <AdminHero
-          eyebrow="Publishing"
+          eyebrow="内容计划"
           title="内容计划从真实需求开始。"
           deck="热门工具、日期、生肖、节气和风水场景都可以转成选题，先补最容易被搜索和分享的内容。"
           actions={[
@@ -29,7 +29,7 @@ export default async function AdminContentPage() {
         />
 
         <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          <AdminMetric label="收录页面" value={pageCount} note="站点地图和内容 registry 覆盖" tone="jade" />
+          <AdminMetric label="收录页面" value={pageCount} note="站点地图和内容清单覆盖" tone="jade" />
           <AdminMetric label="文章内容" value={articleCount} note="生肖、风水、知识等可阅读内容" tone="ink" />
           <AdminMetric label="近期机会" value={opportunities.length} note="由访问和工具提交整理" tone="amber" />
           <AdminMetric label="热门查询" value={summary.topAlmanacDates.length + summary.topScenes.length} note="日期和择日场景信号" tone="rose" />
